@@ -8,7 +8,7 @@ import java.lang.foreign.Arena
 object RegionSpec extends ZIOSpecDefault {
 
   def spec: Spec[Any, Nothing] =
-    suite("pointer's offsets & steps")(
+    suite("regions")(
       test("custom global region") {
         implicit val global: Region[Global] = Region
           .newGlobal(Arena.ofConfined())
