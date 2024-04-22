@@ -170,11 +170,3 @@ val layout = ("a" := Values.Int) >>: ("b" := Values.Int)
 val memory = Memory.allocateGC(layout) // память лежит в offheap, но собирается сборщиком
 
 ```
-
-## Использование:
-
-Подключить библиотеку в build.sbt
-
-```
-libraryDependencies += "com.yandex" %% "alien-memory" % "0.2.0"
-```
