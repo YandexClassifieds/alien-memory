@@ -52,4 +52,6 @@ lazy val alienExamples = (project in file("examples"))
   )
   .dependsOn(alienMemory)
 
-lazy val root = (project in file(".")).aggregate(alienMemory, alienExamples)
+lazy val root = (project in file("."))
+  .aggregate(alienMemory, alienExamples)
+  .settings(publish / skip := true, doc / skip := true)
