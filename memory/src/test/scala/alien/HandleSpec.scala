@@ -128,8 +128,8 @@ object HandleSpec extends ZIOSpecDefault {
                   ((("z" := Values.Int * 100) >>: ("y" := Values.Int)) * 200),
               )) >>:
             ("c" := Values.Byte * 300)
-        val a1Handle  = layout / "a" /       % / "1" / % / $
-        val a2Handle  = layout / "a" /       % / "2" / (1, 2) / $
+        val a1Handle  = layout / "a" / % / "1" / % / $
+        val a2Handle  = layout / "a" / % / "2" / (1, 2) / $
         val b1zHandle = layout / "b" / "1" / % / "z" / % / $
         val b1yHandle = layout / "b" / "1" / % / "y" / $
         assertTrue(

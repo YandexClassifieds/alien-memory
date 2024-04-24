@@ -18,7 +18,7 @@ object PlainExample extends App {
       val layout = m >>: ("inner" := a >>: n)
 
       val memory   = Memory.allocate(layout)
-      val matrixVh = layout / "matrix" /          % / % / $
+      val matrixVh = layout / "matrix" / % / % / $
       val arrayVH  = layout / "inner" / "array" / % / $
 
       val matrixData = Array(Array(1, 2), Array(3, 4), Array(5, 6))
