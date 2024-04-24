@@ -1,0 +1,82 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [ 'main' ]
+  release:
+    types:
+      - published
+
+jobs:
+
+  fmt:
+    runs-on: ubuntu-20.04
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        java: [ 'zulu@1.21' ]
+        scala: [ '2.13.12' ]
+        platform: [ 'JVM' ]
+    steps:
+      - name: Checkout current branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Setup Scala and Java
+        uses: olafurpg/setup-scala@v11
+        with:
+          java-version: ${{ matrix.java }}
+      - name: Run fmt
+        run: sbt scalafmtCheckAll
+
+
+  test:
+    runs-on: ubuntu-20.04
+    timeout-minutes: 30
+    needs: [ fmt ]
+    strategy:
+      fail-fast: false
+      matrix:
+        java: [ 'zulu@1.21', 'zulu@1.22' ]
+        scala: [ '2.13.12' ]
+        platform: [ 'JVM' ]
+    steps:
+      - name: Checkout current branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Setup Scala and Java
+        uses: olafurpg/setup-scala@v11
+        with:
+          java-version: ${{ matrix.java }}
+      - name: Run tests
+        run: sbt test
+
+  ci:
+    runs-on: ubuntu-20.04
+    needs: [ test ]
+    steps:
+      - name: Aggregate of builds
+        run: echo "ci passed"
+
+  publish:
+    runs-on: ubuntu-20.04
+    timeout-minutes: 30
+    needs: [ ci ]
+    if: github.event_name != 'pull_request'
+    steps:
+      - name: Checkout current branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Setup Scala and Java
+        uses: olafurpg/setup-scala@v11
+      - name: Release artifacts
+        run: sbt ci-release
+        env:
+          PGP_PASSPHRASE: ${{ secrets.PGP_PASSPHRASE }}
+          PGP_SECRET: ${{ secrets.PGP_SECRET }}
+          SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
+          SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}

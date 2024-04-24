@@ -4,8 +4,9 @@ import scala.collection.Seq
 
 val scala213Version = "2.13.12"
 
-ThisBuild / organization := "org.me"
-ThisBuild / version      := "0.2.0"
+ThisBuild / organization := "com.yandex.classifieds"
+ThisBuild / licenses :=
+  List("MIT" -> url("https://opensource.org/licenses/MIT"))
 
 lazy val zioVersion         = "2.0.14"
 lazy val supertaggedVersion = "2.0-RC2"

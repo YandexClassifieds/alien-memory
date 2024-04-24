@@ -1,5 +1,6 @@
 {
   ".":"classifieds/vs/lib/alien/external",
+  ".github/workflows/ci.yml":"classifieds/vs/lib/alien/external/.github/workflows/ci.yml",
   ".gitignore":"classifieds/vs/lib/alien/external/.gitignore",
   ".scalafmt.conf":"classifieds/vs/lib/alien/external/.scalafmt.conf",
   "AUTHORS":"classifieds/vs/lib/alien/external/AUTHORS",
@@ -10,6 +11,7 @@
   "examples/src/main/scala/example/BoundedSequenceExample.scala":"classifieds/vs/lib/alien/examples/src/main/scala/example/BoundedSequenceExample.scala",
   "examples/src/main/scala/example/MultipleExample.scala":"classifieds/vs/lib/alien/examples/src/main/scala/example/MultipleExample.scala",
   "examples/src/main/scala/example/PlainExample.scala":"classifieds/vs/lib/alien/examples/src/main/scala/example/PlainExample.scala",
+  "external/.github/workflows/ci.yml":"classifieds/vs/lib/alien/external/.github/workflows/ci.yml",
   "external/.gitignore":"classifieds/vs/lib/alien/external/.gitignore",
   "external/.scalafmt.conf":"classifieds/vs/lib/alien/external/.scalafmt.conf",
   "external/AUTHORS":"classifieds/vs/lib/alien/external/AUTHORS",
