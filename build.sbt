@@ -4,9 +4,31 @@ import scala.collection.Seq
 
 val scala213Version = "2.13.12"
 
-ThisBuild / organization := "com.yandex"
+ThisBuild / organization := "com.yandex.classifieds"
+ThisBuild / version      := "0.1.0"
 ThisBuild / licenses :=
   List("MIT" -> url("https://opensource.org/licenses/MIT"))
+ThisBuild / publishMavenStyle := true
+ThisBuild / homepage :=
+  Some(url("https://github.com/YandexClassifieds/alien-memory"))
+ThisBuild / developers :=
+  List(
+    Developer(
+      "lishy2",
+      "Islam Talipov",
+      "lishy2@yandex-team.ru",
+      url("https://github.com/lishy2"),
+    ),
+  )
+
+ThisBuild / scmInfo :=
+  Some(
+    ScmInfo(
+      url("https://github.com/YandexClassifieds/alien-memory"),
+      "https://github.com/YandexClassifieds/alien-memory.git",
+    ),
+  )
+ThisBuild / publishTo := Some(Opts.resolver.sonatypeStaging)
 
 lazy val zioVersion         = "2.0.14"
 lazy val supertaggedVersion = "2.0-RC2"
