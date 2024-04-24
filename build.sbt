@@ -4,7 +4,7 @@ import scala.collection.Seq
 
 val scala213Version = "2.13.12"
 
-ThisBuild / organization := "com.yandex.classifieds"
+ThisBuild / organization := "com.yandex"
 ThisBuild / licenses :=
   List("MIT" -> url("https://opensource.org/licenses/MIT"))
 
