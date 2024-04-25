@@ -3,9 +3,12 @@
         <html lang="ru" dir="ltr">
             <head>
                 <meta charset="utf-8">
-                <meta http-equiv="refresh" content="0; url=./ru/index.html">
+                <base href="./" />
+                <meta name="title" content="Index"  />
+<meta name="noIndex" content="true"  />
+
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>Redirect</title>
+                <title>Index</title>
                 <style type="text/css">
                     body {
                         height: 100vh;
@@ -14,12 +17,17 @@
                 <link type="text/css" rel="stylesheet" href="_bundle/vendor.css" />
 <link type="text/css" rel="stylesheet" href="_bundle/app.css" />
                 
-                <script type="text/javascript">
-                    window.location.replace("./ru/index.html");
-                </script>
+                
             </head>
             <body class="g-root g-root_theme_light">
-                If you are not redirected automatically, follow this <a href="./ru/index.html">link to example</a>.
+                <div id="root"></div>
+                <script type="application/javascript">
+                   window.STATIC_CONTENT = false
+                   window.__DATA__ = {"data":{"leading":true,"toc":{"href":"index.html","navigation":{"logo":{"text":"Alien","url":"."},"header":{"rightItems":[{"text":"Github","type":"link","url":"https://github.com/YandexClassifieds/alien-memory"}]}},"items":[{"name":"Начало работы","href":"pages/getting_started.html","id":"Начало работы-0-0.40997413534632665"},{"name":"Концепции","expanded":true,"items":[{"name":"Layouts","href":"pages/layouts.html","id":"Layouts-0-0.1649384964959324"},{"name":"Memory pointers","href":"pages/pointers.html","id":"Memory pointers-1-0.9858001398674894"},{"name":"Regions","href":"pages/regions.html","id":"Regions-2-0.09794757490352679"},{"name":"Memory","href":"pages/memory.html","id":"Memory-3-0.2261642053124815"}],"id":"Концепции-1-0.15203540245034963"}],"base":"."},"data":{"title":"Alien Memory","description":"Библиотека для типобезопасной работы с прямым доступом к памяти через примитивы Foreign Function & Memory API из JDK 22.","meta":{"title":"Index","noIndex":true,"metadata":[],"style":[],"script":[]},"links":[{"title":"Начало работы","description":"Добавьте библиотеку в зависимости.","href":"pages/getting_started.html"},{"title":"Memory","description":"Аллокации памяти на хипе и вне его.","href":"pages/memory.html"},{"title":"Layouts","description":"Описание разметки памяти.","href":"pages/layouts.html"},{"title":"Regions","description":"Менеджмент памяти.","href":"pages/regions.html"}]},"meta":{"title":"Index","noIndex":true,"metadata":[],"style":[],"script":[]}},"router":{"pathname":"index.html"},"lang":"ru","langs":["ru"]};
+                </script>
+                <script type="application/javascript" src="_bundle/react.js"></script>
+<script type="application/javascript" src="_bundle/app.js"></script>
+<script type="application/javascript" src="_bundle/vendor.js"></script>
             </body>
         </html>
     
