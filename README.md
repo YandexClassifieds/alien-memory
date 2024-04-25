@@ -33,4 +33,4 @@ libraryDependencies += "com.yandex.classifieds" %% "alien-memory" % "0.1.0"
 
 # Документация
 
-Документацию можно найти здесь.
+Документацию можно найти [здесь](https://yandexclassifieds.github.io/alien-memory/).
