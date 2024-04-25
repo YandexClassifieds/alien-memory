@@ -79,7 +79,7 @@ jobs:
       - name: Install and Build
         run: |
           npm install @diplodoc/cli -g
-          yfm -i . -o ./build
+          yfm -i docs -o ./build
           touch ./build/nojekyll
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
