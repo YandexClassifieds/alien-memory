@@ -1,0 +1,25 @@
+href: index.yaml
+navigation:
+  logo:
+    text: "Alien"
+    url: "."
+  header:
+    rightItems:
+      - text: "Github"
+        type: "link"
+        url: "https://github.com/YandexClassifieds/alien-memory"
+
+items:
+  - name: Начало работы
+    href: pages/getting_started.md
+  - name: Концепции
+    expanded: true
+    items:
+      - name: Layouts
+        href: pages/layouts.md
+      - name: Memory pointers
+        href: pages/pointers.md
+      - name: Regions
+        href: pages/regions.md
+      - name: Memory
+        href: pages/memory.md

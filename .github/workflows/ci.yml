@@ -63,25 +63,26 @@ jobs:
       - name: Aggregate of builds
         run: echo "ci passed"
 
-  publish:
+  docs:
     runs-on: ubuntu-20.04
-    timeout-minutes: 30
+    permissions:
+      contents: write
+      pages: write
     needs: [ ci ]
     if: github.event_name != 'pull_request'
     steps:
-      - name: Checkout current branch
+      - name: Checkout
         uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          fetch-depth: 0
-      - name: Setup Java
-        uses: actions/setup-java@v4.2.1
+          node-version: '20.11.0'
+      - name: Install and Build
+        run: |
+          npm install @diplodoc/cli -g
+          yfm -i . -o ./build
+          touch ./build/nojekyll
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          distribution: 'zulu'
-          java-version: 21
-      - name: Release artifacts
-        run: sbt ci-release
-        env:
-          PGP_PASSPHRASE: ${{ secrets.PGP_PASSPHRASE }}
-          PGP_SECRET: ${{ secrets.PGP_SECRET }}
-          SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
-          SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
+          branch: gh-pages
+          folder: build
