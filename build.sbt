@@ -77,3 +77,10 @@ lazy val alienExamples = (project in file("examples"))
 lazy val root = (project in file("."))
   .aggregate(alienMemory, alienExamples)
   .settings(publish / skip := true, doc / skip := true)
+
+
+lazy val boiler = taskKey[Unit]("Generates boilerplate")
+
+boiler := {
+  HandleBoiler.generate("memory/")
+}
