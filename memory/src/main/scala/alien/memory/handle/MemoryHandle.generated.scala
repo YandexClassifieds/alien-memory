@@ -9,35 +9,59 @@ import java.lang.foreign.{MemoryLayout, ValueLayout}
 object MemoryHandle {
 
   val byteVh = MemoryLayout
-    .sequenceLayout(ValueLayout.JAVA_BYTE)
+    .sequenceLayout(
+      Long.MaxValue / ValueLayout.JAVA_BYTE.byteSize(),
+      ValueLayout.JAVA_BYTE,
+    )
     .varHandle(PathElement.sequenceElement())
 
   val shortVh = MemoryLayout
-    .sequenceLayout(ValueLayout.JAVA_SHORT)
+    .sequenceLayout(
+      Long.MaxValue / ValueLayout.JAVA_SHORT.byteSize(),
+      ValueLayout.JAVA_SHORT,
+    )
     .varHandle(PathElement.sequenceElement())
 
   val intVh = MemoryLayout
-    .sequenceLayout(ValueLayout.JAVA_INT)
+    .sequenceLayout(
+      Long.MaxValue / ValueLayout.JAVA_INT.byteSize(),
+      ValueLayout.JAVA_INT,
+    )
     .varHandle(PathElement.sequenceElement())
 
   val longVh = MemoryLayout
-    .sequenceLayout(ValueLayout.JAVA_LONG)
+    .sequenceLayout(
+      Long.MaxValue / ValueLayout.JAVA_LONG.byteSize(),
+      ValueLayout.JAVA_LONG,
+    )
     .varHandle(PathElement.sequenceElement())
 
   val floatVh = MemoryLayout
-    .sequenceLayout(ValueLayout.JAVA_FLOAT)
+    .sequenceLayout(
+      Long.MaxValue / ValueLayout.JAVA_FLOAT.byteSize(),
+      ValueLayout.JAVA_FLOAT,
+    )
     .varHandle(PathElement.sequenceElement())
 
   val doubleVh = MemoryLayout
-    .sequenceLayout(ValueLayout.JAVA_DOUBLE)
+    .sequenceLayout(
+      Long.MaxValue / ValueLayout.JAVA_DOUBLE.byteSize(),
+      ValueLayout.JAVA_DOUBLE,
+    )
     .varHandle(PathElement.sequenceElement())
 
   val charVh = MemoryLayout
-    .sequenceLayout(ValueLayout.JAVA_CHAR)
+    .sequenceLayout(
+      Long.MaxValue / ValueLayout.JAVA_CHAR.byteSize(),
+      ValueLayout.JAVA_CHAR,
+    )
     .varHandle(PathElement.sequenceElement())
 
   val boolVh = MemoryLayout
-    .sequenceLayout(ValueLayout.JAVA_BOOLEAN)
+    .sequenceLayout(
+      Long.MaxValue / ValueLayout.JAVA_BOOLEAN.byteSize(),
+      ValueLayout.JAVA_BOOLEAN,
+    )
     .varHandle(PathElement.sequenceElement())
 
   trait MemoryHandleSyntax {
