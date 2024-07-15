@@ -1,7 +1,7 @@
 # alien
 
-Библиотека для типобезопасной работы с прямым доступом к памяти через
-примитивы Foreign Function & Memory API из JDK 22.
+Alien is a library for type safe direct memory access using structures introduced in
+JDK 22 [Foreign Function & Memory API](https://openjdk.org/jeps/454).
 
 ```scala
 Region.fresh.shared { implicit region =>
@@ -15,22 +15,22 @@ Region.fresh.shared { implicit region =>
 
 ```
 
-# Начало работы
+# Getting started
 
-Для использования библиотеки, добавьте следующую зависимость в файл `build.sbt` вашего проекта:
+Add alien as a dependency to your `build.sbt`:
 
 ```scala
 libraryDependencies += "com.yandex.classifieds" %% "alien-memory" % "0.1.0"
 ```
-### Поддерживаемые версии
+### Compatibility
 
-Библиотека доступна для использования в следующих версиях:
+Alien can be used with
 
 - Scala 2.13
-- Java 21 и Java 22
+- Java 21 or Java 22
 
-На момент выпуска Java 21, [Foreign Function & Memory API](https://openjdk.org/jeps/442) находилось в стадии превью, поэтому рекомендуется использовать предпочтительную версию Java 22.
+At the time of the release of Java 21, the Foreign Function & Memory API was in the preview stage, so it is recommended to use Java 22 with a final version of FFM.
 
-# Документация
+# Docs
 
-Документацию можно найти [здесь](https://yandexclassifieds.github.io/alien-memory/).
+More detailed docs can be found [here](https://yandexclassifieds.github.io/alien-memory/).
