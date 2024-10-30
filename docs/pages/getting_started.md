@@ -1,15 +1,17 @@
-# Getting started
+# Начало работы
 
-Add alien as a dependency to project's `build.sbt`:
+### Добавление в зависимости
+
+Для использования библиотеки, добавьте следующую зависимость в файл `build.sbt` вашего проекта:
 
 ```scala
 libraryDependencies += "com.yandex.classifieds" %% "alien-memory" % "0.1.0"
 ```
-### Compatibility
+### Поддерживаемые версии
 
-Alien can be used with
+Библиотека доступна для использования в следующих версиях:
 
 - Scala 2.13
-- Java 21 or Java 22
+- Java 21 и Java 22
 
-Java 21 release contains preview version of [Foreign Function & Memory API](https://openjdk.org/jeps/442) thus using Java 22 with final version of FFM is recommended.
+На момент выпуска Java 21, [Foreign Function & Memory API](https://openjdk.org/jeps/442) находилось в стадии превью, поэтому рекомендуется использовать предпочтительную версию Java 22.

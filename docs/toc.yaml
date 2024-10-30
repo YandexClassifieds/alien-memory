@@ -10,9 +10,9 @@ navigation:
         url: "https://github.com/YandexClassifieds/alien-memory"
 
 items:
-  - name: Getting started
+  - name: Начало работы
     href: pages/getting_started.md
-  - name: Conceptions
+  - name: Концепции
     expanded: true
     items:
       - name: Layouts

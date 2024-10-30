@@ -16,13 +16,7 @@ class Region[R <: Global] private[alien] (val arena: Arena) extends AnyVal {
   private[alien] def allocate[L <: Layout](layout: L): MemorySegment =
     arena.allocate(layout.toLayout)
 
-  /**
-   * this is a fictive changes that won't be really merged
-   */
-  def deallocate(): Unit = {
-    arena.close()
-  }
-
+  def deallocate(): Unit = arena.close()
 }
 
 object Region {

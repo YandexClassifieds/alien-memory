@@ -266,24 +266,6 @@ case object Memory extends NewType0 {
       ReadSucceed
     }
 
-    /** Copy from ByteBuffer to `Memory`.
-     *
-     * @param offset Target offset in bytes. From that offset data would be placed in `Memory`.
-     *
-     * @return ReadStatus. ReadSucceed on success, or TooManyData on failed bound checking.
-     */
-    def readFrom(offset: Long, bb: ByteBuffer)(
-      implicit
-      region: Region[R],
-    ): ReadStatus = {
-      val total  = cotag(mem).byteSize()
-      val length = bb.remaining()
-      if (offset + length > total)
-        return TooManyData(offset + length - total)
-      cotag(mem).asSlice(offset, length).copyFrom(MemorySegment.ofBuffer(bb))
-      ReadSucceed
-    }
-
     /** Copy data from Java NIO channel to memory segment slice.
      *
      * @param offset Target offset in bytes from which copy segment would be started.
