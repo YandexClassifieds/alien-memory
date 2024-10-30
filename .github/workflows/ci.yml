@@ -57,7 +57,7 @@ jobs:
       - name: Set Java 22 VarHandle Compatibility Flags
         if: matrix.java == '22'
         run: |
-          echo "JAVA_OPTS=-XX:+AllowRedefinitionToCopyMethods -XX:+EnableVarHandleGuardedAccess -Djava.lang.invoke.VarHandle.VAR_HANDLE_GUARDS=false" >> $GITHUB_ENV
+          echo "JAVA_OPTS=-Djava.lang.invoke.VarHandle.VAR_HANDLE_GUARDS=false" >> $GITHUB_ENV
       - name: Run tests
         run: sbt test
 
