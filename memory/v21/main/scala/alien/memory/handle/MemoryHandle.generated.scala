@@ -9,35 +9,59 @@ import java.lang.foreign.{MemoryLayout, ValueLayout}
 object MemoryHandle {
 
   val byteVh = MemoryLayout
-    .sequenceLayout(ValueLayout.JAVA_BYTE)
+    .sequenceLayout(
+      Long.MaxValue / ValueLayout.JAVA_BYTE.byteSize(),
+      ValueLayout.JAVA_BYTE,
+    )
     .varHandle(PathElement.sequenceElement())
 
   val shortVh = MemoryLayout
-    .sequenceLayout(ValueLayout.JAVA_SHORT)
+    .sequenceLayout(
+      Long.MaxValue / ValueLayout.JAVA_SHORT.byteSize(),
+      ValueLayout.JAVA_SHORT,
+    )
     .varHandle(PathElement.sequenceElement())
 
   val intVh = MemoryLayout
-    .sequenceLayout(ValueLayout.JAVA_INT)
+    .sequenceLayout(
+      Long.MaxValue / ValueLayout.JAVA_INT.byteSize(),
+      ValueLayout.JAVA_INT,
+    )
     .varHandle(PathElement.sequenceElement())
 
   val longVh = MemoryLayout
-    .sequenceLayout(ValueLayout.JAVA_LONG)
+    .sequenceLayout(
+      Long.MaxValue / ValueLayout.JAVA_LONG.byteSize(),
+      ValueLayout.JAVA_LONG,
+    )
     .varHandle(PathElement.sequenceElement())
 
   val floatVh = MemoryLayout
-    .sequenceLayout(ValueLayout.JAVA_FLOAT)
+    .sequenceLayout(
+      Long.MaxValue / ValueLayout.JAVA_FLOAT.byteSize(),
+      ValueLayout.JAVA_FLOAT,
+    )
     .varHandle(PathElement.sequenceElement())
 
   val doubleVh = MemoryLayout
-    .sequenceLayout(ValueLayout.JAVA_DOUBLE)
+    .sequenceLayout(
+      Long.MaxValue / ValueLayout.JAVA_DOUBLE.byteSize(),
+      ValueLayout.JAVA_DOUBLE,
+    )
     .varHandle(PathElement.sequenceElement())
 
   val charVh = MemoryLayout
-    .sequenceLayout(ValueLayout.JAVA_CHAR)
+    .sequenceLayout(
+      Long.MaxValue / ValueLayout.JAVA_CHAR.byteSize(),
+      ValueLayout.JAVA_CHAR,
+    )
     .varHandle(PathElement.sequenceElement())
 
   val boolVh = MemoryLayout
-    .sequenceLayout(ValueLayout.JAVA_BOOLEAN)
+    .sequenceLayout(
+      Long.MaxValue / ValueLayout.JAVA_BOOLEAN.byteSize(),
+      ValueLayout.JAVA_BOOLEAN,
+    )
     .varHandle(PathElement.sequenceElement())
 
   trait MemoryHandleSyntax {
@@ -347,160 +371,176 @@ object MemoryHandle {
     def get[R <: Global](mem: Memory[L, R], x1: Long)(
       implicit
       region: Region[R],
-    ): Byte =
+    ): Byte = {
       byteVh.get(mem.asJava, (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 0)
+    }
 
     @IntrinsicCandidate
     @inline
     def get[R <: Global](mem: Memory[L, R], x1: Int)(
       implicit
       region: Region[R],
-    ): Byte =
+    ): Byte = {
       byteVh.get(mem.asJava, (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 0)
+    }
 
     @IntrinsicCandidate
     @inline
     def getVolatile[R <: Global](mem: Memory[L, R], x1: Long)(
       implicit
       region: Region[R],
-    ): Byte =
+    ): Byte = {
       byteVh
         .getVolatile(mem.asJava, (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 0)
+    }
 
     @IntrinsicCandidate
     @inline
     def getVolatile[R <: Global](mem: Memory[L, R], x1: Int)(
       implicit
       region: Region[R],
-    ): Byte =
+    ): Byte = {
       byteVh
         .getVolatile(mem.asJava, (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 0)
+    }
 
     @IntrinsicCandidate
     @inline
     def getOpaque[R <: Global](mem: Memory[L, R], x1: Long)(
       implicit
       region: Region[R],
-    ): Byte =
+    ): Byte = {
       byteVh
         .getOpaque(mem.asJava, (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 0)
+    }
 
     @IntrinsicCandidate
     @inline
     def getOpaque[R <: Global](mem: Memory[L, R], x1: Int)(
       implicit
       region: Region[R],
-    ): Byte =
+    ): Byte = {
       byteVh
         .getOpaque(mem.asJava, (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 0)
+    }
 
     @IntrinsicCandidate
     @inline
     def getAcquire[R <: Global](mem: Memory[L, R], x1: Long)(
       implicit
       region: Region[R],
-    ): Byte =
+    ): Byte = {
       byteVh
         .getAcquire(mem.asJava, (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 0)
+    }
 
     @IntrinsicCandidate
     @inline
     def getAcquire[R <: Global](mem: Memory[L, R], x1: Int)(
       implicit
       region: Region[R],
-    ): Byte =
+    ): Byte = {
       byteVh
         .getAcquire(mem.asJava, (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 0)
+    }
 
     @IntrinsicCandidate
     @inline
     def set[R <: Global](mem: Memory[L, R], value: Byte, x1: Long)(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       byteVh
         .set(mem.asJava, (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 0, value)
+    }
 
     @IntrinsicCandidate
     @inline
     def set[R <: Global](mem: Memory[L, R], value: Byte, x1: Int)(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       byteVh
         .set(mem.asJava, (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 0, value)
+    }
 
     @IntrinsicCandidate
     @inline
     def setVolatile[R <: Global](mem: Memory[L, R], value: Byte, x1: Long)(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       byteVh.setVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 0,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def setVolatile[R <: Global](mem: Memory[L, R], value: Byte, x1: Int)(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       byteVh.setVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 0,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def setOpaque[R <: Global](mem: Memory[L, R], value: Byte, x1: Long)(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       byteVh.setOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 0,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def setOpaque[R <: Global](mem: Memory[L, R], value: Byte, x1: Int)(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       byteVh.setOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 0,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def setRelease[R <: Global](mem: Memory[L, R], value: Byte, x1: Long)(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       byteVh.setRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 0,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def setRelease[R <: Global](mem: Memory[L, R], value: Byte, x1: Int)(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       byteVh.setRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 0,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -512,13 +552,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       byteVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 0,
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -530,13 +571,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       byteVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 0,
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -548,13 +590,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       byteVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 0,
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -566,13 +609,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       byteVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 0,
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -584,13 +628,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       byteVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 0,
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -602,13 +647,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       byteVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 0,
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -620,13 +666,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       byteVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 0,
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -638,13 +685,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       byteVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 0,
         expectedValue,
         newValue,
       )
+    }
 
   }
 
@@ -657,132 +705,142 @@ object MemoryHandle {
     def get[R <: Global](mem: Memory[L, R], x1: Long, x2: Long)(
       implicit
       region: Region[R],
-    ): Byte =
+    ): Byte = {
       byteVh.get(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
           .offset2) >>
           0,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def get[R <: Global](mem: Memory[L, R], x1: Int, x2: Int)(
       implicit
       region: Region[R],
-    ): Byte =
+    ): Byte = {
       byteVh.get(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
           .offset2) >>
           0,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def getVolatile[R <: Global](mem: Memory[L, R], x1: Long, x2: Long)(
       implicit
       region: Region[R],
-    ): Byte =
+    ): Byte = {
       byteVh.getVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
           .offset2) >>
           0,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def getVolatile[R <: Global](mem: Memory[L, R], x1: Int, x2: Int)(
       implicit
       region: Region[R],
-    ): Byte =
+    ): Byte = {
       byteVh.getVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
           .offset2) >>
           0,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def getOpaque[R <: Global](mem: Memory[L, R], x1: Long, x2: Long)(
       implicit
       region: Region[R],
-    ): Byte =
+    ): Byte = {
       byteVh.getOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
           .offset2) >>
           0,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def getOpaque[R <: Global](mem: Memory[L, R], x1: Int, x2: Int)(
       implicit
       region: Region[R],
-    ): Byte =
+    ): Byte = {
       byteVh.getOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
           .offset2) >>
           0,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def getAcquire[R <: Global](mem: Memory[L, R], x1: Long, x2: Long)(
       implicit
       region: Region[R],
-    ): Byte =
+    ): Byte = {
       byteVh.getAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
           .offset2) >>
           0,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def getAcquire[R <: Global](mem: Memory[L, R], x1: Int, x2: Int)(
       implicit
       region: Region[R],
-    ): Byte =
+    ): Byte = {
       byteVh.getAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
           .offset2) >>
           0,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def set[R <: Global](mem: Memory[L, R], value: Byte, x1: Long, x2: Long)(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       byteVh.set(
         mem.asJava,
-        (vh.offset0 + vh
-          .step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2) >>
+        (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh
+          .step2 * x2 + vh.offset2) >>
           0,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def set[R <: Global](mem: Memory[L, R], value: Byte, x1: Int, x2: Int)(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       byteVh.set(
         mem.asJava,
-        (vh.offset0 + vh
-          .step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2) >>
+        (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh
+          .step2 * x2 + vh.offset2) >>
           0,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -794,14 +852,15 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       byteVh.setVolatile(
         mem.asJava,
-        (vh.offset0 + vh
-          .step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2) >>
+        (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh
+          .step2 * x2 + vh.offset2) >>
           0,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -813,14 +872,15 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       byteVh.setVolatile(
         mem.asJava,
-        (vh.offset0 + vh
-          .step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2) >>
+        (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh
+          .step2 * x2 + vh.offset2) >>
           0,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -832,14 +892,15 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       byteVh.setOpaque(
         mem.asJava,
-        (vh.offset0 + vh
-          .step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2) >>
+        (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh
+          .step2 * x2 + vh.offset2) >>
           0,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -851,14 +912,15 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       byteVh.setOpaque(
         mem.asJava,
-        (vh.offset0 + vh
-          .step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2) >>
+        (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh
+          .step2 * x2 + vh.offset2) >>
           0,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -870,14 +932,15 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       byteVh.setRelease(
         mem.asJava,
-        (vh.offset0 + vh
-          .step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2) >>
+        (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh
+          .step2 * x2 + vh.offset2) >>
           0,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -889,14 +952,15 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       byteVh.setRelease(
         mem.asJava,
-        (vh.offset0 + vh
-          .step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2) >>
+        (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh
+          .step2 * x2 + vh.offset2) >>
           0,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -909,7 +973,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       byteVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh
@@ -918,6 +982,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -930,7 +995,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       byteVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh
@@ -939,6 +1004,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -951,7 +1017,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       byteVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh
@@ -960,6 +1026,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -972,7 +1039,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       byteVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh
@@ -981,6 +1048,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -993,7 +1061,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       byteVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh
@@ -1002,6 +1070,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -1014,7 +1083,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       byteVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh
@@ -1023,6 +1092,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -1035,7 +1105,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       byteVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh
@@ -1044,6 +1114,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -1056,7 +1127,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       byteVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh
@@ -1065,6 +1136,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
   }
 
@@ -1077,24 +1149,26 @@ object MemoryHandle {
     def get[R <: Global](mem: Memory[L, R], x1: Long, x2: Long, x3: Long)(
       implicit
       region: Region[R],
-    ): Byte =
+    ): Byte = {
       byteVh.get(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 0,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def get[R <: Global](mem: Memory[L, R], x1: Int, x2: Int, x3: Int)(
       implicit
       region: Region[R],
-    ): Byte =
+    ): Byte = {
       byteVh.get(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 0,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -1106,48 +1180,52 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Byte =
+    ): Byte = {
       byteVh.getVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 0,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def getVolatile[R <: Global](mem: Memory[L, R], x1: Int, x2: Int, x3: Int)(
       implicit
       region: Region[R],
-    ): Byte =
+    ): Byte = {
       byteVh.getVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 0,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def getOpaque[R <: Global](mem: Memory[L, R], x1: Long, x2: Long, x3: Long)(
       implicit
       region: Region[R],
-    ): Byte =
+    ): Byte = {
       byteVh.getOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 0,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def getOpaque[R <: Global](mem: Memory[L, R], x1: Int, x2: Int, x3: Int)(
       implicit
       region: Region[R],
-    ): Byte =
+    ): Byte = {
       byteVh.getOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 0,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -1159,24 +1237,26 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Byte =
+    ): Byte = {
       byteVh.getAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 0,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def getAcquire[R <: Global](mem: Memory[L, R], x1: Int, x2: Int, x3: Int)(
       implicit
       region: Region[R],
-    ): Byte =
+    ): Byte = {
       byteVh.getAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 0,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -1189,13 +1269,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       byteVh.set(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 0,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -1208,13 +1289,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       byteVh.set(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 0,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -1227,13 +1309,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       byteVh.setVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 0,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -1246,13 +1329,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       byteVh.setVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 0,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -1265,13 +1349,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       byteVh.setOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 0,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -1284,13 +1369,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       byteVh.setOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 0,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -1303,13 +1389,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       byteVh.setRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 0,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -1322,13 +1409,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       byteVh.setRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 0,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -1342,7 +1430,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       byteVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -1350,6 +1438,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -1363,7 +1452,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       byteVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -1371,6 +1460,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -1384,7 +1474,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       byteVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -1392,6 +1482,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -1405,7 +1496,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       byteVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -1413,6 +1504,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -1426,7 +1518,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       byteVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -1434,6 +1526,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -1447,7 +1540,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       byteVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -1455,6 +1548,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -1468,7 +1562,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       byteVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -1476,6 +1570,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -1489,7 +1584,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       byteVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -1497,6 +1592,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
   }
 
@@ -1515,24 +1611,26 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Byte =
+    ): Byte = {
       byteVh.get(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 0,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def get[R <: Global](mem: Memory[L, R], x1: Int, x2: Int, x3: Int, x4: Int)(
       implicit
       region: Region[R],
-    ): Byte =
+    ): Byte = {
       byteVh.get(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 0,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -1545,12 +1643,13 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Byte =
+    ): Byte = {
       byteVh.getVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 0,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -1563,12 +1662,13 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Byte =
+    ): Byte = {
       byteVh.getVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 0,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -1581,12 +1681,13 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Byte =
+    ): Byte = {
       byteVh.getOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 0,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -1599,12 +1700,13 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Byte =
+    ): Byte = {
       byteVh.getOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 0,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -1617,12 +1719,13 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Byte =
+    ): Byte = {
       byteVh.getAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 0,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -1635,12 +1738,13 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Byte =
+    ): Byte = {
       byteVh.getAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 0,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -1654,13 +1758,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       byteVh.set(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 0,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -1674,13 +1779,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       byteVh.set(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 0,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -1694,13 +1800,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       byteVh.setVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 0,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -1714,13 +1821,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       byteVh.setVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 0,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -1734,13 +1842,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       byteVh.setOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 0,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -1754,13 +1863,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       byteVh.setOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 0,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -1774,13 +1884,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       byteVh.setRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 0,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -1794,13 +1905,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       byteVh.setRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 0,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -1815,7 +1927,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       byteVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -1823,6 +1935,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -1837,7 +1950,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       byteVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -1845,6 +1958,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -1859,7 +1973,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       byteVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -1867,6 +1981,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -1881,7 +1996,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       byteVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -1889,6 +2004,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -1903,7 +2019,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       byteVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -1911,6 +2027,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -1925,7 +2042,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       byteVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -1933,6 +2050,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -1947,7 +2065,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       byteVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -1955,6 +2073,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -1969,7 +2088,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       byteVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -1977,6 +2096,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
   }
 
@@ -1996,13 +2116,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Byte =
+    ): Byte = {
       byteVh.get(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5) >> 0,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -2016,13 +2137,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Byte =
+    ): Byte = {
       byteVh.get(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5) >> 0,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -2036,13 +2158,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Byte =
+    ): Byte = {
       byteVh.getVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5) >> 0,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -2056,13 +2179,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Byte =
+    ): Byte = {
       byteVh.getVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5) >> 0,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -2076,13 +2200,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Byte =
+    ): Byte = {
       byteVh.getOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5) >> 0,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -2096,13 +2221,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Byte =
+    ): Byte = {
       byteVh.getOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5) >> 0,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -2116,13 +2242,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Byte =
+    ): Byte = {
       byteVh.getAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5) >> 0,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -2136,13 +2263,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Byte =
+    ): Byte = {
       byteVh.getAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5) >> 0,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -2157,7 +2285,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       byteVh.set(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -2165,6 +2293,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5) >> 0,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -2179,7 +2308,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       byteVh.set(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -2187,6 +2316,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5) >> 0,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -2201,7 +2331,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       byteVh.setVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -2209,6 +2339,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5) >> 0,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -2223,7 +2354,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       byteVh.setVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -2231,6 +2362,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5) >> 0,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -2245,7 +2377,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       byteVh.setOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -2253,6 +2385,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5) >> 0,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -2267,7 +2400,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       byteVh.setOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -2275,6 +2408,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5) >> 0,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -2289,7 +2423,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       byteVh.setRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -2297,6 +2431,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5) >> 0,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -2311,7 +2446,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       byteVh.setRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -2319,6 +2454,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5) >> 0,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -2334,7 +2470,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       byteVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -2343,6 +2479,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -2358,7 +2495,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       byteVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -2367,6 +2504,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -2382,7 +2520,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       byteVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -2391,6 +2529,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -2406,7 +2545,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       byteVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -2415,6 +2554,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -2430,7 +2570,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       byteVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -2439,6 +2579,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -2454,7 +2595,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       byteVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -2463,6 +2604,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -2478,7 +2620,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       byteVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -2487,6 +2629,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -2502,7 +2645,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       byteVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -2511,6 +2654,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
   }
 
@@ -2531,13 +2675,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Byte =
+    ): Byte = {
       byteVh.get(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 0,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -2552,13 +2697,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Byte =
+    ): Byte = {
       byteVh.get(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 0,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -2573,13 +2719,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Byte =
+    ): Byte = {
       byteVh.getVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 0,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -2594,13 +2741,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Byte =
+    ): Byte = {
       byteVh.getVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 0,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -2615,13 +2763,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Byte =
+    ): Byte = {
       byteVh.getOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 0,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -2636,13 +2785,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Byte =
+    ): Byte = {
       byteVh.getOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 0,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -2657,13 +2807,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Byte =
+    ): Byte = {
       byteVh.getAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 0,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -2678,13 +2829,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Byte =
+    ): Byte = {
       byteVh.getAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 0,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -2700,7 +2852,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       byteVh.set(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -2708,6 +2860,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 0,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -2723,7 +2876,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       byteVh.set(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -2731,6 +2884,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 0,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -2746,7 +2900,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       byteVh.setVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -2754,6 +2908,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 0,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -2769,7 +2924,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       byteVh.setVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -2777,6 +2932,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 0,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -2792,7 +2948,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       byteVh.setOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -2800,6 +2956,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 0,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -2815,7 +2972,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       byteVh.setOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -2823,6 +2980,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 0,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -2838,7 +2996,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       byteVh.setRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -2846,6 +3004,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 0,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -2861,7 +3020,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       byteVh.setRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -2869,6 +3028,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 0,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -2885,7 +3045,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       byteVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -2894,6 +3054,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -2910,7 +3071,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       byteVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -2919,6 +3080,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -2935,7 +3097,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       byteVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -2944,6 +3106,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -2960,7 +3123,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       byteVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -2969,6 +3132,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -2985,7 +3149,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       byteVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -2994,6 +3158,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -3010,7 +3175,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       byteVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -3019,6 +3184,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -3035,7 +3201,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       byteVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -3044,6 +3210,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -3060,7 +3227,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       byteVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -3069,6 +3236,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
   }
 
@@ -3207,160 +3375,176 @@ object MemoryHandle {
     def get[R <: Global](mem: Memory[L, R], x1: Long)(
       implicit
       region: Region[R],
-    ): Short =
+    ): Short = {
       shortVh.get(mem.asJava, (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 1)
+    }
 
     @IntrinsicCandidate
     @inline
     def get[R <: Global](mem: Memory[L, R], x1: Int)(
       implicit
       region: Region[R],
-    ): Short =
+    ): Short = {
       shortVh.get(mem.asJava, (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 1)
+    }
 
     @IntrinsicCandidate
     @inline
     def getVolatile[R <: Global](mem: Memory[L, R], x1: Long)(
       implicit
       region: Region[R],
-    ): Short =
+    ): Short = {
       shortVh
         .getVolatile(mem.asJava, (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 1)
+    }
 
     @IntrinsicCandidate
     @inline
     def getVolatile[R <: Global](mem: Memory[L, R], x1: Int)(
       implicit
       region: Region[R],
-    ): Short =
+    ): Short = {
       shortVh
         .getVolatile(mem.asJava, (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 1)
+    }
 
     @IntrinsicCandidate
     @inline
     def getOpaque[R <: Global](mem: Memory[L, R], x1: Long)(
       implicit
       region: Region[R],
-    ): Short =
+    ): Short = {
       shortVh
         .getOpaque(mem.asJava, (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 1)
+    }
 
     @IntrinsicCandidate
     @inline
     def getOpaque[R <: Global](mem: Memory[L, R], x1: Int)(
       implicit
       region: Region[R],
-    ): Short =
+    ): Short = {
       shortVh
         .getOpaque(mem.asJava, (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 1)
+    }
 
     @IntrinsicCandidate
     @inline
     def getAcquire[R <: Global](mem: Memory[L, R], x1: Long)(
       implicit
       region: Region[R],
-    ): Short =
+    ): Short = {
       shortVh
         .getAcquire(mem.asJava, (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 1)
+    }
 
     @IntrinsicCandidate
     @inline
     def getAcquire[R <: Global](mem: Memory[L, R], x1: Int)(
       implicit
       region: Region[R],
-    ): Short =
+    ): Short = {
       shortVh
         .getAcquire(mem.asJava, (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 1)
+    }
 
     @IntrinsicCandidate
     @inline
     def set[R <: Global](mem: Memory[L, R], value: Short, x1: Long)(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       shortVh
         .set(mem.asJava, (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 1, value)
+    }
 
     @IntrinsicCandidate
     @inline
     def set[R <: Global](mem: Memory[L, R], value: Short, x1: Int)(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       shortVh
         .set(mem.asJava, (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 1, value)
+    }
 
     @IntrinsicCandidate
     @inline
     def setVolatile[R <: Global](mem: Memory[L, R], value: Short, x1: Long)(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       shortVh.setVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def setVolatile[R <: Global](mem: Memory[L, R], value: Short, x1: Int)(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       shortVh.setVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def setOpaque[R <: Global](mem: Memory[L, R], value: Short, x1: Long)(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       shortVh.setOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def setOpaque[R <: Global](mem: Memory[L, R], value: Short, x1: Int)(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       shortVh.setOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def setRelease[R <: Global](mem: Memory[L, R], value: Short, x1: Long)(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       shortVh.setRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def setRelease[R <: Global](mem: Memory[L, R], value: Short, x1: Int)(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       shortVh.setRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -3372,13 +3556,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       shortVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 1,
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -3390,13 +3575,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       shortVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 1,
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -3408,13 +3594,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       shortVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 1,
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -3426,13 +3613,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       shortVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 1,
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -3444,13 +3632,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       shortVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 1,
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -3462,13 +3651,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       shortVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 1,
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -3480,13 +3670,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       shortVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 1,
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -3498,13 +3689,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       shortVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 1,
         expectedValue,
         newValue,
       )
+    }
 
   }
 
@@ -3517,132 +3709,142 @@ object MemoryHandle {
     def get[R <: Global](mem: Memory[L, R], x1: Long, x2: Long)(
       implicit
       region: Region[R],
-    ): Short =
+    ): Short = {
       shortVh.get(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
           .offset2) >>
           1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def get[R <: Global](mem: Memory[L, R], x1: Int, x2: Int)(
       implicit
       region: Region[R],
-    ): Short =
+    ): Short = {
       shortVh.get(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
           .offset2) >>
           1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def getVolatile[R <: Global](mem: Memory[L, R], x1: Long, x2: Long)(
       implicit
       region: Region[R],
-    ): Short =
+    ): Short = {
       shortVh.getVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
           .offset2) >>
           1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def getVolatile[R <: Global](mem: Memory[L, R], x1: Int, x2: Int)(
       implicit
       region: Region[R],
-    ): Short =
+    ): Short = {
       shortVh.getVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
           .offset2) >>
           1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def getOpaque[R <: Global](mem: Memory[L, R], x1: Long, x2: Long)(
       implicit
       region: Region[R],
-    ): Short =
+    ): Short = {
       shortVh.getOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
           .offset2) >>
           1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def getOpaque[R <: Global](mem: Memory[L, R], x1: Int, x2: Int)(
       implicit
       region: Region[R],
-    ): Short =
+    ): Short = {
       shortVh.getOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
           .offset2) >>
           1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def getAcquire[R <: Global](mem: Memory[L, R], x1: Long, x2: Long)(
       implicit
       region: Region[R],
-    ): Short =
+    ): Short = {
       shortVh.getAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
           .offset2) >>
           1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def getAcquire[R <: Global](mem: Memory[L, R], x1: Int, x2: Int)(
       implicit
       region: Region[R],
-    ): Short =
+    ): Short = {
       shortVh.getAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
           .offset2) >>
           1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def set[R <: Global](mem: Memory[L, R], value: Short, x1: Long, x2: Long)(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       shortVh.set(
         mem.asJava,
-        (vh.offset0 + vh
-          .step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2) >>
+        (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh
+          .step2 * x2 + vh.offset2) >>
           1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def set[R <: Global](mem: Memory[L, R], value: Short, x1: Int, x2: Int)(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       shortVh.set(
         mem.asJava,
-        (vh.offset0 + vh
-          .step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2) >>
+        (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh
+          .step2 * x2 + vh.offset2) >>
           1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -3654,14 +3856,15 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       shortVh.setVolatile(
         mem.asJava,
-        (vh.offset0 + vh
-          .step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2) >>
+        (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh
+          .step2 * x2 + vh.offset2) >>
           1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -3673,14 +3876,15 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       shortVh.setVolatile(
         mem.asJava,
-        (vh.offset0 + vh
-          .step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2) >>
+        (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh
+          .step2 * x2 + vh.offset2) >>
           1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -3692,14 +3896,15 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       shortVh.setOpaque(
         mem.asJava,
-        (vh.offset0 + vh
-          .step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2) >>
+        (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh
+          .step2 * x2 + vh.offset2) >>
           1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -3711,14 +3916,15 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       shortVh.setOpaque(
         mem.asJava,
-        (vh.offset0 + vh
-          .step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2) >>
+        (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh
+          .step2 * x2 + vh.offset2) >>
           1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -3730,14 +3936,15 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       shortVh.setRelease(
         mem.asJava,
-        (vh.offset0 + vh
-          .step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2) >>
+        (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh
+          .step2 * x2 + vh.offset2) >>
           1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -3749,14 +3956,15 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       shortVh.setRelease(
         mem.asJava,
-        (vh.offset0 + vh
-          .step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2) >>
+        (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh
+          .step2 * x2 + vh.offset2) >>
           1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -3769,7 +3977,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       shortVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh
@@ -3778,6 +3986,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -3790,7 +3999,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       shortVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh
@@ -3799,6 +4008,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -3811,7 +4021,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       shortVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh
@@ -3820,6 +4030,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -3832,7 +4043,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       shortVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh
@@ -3841,6 +4052,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -3853,7 +4065,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       shortVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh
@@ -3862,6 +4074,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -3874,7 +4087,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       shortVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh
@@ -3883,6 +4096,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -3895,7 +4109,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       shortVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh
@@ -3904,6 +4118,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -3916,7 +4131,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       shortVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh
@@ -3925,6 +4140,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
   }
 
@@ -3937,24 +4153,26 @@ object MemoryHandle {
     def get[R <: Global](mem: Memory[L, R], x1: Long, x2: Long, x3: Long)(
       implicit
       region: Region[R],
-    ): Short =
+    ): Short = {
       shortVh.get(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def get[R <: Global](mem: Memory[L, R], x1: Int, x2: Int, x3: Int)(
       implicit
       region: Region[R],
-    ): Short =
+    ): Short = {
       shortVh.get(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -3966,48 +4184,52 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Short =
+    ): Short = {
       shortVh.getVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def getVolatile[R <: Global](mem: Memory[L, R], x1: Int, x2: Int, x3: Int)(
       implicit
       region: Region[R],
-    ): Short =
+    ): Short = {
       shortVh.getVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def getOpaque[R <: Global](mem: Memory[L, R], x1: Long, x2: Long, x3: Long)(
       implicit
       region: Region[R],
-    ): Short =
+    ): Short = {
       shortVh.getOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def getOpaque[R <: Global](mem: Memory[L, R], x1: Int, x2: Int, x3: Int)(
       implicit
       region: Region[R],
-    ): Short =
+    ): Short = {
       shortVh.getOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -4019,24 +4241,26 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Short =
+    ): Short = {
       shortVh.getAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def getAcquire[R <: Global](mem: Memory[L, R], x1: Int, x2: Int, x3: Int)(
       implicit
       region: Region[R],
-    ): Short =
+    ): Short = {
       shortVh.getAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -4049,13 +4273,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       shortVh.set(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -4068,13 +4293,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       shortVh.set(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -4087,13 +4313,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       shortVh.setVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -4106,13 +4333,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       shortVh.setVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -4125,13 +4353,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       shortVh.setOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -4144,13 +4373,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       shortVh.setOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -4163,13 +4393,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       shortVh.setRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -4182,13 +4413,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       shortVh.setRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -4202,7 +4434,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       shortVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -4210,6 +4442,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -4223,7 +4456,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       shortVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -4231,6 +4464,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -4244,7 +4478,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       shortVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -4252,6 +4486,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -4265,7 +4500,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       shortVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -4273,6 +4508,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -4286,7 +4522,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       shortVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -4294,6 +4530,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -4307,7 +4544,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       shortVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -4315,6 +4552,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -4328,7 +4566,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       shortVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -4336,6 +4574,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -4349,7 +4588,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       shortVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -4357,6 +4596,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
   }
 
@@ -4375,24 +4615,26 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Short =
+    ): Short = {
       shortVh.get(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def get[R <: Global](mem: Memory[L, R], x1: Int, x2: Int, x3: Int, x4: Int)(
       implicit
       region: Region[R],
-    ): Short =
+    ): Short = {
       shortVh.get(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -4405,12 +4647,13 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Short =
+    ): Short = {
       shortVh.getVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -4423,12 +4666,13 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Short =
+    ): Short = {
       shortVh.getVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -4441,12 +4685,13 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Short =
+    ): Short = {
       shortVh.getOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -4459,12 +4704,13 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Short =
+    ): Short = {
       shortVh.getOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -4477,12 +4723,13 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Short =
+    ): Short = {
       shortVh.getAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -4495,12 +4742,13 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Short =
+    ): Short = {
       shortVh.getAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -4514,13 +4762,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       shortVh.set(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -4534,13 +4783,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       shortVh.set(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -4554,13 +4804,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       shortVh.setVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -4574,13 +4825,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       shortVh.setVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -4594,13 +4846,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       shortVh.setOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -4614,13 +4867,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       shortVh.setOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -4634,13 +4888,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       shortVh.setRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -4654,13 +4909,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       shortVh.setRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -4675,7 +4931,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       shortVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -4683,6 +4939,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -4697,7 +4954,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       shortVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -4705,6 +4962,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -4719,7 +4977,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       shortVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -4727,6 +4985,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -4741,7 +5000,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       shortVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -4749,6 +5008,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -4763,7 +5023,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       shortVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -4771,6 +5031,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -4785,7 +5046,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       shortVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -4793,6 +5054,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -4807,7 +5069,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       shortVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -4815,6 +5077,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -4829,7 +5092,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       shortVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -4837,6 +5100,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
   }
 
@@ -4856,13 +5120,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Short =
+    ): Short = {
       shortVh.get(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5) >> 1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -4876,13 +5141,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Short =
+    ): Short = {
       shortVh.get(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5) >> 1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -4896,13 +5162,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Short =
+    ): Short = {
       shortVh.getVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5) >> 1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -4916,13 +5183,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Short =
+    ): Short = {
       shortVh.getVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5) >> 1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -4936,13 +5204,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Short =
+    ): Short = {
       shortVh.getOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5) >> 1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -4956,13 +5225,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Short =
+    ): Short = {
       shortVh.getOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5) >> 1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -4976,13 +5246,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Short =
+    ): Short = {
       shortVh.getAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5) >> 1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -4996,13 +5267,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Short =
+    ): Short = {
       shortVh.getAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5) >> 1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -5017,7 +5289,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       shortVh.set(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -5025,6 +5297,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5) >> 1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -5039,7 +5312,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       shortVh.set(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -5047,6 +5320,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5) >> 1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -5061,7 +5335,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       shortVh.setVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -5069,6 +5343,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5) >> 1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -5083,7 +5358,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       shortVh.setVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -5091,6 +5366,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5) >> 1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -5105,7 +5381,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       shortVh.setOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -5113,6 +5389,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5) >> 1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -5127,7 +5404,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       shortVh.setOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -5135,6 +5412,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5) >> 1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -5149,7 +5427,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       shortVh.setRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -5157,6 +5435,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5) >> 1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -5171,7 +5450,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       shortVh.setRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -5179,6 +5458,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5) >> 1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -5194,7 +5474,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       shortVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -5203,6 +5483,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -5218,7 +5499,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       shortVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -5227,6 +5508,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -5242,7 +5524,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       shortVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -5251,6 +5533,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -5266,7 +5549,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       shortVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -5275,6 +5558,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -5290,7 +5574,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       shortVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -5299,6 +5583,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -5314,7 +5599,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       shortVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -5323,6 +5608,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -5338,7 +5624,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       shortVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -5347,6 +5633,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -5362,7 +5649,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       shortVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -5371,6 +5658,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
   }
 
@@ -5391,13 +5679,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Short =
+    ): Short = {
       shortVh.get(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -5412,13 +5701,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Short =
+    ): Short = {
       shortVh.get(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -5433,13 +5723,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Short =
+    ): Short = {
       shortVh.getVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -5454,13 +5745,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Short =
+    ): Short = {
       shortVh.getVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -5475,13 +5767,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Short =
+    ): Short = {
       shortVh.getOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -5496,13 +5789,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Short =
+    ): Short = {
       shortVh.getOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -5517,13 +5811,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Short =
+    ): Short = {
       shortVh.getAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -5538,13 +5833,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Short =
+    ): Short = {
       shortVh.getAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -5560,7 +5856,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       shortVh.set(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -5568,6 +5864,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -5583,7 +5880,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       shortVh.set(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -5591,6 +5888,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -5606,7 +5904,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       shortVh.setVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -5614,6 +5912,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -5629,7 +5928,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       shortVh.setVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -5637,6 +5936,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -5652,7 +5952,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       shortVh.setOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -5660,6 +5960,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -5675,7 +5976,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       shortVh.setOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -5683,6 +5984,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -5698,7 +6000,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       shortVh.setRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -5706,6 +6008,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -5721,7 +6024,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       shortVh.setRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -5729,6 +6032,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -5745,7 +6049,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       shortVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -5754,6 +6058,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -5770,7 +6075,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       shortVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -5779,6 +6084,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -5795,7 +6101,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       shortVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -5804,6 +6110,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -5820,7 +6127,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       shortVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -5829,6 +6136,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -5845,7 +6153,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       shortVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -5854,6 +6162,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -5870,7 +6179,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       shortVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -5879,6 +6188,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -5895,7 +6205,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       shortVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -5904,6 +6214,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -5920,7 +6231,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       shortVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -5929,6 +6240,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
   }
 
@@ -6067,160 +6379,176 @@ object MemoryHandle {
     def get[R <: Global](mem: Memory[L, R], x1: Long)(
       implicit
       region: Region[R],
-    ): Char =
+    ): Char = {
       charVh.get(mem.asJava, (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 1)
+    }
 
     @IntrinsicCandidate
     @inline
     def get[R <: Global](mem: Memory[L, R], x1: Int)(
       implicit
       region: Region[R],
-    ): Char =
+    ): Char = {
       charVh.get(mem.asJava, (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 1)
+    }
 
     @IntrinsicCandidate
     @inline
     def getVolatile[R <: Global](mem: Memory[L, R], x1: Long)(
       implicit
       region: Region[R],
-    ): Char =
+    ): Char = {
       charVh
         .getVolatile(mem.asJava, (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 1)
+    }
 
     @IntrinsicCandidate
     @inline
     def getVolatile[R <: Global](mem: Memory[L, R], x1: Int)(
       implicit
       region: Region[R],
-    ): Char =
+    ): Char = {
       charVh
         .getVolatile(mem.asJava, (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 1)
+    }
 
     @IntrinsicCandidate
     @inline
     def getOpaque[R <: Global](mem: Memory[L, R], x1: Long)(
       implicit
       region: Region[R],
-    ): Char =
+    ): Char = {
       charVh
         .getOpaque(mem.asJava, (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 1)
+    }
 
     @IntrinsicCandidate
     @inline
     def getOpaque[R <: Global](mem: Memory[L, R], x1: Int)(
       implicit
       region: Region[R],
-    ): Char =
+    ): Char = {
       charVh
         .getOpaque(mem.asJava, (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 1)
+    }
 
     @IntrinsicCandidate
     @inline
     def getAcquire[R <: Global](mem: Memory[L, R], x1: Long)(
       implicit
       region: Region[R],
-    ): Char =
+    ): Char = {
       charVh
         .getAcquire(mem.asJava, (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 1)
+    }
 
     @IntrinsicCandidate
     @inline
     def getAcquire[R <: Global](mem: Memory[L, R], x1: Int)(
       implicit
       region: Region[R],
-    ): Char =
+    ): Char = {
       charVh
         .getAcquire(mem.asJava, (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 1)
+    }
 
     @IntrinsicCandidate
     @inline
     def set[R <: Global](mem: Memory[L, R], value: Char, x1: Long)(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       charVh
         .set(mem.asJava, (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 1, value)
+    }
 
     @IntrinsicCandidate
     @inline
     def set[R <: Global](mem: Memory[L, R], value: Char, x1: Int)(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       charVh
         .set(mem.asJava, (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 1, value)
+    }
 
     @IntrinsicCandidate
     @inline
     def setVolatile[R <: Global](mem: Memory[L, R], value: Char, x1: Long)(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       charVh.setVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def setVolatile[R <: Global](mem: Memory[L, R], value: Char, x1: Int)(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       charVh.setVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def setOpaque[R <: Global](mem: Memory[L, R], value: Char, x1: Long)(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       charVh.setOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def setOpaque[R <: Global](mem: Memory[L, R], value: Char, x1: Int)(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       charVh.setOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def setRelease[R <: Global](mem: Memory[L, R], value: Char, x1: Long)(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       charVh.setRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def setRelease[R <: Global](mem: Memory[L, R], value: Char, x1: Int)(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       charVh.setRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -6232,13 +6560,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       charVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 1,
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -6250,13 +6579,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       charVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 1,
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -6268,13 +6598,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       charVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 1,
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -6286,13 +6617,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       charVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 1,
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -6304,13 +6636,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       charVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 1,
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -6322,13 +6655,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       charVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 1,
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -6340,13 +6674,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       charVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 1,
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -6358,13 +6693,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       charVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 1,
         expectedValue,
         newValue,
       )
+    }
 
   }
 
@@ -6377,132 +6713,142 @@ object MemoryHandle {
     def get[R <: Global](mem: Memory[L, R], x1: Long, x2: Long)(
       implicit
       region: Region[R],
-    ): Char =
+    ): Char = {
       charVh.get(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
           .offset2) >>
           1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def get[R <: Global](mem: Memory[L, R], x1: Int, x2: Int)(
       implicit
       region: Region[R],
-    ): Char =
+    ): Char = {
       charVh.get(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
           .offset2) >>
           1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def getVolatile[R <: Global](mem: Memory[L, R], x1: Long, x2: Long)(
       implicit
       region: Region[R],
-    ): Char =
+    ): Char = {
       charVh.getVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
           .offset2) >>
           1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def getVolatile[R <: Global](mem: Memory[L, R], x1: Int, x2: Int)(
       implicit
       region: Region[R],
-    ): Char =
+    ): Char = {
       charVh.getVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
           .offset2) >>
           1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def getOpaque[R <: Global](mem: Memory[L, R], x1: Long, x2: Long)(
       implicit
       region: Region[R],
-    ): Char =
+    ): Char = {
       charVh.getOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
           .offset2) >>
           1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def getOpaque[R <: Global](mem: Memory[L, R], x1: Int, x2: Int)(
       implicit
       region: Region[R],
-    ): Char =
+    ): Char = {
       charVh.getOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
           .offset2) >>
           1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def getAcquire[R <: Global](mem: Memory[L, R], x1: Long, x2: Long)(
       implicit
       region: Region[R],
-    ): Char =
+    ): Char = {
       charVh.getAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
           .offset2) >>
           1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def getAcquire[R <: Global](mem: Memory[L, R], x1: Int, x2: Int)(
       implicit
       region: Region[R],
-    ): Char =
+    ): Char = {
       charVh.getAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
           .offset2) >>
           1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def set[R <: Global](mem: Memory[L, R], value: Char, x1: Long, x2: Long)(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       charVh.set(
         mem.asJava,
-        (vh.offset0 + vh
-          .step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2) >>
+        (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh
+          .step2 * x2 + vh.offset2) >>
           1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def set[R <: Global](mem: Memory[L, R], value: Char, x1: Int, x2: Int)(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       charVh.set(
         mem.asJava,
-        (vh.offset0 + vh
-          .step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2) >>
+        (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh
+          .step2 * x2 + vh.offset2) >>
           1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -6514,14 +6860,15 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       charVh.setVolatile(
         mem.asJava,
-        (vh.offset0 + vh
-          .step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2) >>
+        (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh
+          .step2 * x2 + vh.offset2) >>
           1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -6533,14 +6880,15 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       charVh.setVolatile(
         mem.asJava,
-        (vh.offset0 + vh
-          .step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2) >>
+        (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh
+          .step2 * x2 + vh.offset2) >>
           1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -6552,14 +6900,15 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       charVh.setOpaque(
         mem.asJava,
-        (vh.offset0 + vh
-          .step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2) >>
+        (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh
+          .step2 * x2 + vh.offset2) >>
           1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -6571,14 +6920,15 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       charVh.setOpaque(
         mem.asJava,
-        (vh.offset0 + vh
-          .step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2) >>
+        (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh
+          .step2 * x2 + vh.offset2) >>
           1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -6590,14 +6940,15 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       charVh.setRelease(
         mem.asJava,
-        (vh.offset0 + vh
-          .step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2) >>
+        (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh
+          .step2 * x2 + vh.offset2) >>
           1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -6609,14 +6960,15 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       charVh.setRelease(
         mem.asJava,
-        (vh.offset0 + vh
-          .step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2) >>
+        (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh
+          .step2 * x2 + vh.offset2) >>
           1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -6629,7 +6981,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       charVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh
@@ -6638,6 +6990,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -6650,7 +7003,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       charVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh
@@ -6659,6 +7012,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -6671,7 +7025,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       charVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh
@@ -6680,6 +7034,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -6692,7 +7047,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       charVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh
@@ -6701,6 +7056,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -6713,7 +7069,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       charVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh
@@ -6722,6 +7078,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -6734,7 +7091,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       charVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh
@@ -6743,6 +7100,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -6755,7 +7113,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       charVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh
@@ -6764,6 +7122,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -6776,7 +7135,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       charVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh
@@ -6785,6 +7144,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
   }
 
@@ -6797,24 +7157,26 @@ object MemoryHandle {
     def get[R <: Global](mem: Memory[L, R], x1: Long, x2: Long, x3: Long)(
       implicit
       region: Region[R],
-    ): Char =
+    ): Char = {
       charVh.get(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def get[R <: Global](mem: Memory[L, R], x1: Int, x2: Int, x3: Int)(
       implicit
       region: Region[R],
-    ): Char =
+    ): Char = {
       charVh.get(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -6826,48 +7188,52 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Char =
+    ): Char = {
       charVh.getVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def getVolatile[R <: Global](mem: Memory[L, R], x1: Int, x2: Int, x3: Int)(
       implicit
       region: Region[R],
-    ): Char =
+    ): Char = {
       charVh.getVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def getOpaque[R <: Global](mem: Memory[L, R], x1: Long, x2: Long, x3: Long)(
       implicit
       region: Region[R],
-    ): Char =
+    ): Char = {
       charVh.getOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def getOpaque[R <: Global](mem: Memory[L, R], x1: Int, x2: Int, x3: Int)(
       implicit
       region: Region[R],
-    ): Char =
+    ): Char = {
       charVh.getOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -6879,24 +7245,26 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Char =
+    ): Char = {
       charVh.getAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def getAcquire[R <: Global](mem: Memory[L, R], x1: Int, x2: Int, x3: Int)(
       implicit
       region: Region[R],
-    ): Char =
+    ): Char = {
       charVh.getAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -6909,13 +7277,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       charVh.set(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -6928,13 +7297,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       charVh.set(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -6947,13 +7317,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       charVh.setVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -6966,13 +7337,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       charVh.setVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -6985,13 +7357,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       charVh.setOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -7004,13 +7377,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       charVh.setOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -7023,13 +7397,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       charVh.setRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -7042,13 +7417,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       charVh.setRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -7062,7 +7438,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       charVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -7070,6 +7446,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -7083,7 +7460,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       charVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -7091,6 +7468,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -7104,7 +7482,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       charVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -7112,6 +7490,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -7125,7 +7504,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       charVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -7133,6 +7512,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -7146,7 +7526,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       charVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -7154,6 +7534,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -7167,7 +7548,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       charVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -7175,6 +7556,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -7188,7 +7570,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       charVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -7196,6 +7578,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -7209,7 +7592,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       charVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -7217,6 +7600,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
   }
 
@@ -7235,24 +7619,26 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Char =
+    ): Char = {
       charVh.get(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def get[R <: Global](mem: Memory[L, R], x1: Int, x2: Int, x3: Int, x4: Int)(
       implicit
       region: Region[R],
-    ): Char =
+    ): Char = {
       charVh.get(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -7265,12 +7651,13 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Char =
+    ): Char = {
       charVh.getVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -7283,12 +7670,13 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Char =
+    ): Char = {
       charVh.getVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -7301,12 +7689,13 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Char =
+    ): Char = {
       charVh.getOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -7319,12 +7708,13 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Char =
+    ): Char = {
       charVh.getOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -7337,12 +7727,13 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Char =
+    ): Char = {
       charVh.getAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -7355,12 +7746,13 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Char =
+    ): Char = {
       charVh.getAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -7374,13 +7766,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       charVh.set(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -7394,13 +7787,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       charVh.set(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -7414,13 +7808,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       charVh.setVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -7434,13 +7829,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       charVh.setVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -7454,13 +7850,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       charVh.setOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -7474,13 +7871,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       charVh.setOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -7494,13 +7892,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       charVh.setRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -7514,13 +7913,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       charVh.setRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -7535,7 +7935,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       charVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -7543,6 +7943,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -7557,7 +7958,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       charVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -7565,6 +7966,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -7579,7 +7981,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       charVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -7587,6 +7989,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -7601,7 +8004,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       charVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -7609,6 +8012,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -7623,7 +8027,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       charVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -7631,6 +8035,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -7645,7 +8050,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       charVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -7653,6 +8058,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -7667,7 +8073,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       charVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -7675,6 +8081,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -7689,7 +8096,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       charVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -7697,6 +8104,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
   }
 
@@ -7716,13 +8124,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Char =
+    ): Char = {
       charVh.get(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5) >> 1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -7736,13 +8145,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Char =
+    ): Char = {
       charVh.get(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5) >> 1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -7756,13 +8166,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Char =
+    ): Char = {
       charVh.getVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5) >> 1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -7776,13 +8187,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Char =
+    ): Char = {
       charVh.getVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5) >> 1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -7796,13 +8208,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Char =
+    ): Char = {
       charVh.getOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5) >> 1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -7816,13 +8229,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Char =
+    ): Char = {
       charVh.getOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5) >> 1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -7836,13 +8250,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Char =
+    ): Char = {
       charVh.getAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5) >> 1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -7856,13 +8271,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Char =
+    ): Char = {
       charVh.getAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5) >> 1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -7877,7 +8293,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       charVh.set(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -7885,6 +8301,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5) >> 1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -7899,7 +8316,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       charVh.set(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -7907,6 +8324,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5) >> 1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -7921,7 +8339,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       charVh.setVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -7929,6 +8347,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5) >> 1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -7943,7 +8362,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       charVh.setVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -7951,6 +8370,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5) >> 1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -7965,7 +8385,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       charVh.setOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -7973,6 +8393,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5) >> 1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -7987,7 +8408,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       charVh.setOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -7995,6 +8416,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5) >> 1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -8009,7 +8431,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       charVh.setRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -8017,6 +8439,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5) >> 1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -8031,7 +8454,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       charVh.setRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -8039,6 +8462,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5) >> 1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -8054,7 +8478,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       charVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -8063,6 +8487,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -8078,7 +8503,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       charVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -8087,6 +8512,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -8102,7 +8528,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       charVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -8111,6 +8537,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -8126,7 +8553,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       charVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -8135,6 +8562,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -8150,7 +8578,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       charVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -8159,6 +8587,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -8174,7 +8603,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       charVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -8183,6 +8612,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -8198,7 +8628,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       charVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -8207,6 +8637,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -8222,7 +8653,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       charVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -8231,6 +8662,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
   }
 
@@ -8251,13 +8683,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Char =
+    ): Char = {
       charVh.get(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -8272,13 +8705,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Char =
+    ): Char = {
       charVh.get(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -8293,13 +8727,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Char =
+    ): Char = {
       charVh.getVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -8314,13 +8749,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Char =
+    ): Char = {
       charVh.getVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -8335,13 +8771,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Char =
+    ): Char = {
       charVh.getOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -8356,13 +8793,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Char =
+    ): Char = {
       charVh.getOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -8377,13 +8815,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Char =
+    ): Char = {
       charVh.getAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -8398,13 +8837,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Char =
+    ): Char = {
       charVh.getAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 1,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -8420,7 +8860,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       charVh.set(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -8428,6 +8868,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -8443,7 +8884,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       charVh.set(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -8451,6 +8892,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -8466,7 +8908,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       charVh.setVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -8474,6 +8916,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -8489,7 +8932,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       charVh.setVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -8497,6 +8940,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -8512,7 +8956,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       charVh.setOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -8520,6 +8964,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -8535,7 +8980,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       charVh.setOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -8543,6 +8988,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -8558,7 +9004,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       charVh.setRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -8566,6 +9012,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -8581,7 +9028,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       charVh.setRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -8589,6 +9036,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 1,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -8605,7 +9053,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       charVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -8614,6 +9062,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -8630,7 +9079,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       charVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -8639,6 +9088,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -8655,7 +9105,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       charVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -8664,6 +9114,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -8680,7 +9131,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       charVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -8689,6 +9140,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -8705,7 +9157,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       charVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -8714,6 +9166,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -8730,7 +9183,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       charVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -8739,6 +9192,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -8755,7 +9209,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       charVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -8764,6 +9218,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -8780,7 +9235,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       charVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -8789,6 +9244,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
   }
 
@@ -8927,160 +9383,176 @@ object MemoryHandle {
     def get[R <: Global](mem: Memory[L, R], x1: Long)(
       implicit
       region: Region[R],
-    ): Int =
+    ): Int = {
       intVh.get(mem.asJava, (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 2)
+    }
 
     @IntrinsicCandidate
     @inline
     def get[R <: Global](mem: Memory[L, R], x1: Int)(
       implicit
       region: Region[R],
-    ): Int =
+    ): Int = {
       intVh.get(mem.asJava, (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 2)
+    }
 
     @IntrinsicCandidate
     @inline
     def getVolatile[R <: Global](mem: Memory[L, R], x1: Long)(
       implicit
       region: Region[R],
-    ): Int =
+    ): Int = {
       intVh
         .getVolatile(mem.asJava, (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 2)
+    }
 
     @IntrinsicCandidate
     @inline
     def getVolatile[R <: Global](mem: Memory[L, R], x1: Int)(
       implicit
       region: Region[R],
-    ): Int =
+    ): Int = {
       intVh
         .getVolatile(mem.asJava, (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 2)
+    }
 
     @IntrinsicCandidate
     @inline
     def getOpaque[R <: Global](mem: Memory[L, R], x1: Long)(
       implicit
       region: Region[R],
-    ): Int =
+    ): Int = {
       intVh
         .getOpaque(mem.asJava, (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 2)
+    }
 
     @IntrinsicCandidate
     @inline
     def getOpaque[R <: Global](mem: Memory[L, R], x1: Int)(
       implicit
       region: Region[R],
-    ): Int =
+    ): Int = {
       intVh
         .getOpaque(mem.asJava, (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 2)
+    }
 
     @IntrinsicCandidate
     @inline
     def getAcquire[R <: Global](mem: Memory[L, R], x1: Long)(
       implicit
       region: Region[R],
-    ): Int =
+    ): Int = {
       intVh
         .getAcquire(mem.asJava, (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 2)
+    }
 
     @IntrinsicCandidate
     @inline
     def getAcquire[R <: Global](mem: Memory[L, R], x1: Int)(
       implicit
       region: Region[R],
-    ): Int =
+    ): Int = {
       intVh
         .getAcquire(mem.asJava, (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 2)
+    }
 
     @IntrinsicCandidate
     @inline
     def set[R <: Global](mem: Memory[L, R], value: Int, x1: Long)(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       intVh
         .set(mem.asJava, (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 2, value)
+    }
 
     @IntrinsicCandidate
     @inline
     def set[R <: Global](mem: Memory[L, R], value: Int, x1: Int)(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       intVh
         .set(mem.asJava, (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 2, value)
+    }
 
     @IntrinsicCandidate
     @inline
     def setVolatile[R <: Global](mem: Memory[L, R], value: Int, x1: Long)(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       intVh.setVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def setVolatile[R <: Global](mem: Memory[L, R], value: Int, x1: Int)(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       intVh.setVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def setOpaque[R <: Global](mem: Memory[L, R], value: Int, x1: Long)(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       intVh.setOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def setOpaque[R <: Global](mem: Memory[L, R], value: Int, x1: Int)(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       intVh.setOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def setRelease[R <: Global](mem: Memory[L, R], value: Int, x1: Long)(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       intVh.setRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def setRelease[R <: Global](mem: Memory[L, R], value: Int, x1: Int)(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       intVh.setRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -9092,13 +9564,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       intVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 2,
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -9110,13 +9583,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       intVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 2,
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -9128,13 +9602,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       intVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 2,
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -9146,13 +9621,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       intVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 2,
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -9164,13 +9640,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       intVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 2,
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -9182,13 +9659,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       intVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 2,
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -9200,13 +9678,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       intVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 2,
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -9218,13 +9697,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       intVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 2,
         expectedValue,
         newValue,
       )
+    }
 
   }
 
@@ -9237,132 +9717,142 @@ object MemoryHandle {
     def get[R <: Global](mem: Memory[L, R], x1: Long, x2: Long)(
       implicit
       region: Region[R],
-    ): Int =
+    ): Int = {
       intVh.get(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
           .offset2) >>
           2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def get[R <: Global](mem: Memory[L, R], x1: Int, x2: Int)(
       implicit
       region: Region[R],
-    ): Int =
+    ): Int = {
       intVh.get(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
           .offset2) >>
           2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def getVolatile[R <: Global](mem: Memory[L, R], x1: Long, x2: Long)(
       implicit
       region: Region[R],
-    ): Int =
+    ): Int = {
       intVh.getVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
           .offset2) >>
           2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def getVolatile[R <: Global](mem: Memory[L, R], x1: Int, x2: Int)(
       implicit
       region: Region[R],
-    ): Int =
+    ): Int = {
       intVh.getVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
           .offset2) >>
           2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def getOpaque[R <: Global](mem: Memory[L, R], x1: Long, x2: Long)(
       implicit
       region: Region[R],
-    ): Int =
+    ): Int = {
       intVh.getOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
           .offset2) >>
           2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def getOpaque[R <: Global](mem: Memory[L, R], x1: Int, x2: Int)(
       implicit
       region: Region[R],
-    ): Int =
+    ): Int = {
       intVh.getOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
           .offset2) >>
           2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def getAcquire[R <: Global](mem: Memory[L, R], x1: Long, x2: Long)(
       implicit
       region: Region[R],
-    ): Int =
+    ): Int = {
       intVh.getAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
           .offset2) >>
           2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def getAcquire[R <: Global](mem: Memory[L, R], x1: Int, x2: Int)(
       implicit
       region: Region[R],
-    ): Int =
+    ): Int = {
       intVh.getAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
           .offset2) >>
           2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def set[R <: Global](mem: Memory[L, R], value: Int, x1: Long, x2: Long)(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       intVh.set(
         mem.asJava,
-        (vh.offset0 + vh
-          .step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2) >>
+        (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh
+          .step2 * x2 + vh.offset2) >>
           2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def set[R <: Global](mem: Memory[L, R], value: Int, x1: Int, x2: Int)(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       intVh.set(
         mem.asJava,
-        (vh.offset0 + vh
-          .step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2) >>
+        (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh
+          .step2 * x2 + vh.offset2) >>
           2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -9374,14 +9864,15 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       intVh.setVolatile(
         mem.asJava,
-        (vh.offset0 + vh
-          .step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2) >>
+        (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh
+          .step2 * x2 + vh.offset2) >>
           2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -9393,14 +9884,15 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       intVh.setVolatile(
         mem.asJava,
-        (vh.offset0 + vh
-          .step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2) >>
+        (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh
+          .step2 * x2 + vh.offset2) >>
           2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -9412,28 +9904,30 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       intVh.setOpaque(
         mem.asJava,
-        (vh.offset0 + vh
-          .step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2) >>
+        (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh
+          .step2 * x2 + vh.offset2) >>
           2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def setOpaque[R <: Global](mem: Memory[L, R], value: Int, x1: Int, x2: Int)(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       intVh.setOpaque(
         mem.asJava,
-        (vh.offset0 + vh
-          .step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2) >>
+        (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh
+          .step2 * x2 + vh.offset2) >>
           2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -9445,14 +9939,15 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       intVh.setRelease(
         mem.asJava,
-        (vh.offset0 + vh
-          .step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2) >>
+        (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh
+          .step2 * x2 + vh.offset2) >>
           2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -9464,14 +9959,15 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       intVh.setRelease(
         mem.asJava,
-        (vh.offset0 + vh
-          .step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2) >>
+        (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh
+          .step2 * x2 + vh.offset2) >>
           2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -9484,7 +9980,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       intVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh
@@ -9493,6 +9989,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -9505,7 +10002,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       intVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh
@@ -9514,6 +10011,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -9526,7 +10024,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       intVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh
@@ -9535,6 +10033,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -9547,7 +10046,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       intVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh
@@ -9556,6 +10055,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -9568,7 +10068,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       intVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh
@@ -9577,6 +10077,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -9589,7 +10090,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       intVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh
@@ -9598,6 +10099,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -9610,7 +10112,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       intVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh
@@ -9619,6 +10121,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -9631,7 +10134,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       intVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh
@@ -9640,6 +10143,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
   }
 
@@ -9652,24 +10156,26 @@ object MemoryHandle {
     def get[R <: Global](mem: Memory[L, R], x1: Long, x2: Long, x3: Long)(
       implicit
       region: Region[R],
-    ): Int =
+    ): Int = {
       intVh.get(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def get[R <: Global](mem: Memory[L, R], x1: Int, x2: Int, x3: Int)(
       implicit
       region: Region[R],
-    ): Int =
+    ): Int = {
       intVh.get(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -9681,48 +10187,52 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Int =
+    ): Int = {
       intVh.getVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def getVolatile[R <: Global](mem: Memory[L, R], x1: Int, x2: Int, x3: Int)(
       implicit
       region: Region[R],
-    ): Int =
+    ): Int = {
       intVh.getVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def getOpaque[R <: Global](mem: Memory[L, R], x1: Long, x2: Long, x3: Long)(
       implicit
       region: Region[R],
-    ): Int =
+    ): Int = {
       intVh.getOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def getOpaque[R <: Global](mem: Memory[L, R], x1: Int, x2: Int, x3: Int)(
       implicit
       region: Region[R],
-    ): Int =
+    ): Int = {
       intVh.getOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -9734,24 +10244,26 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Int =
+    ): Int = {
       intVh.getAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def getAcquire[R <: Global](mem: Memory[L, R], x1: Int, x2: Int, x3: Int)(
       implicit
       region: Region[R],
-    ): Int =
+    ): Int = {
       intVh.getAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -9764,13 +10276,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       intVh.set(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -9783,13 +10296,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       intVh.set(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -9802,13 +10316,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       intVh.setVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -9821,13 +10336,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       intVh.setVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -9840,13 +10356,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       intVh.setOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -9859,13 +10376,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       intVh.setOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -9878,13 +10396,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       intVh.setRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -9897,13 +10416,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       intVh.setRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -9917,7 +10437,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       intVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -9925,6 +10445,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -9938,7 +10459,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       intVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -9946,6 +10467,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -9959,7 +10481,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       intVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -9967,6 +10489,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -9980,7 +10503,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       intVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -9988,6 +10511,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -10001,7 +10525,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       intVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -10009,6 +10533,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -10022,7 +10547,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       intVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -10030,6 +10555,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -10043,7 +10569,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       intVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -10051,6 +10577,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -10064,7 +10591,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       intVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -10072,6 +10599,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
   }
 
@@ -10090,24 +10618,26 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Int =
+    ): Int = {
       intVh.get(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def get[R <: Global](mem: Memory[L, R], x1: Int, x2: Int, x3: Int, x4: Int)(
       implicit
       region: Region[R],
-    ): Int =
+    ): Int = {
       intVh.get(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -10120,12 +10650,13 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Int =
+    ): Int = {
       intVh.getVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -10138,12 +10669,13 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Int =
+    ): Int = {
       intVh.getVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -10156,12 +10688,13 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Int =
+    ): Int = {
       intVh.getOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -10174,12 +10707,13 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Int =
+    ): Int = {
       intVh.getOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -10192,12 +10726,13 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Int =
+    ): Int = {
       intVh.getAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -10210,12 +10745,13 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Int =
+    ): Int = {
       intVh.getAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -10229,13 +10765,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       intVh.set(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -10249,13 +10786,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       intVh.set(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -10269,13 +10807,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       intVh.setVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -10289,13 +10828,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       intVh.setVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -10309,13 +10849,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       intVh.setOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -10329,13 +10870,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       intVh.setOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -10349,13 +10891,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       intVh.setRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -10369,13 +10912,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       intVh.setRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -10390,7 +10934,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       intVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -10398,6 +10942,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -10412,7 +10957,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       intVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -10420,6 +10965,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -10434,7 +10980,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       intVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -10442,6 +10988,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -10456,7 +11003,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       intVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -10464,6 +11011,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -10478,7 +11026,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       intVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -10486,6 +11034,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -10500,7 +11049,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       intVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -10508,6 +11057,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -10522,7 +11072,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       intVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -10530,6 +11080,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -10544,7 +11095,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       intVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -10552,6 +11103,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
   }
 
@@ -10571,13 +11123,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Int =
+    ): Int = {
       intVh.get(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5) >> 2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -10591,13 +11144,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Int =
+    ): Int = {
       intVh.get(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5) >> 2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -10611,13 +11165,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Int =
+    ): Int = {
       intVh.getVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5) >> 2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -10631,13 +11186,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Int =
+    ): Int = {
       intVh.getVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5) >> 2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -10651,13 +11207,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Int =
+    ): Int = {
       intVh.getOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5) >> 2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -10671,13 +11228,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Int =
+    ): Int = {
       intVh.getOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5) >> 2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -10691,13 +11249,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Int =
+    ): Int = {
       intVh.getAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5) >> 2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -10711,13 +11270,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Int =
+    ): Int = {
       intVh.getAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5) >> 2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -10732,7 +11292,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       intVh.set(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -10740,6 +11300,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5) >> 2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -10754,7 +11315,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       intVh.set(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -10762,6 +11323,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5) >> 2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -10776,7 +11338,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       intVh.setVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -10784,6 +11346,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5) >> 2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -10798,7 +11361,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       intVh.setVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -10806,6 +11369,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5) >> 2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -10820,7 +11384,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       intVh.setOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -10828,6 +11392,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5) >> 2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -10842,7 +11407,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       intVh.setOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -10850,6 +11415,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5) >> 2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -10864,7 +11430,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       intVh.setRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -10872,6 +11438,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5) >> 2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -10886,7 +11453,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       intVh.setRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -10894,6 +11461,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5) >> 2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -10909,7 +11477,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       intVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -10918,6 +11486,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -10933,7 +11502,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       intVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -10942,6 +11511,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -10957,7 +11527,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       intVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -10966,6 +11536,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -10981,7 +11552,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       intVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -10990,6 +11561,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -11005,7 +11577,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       intVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -11014,6 +11586,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -11029,7 +11602,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       intVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -11038,6 +11611,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -11053,7 +11627,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       intVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -11062,6 +11636,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -11077,7 +11652,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       intVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -11086,6 +11661,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
   }
 
@@ -11106,13 +11682,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Int =
+    ): Int = {
       intVh.get(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -11127,13 +11704,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Int =
+    ): Int = {
       intVh.get(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -11148,13 +11726,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Int =
+    ): Int = {
       intVh.getVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -11169,13 +11748,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Int =
+    ): Int = {
       intVh.getVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -11190,13 +11770,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Int =
+    ): Int = {
       intVh.getOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -11211,13 +11792,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Int =
+    ): Int = {
       intVh.getOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -11232,13 +11814,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Int =
+    ): Int = {
       intVh.getAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -11253,13 +11836,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Int =
+    ): Int = {
       intVh.getAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -11275,7 +11859,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       intVh.set(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -11283,6 +11867,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -11298,7 +11883,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       intVh.set(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -11306,6 +11891,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -11321,7 +11907,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       intVh.setVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -11329,6 +11915,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -11344,7 +11931,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       intVh.setVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -11352,6 +11939,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -11367,7 +11955,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       intVh.setOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -11375,6 +11963,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -11390,7 +11979,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       intVh.setOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -11398,6 +11987,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -11413,7 +12003,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       intVh.setRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -11421,6 +12011,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -11436,7 +12027,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       intVh.setRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -11444,6 +12035,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -11460,7 +12052,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       intVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -11469,6 +12061,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -11485,7 +12078,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       intVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -11494,6 +12087,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -11510,7 +12104,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       intVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -11519,6 +12113,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -11535,7 +12130,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       intVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -11544,6 +12139,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -11560,7 +12156,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       intVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -11569,6 +12165,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -11585,7 +12182,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       intVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -11594,6 +12191,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -11610,7 +12208,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       intVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -11619,6 +12217,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -11635,7 +12234,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       intVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -11644,6 +12243,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
   }
 
@@ -11782,160 +12382,176 @@ object MemoryHandle {
     def get[R <: Global](mem: Memory[L, R], x1: Long)(
       implicit
       region: Region[R],
-    ): Long =
+    ): Long = {
       longVh.get(mem.asJava, (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 3)
+    }
 
     @IntrinsicCandidate
     @inline
     def get[R <: Global](mem: Memory[L, R], x1: Int)(
       implicit
       region: Region[R],
-    ): Long =
+    ): Long = {
       longVh.get(mem.asJava, (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 3)
+    }
 
     @IntrinsicCandidate
     @inline
     def getVolatile[R <: Global](mem: Memory[L, R], x1: Long)(
       implicit
       region: Region[R],
-    ): Long =
+    ): Long = {
       longVh
         .getVolatile(mem.asJava, (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 3)
+    }
 
     @IntrinsicCandidate
     @inline
     def getVolatile[R <: Global](mem: Memory[L, R], x1: Int)(
       implicit
       region: Region[R],
-    ): Long =
+    ): Long = {
       longVh
         .getVolatile(mem.asJava, (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 3)
+    }
 
     @IntrinsicCandidate
     @inline
     def getOpaque[R <: Global](mem: Memory[L, R], x1: Long)(
       implicit
       region: Region[R],
-    ): Long =
+    ): Long = {
       longVh
         .getOpaque(mem.asJava, (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 3)
+    }
 
     @IntrinsicCandidate
     @inline
     def getOpaque[R <: Global](mem: Memory[L, R], x1: Int)(
       implicit
       region: Region[R],
-    ): Long =
+    ): Long = {
       longVh
         .getOpaque(mem.asJava, (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 3)
+    }
 
     @IntrinsicCandidate
     @inline
     def getAcquire[R <: Global](mem: Memory[L, R], x1: Long)(
       implicit
       region: Region[R],
-    ): Long =
+    ): Long = {
       longVh
         .getAcquire(mem.asJava, (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 3)
+    }
 
     @IntrinsicCandidate
     @inline
     def getAcquire[R <: Global](mem: Memory[L, R], x1: Int)(
       implicit
       region: Region[R],
-    ): Long =
+    ): Long = {
       longVh
         .getAcquire(mem.asJava, (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 3)
+    }
 
     @IntrinsicCandidate
     @inline
     def set[R <: Global](mem: Memory[L, R], value: Long, x1: Long)(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       longVh
         .set(mem.asJava, (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 3, value)
+    }
 
     @IntrinsicCandidate
     @inline
     def set[R <: Global](mem: Memory[L, R], value: Long, x1: Int)(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       longVh
         .set(mem.asJava, (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 3, value)
+    }
 
     @IntrinsicCandidate
     @inline
     def setVolatile[R <: Global](mem: Memory[L, R], value: Long, x1: Long)(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       longVh.setVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def setVolatile[R <: Global](mem: Memory[L, R], value: Long, x1: Int)(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       longVh.setVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def setOpaque[R <: Global](mem: Memory[L, R], value: Long, x1: Long)(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       longVh.setOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def setOpaque[R <: Global](mem: Memory[L, R], value: Long, x1: Int)(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       longVh.setOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def setRelease[R <: Global](mem: Memory[L, R], value: Long, x1: Long)(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       longVh.setRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def setRelease[R <: Global](mem: Memory[L, R], value: Long, x1: Int)(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       longVh.setRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -11947,13 +12563,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       longVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 3,
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -11965,13 +12582,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       longVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 3,
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -11983,13 +12601,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       longVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 3,
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -12001,13 +12620,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       longVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 3,
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -12019,13 +12639,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       longVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 3,
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -12037,13 +12658,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       longVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 3,
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -12055,13 +12677,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       longVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 3,
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -12073,13 +12696,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       longVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 3,
         expectedValue,
         newValue,
       )
+    }
 
   }
 
@@ -12092,132 +12716,142 @@ object MemoryHandle {
     def get[R <: Global](mem: Memory[L, R], x1: Long, x2: Long)(
       implicit
       region: Region[R],
-    ): Long =
+    ): Long = {
       longVh.get(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
           .offset2) >>
           3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def get[R <: Global](mem: Memory[L, R], x1: Int, x2: Int)(
       implicit
       region: Region[R],
-    ): Long =
+    ): Long = {
       longVh.get(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
           .offset2) >>
           3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def getVolatile[R <: Global](mem: Memory[L, R], x1: Long, x2: Long)(
       implicit
       region: Region[R],
-    ): Long =
+    ): Long = {
       longVh.getVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
           .offset2) >>
           3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def getVolatile[R <: Global](mem: Memory[L, R], x1: Int, x2: Int)(
       implicit
       region: Region[R],
-    ): Long =
+    ): Long = {
       longVh.getVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
           .offset2) >>
           3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def getOpaque[R <: Global](mem: Memory[L, R], x1: Long, x2: Long)(
       implicit
       region: Region[R],
-    ): Long =
+    ): Long = {
       longVh.getOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
           .offset2) >>
           3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def getOpaque[R <: Global](mem: Memory[L, R], x1: Int, x2: Int)(
       implicit
       region: Region[R],
-    ): Long =
+    ): Long = {
       longVh.getOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
           .offset2) >>
           3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def getAcquire[R <: Global](mem: Memory[L, R], x1: Long, x2: Long)(
       implicit
       region: Region[R],
-    ): Long =
+    ): Long = {
       longVh.getAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
           .offset2) >>
           3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def getAcquire[R <: Global](mem: Memory[L, R], x1: Int, x2: Int)(
       implicit
       region: Region[R],
-    ): Long =
+    ): Long = {
       longVh.getAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
           .offset2) >>
           3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def set[R <: Global](mem: Memory[L, R], value: Long, x1: Long, x2: Long)(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       longVh.set(
         mem.asJava,
-        (vh.offset0 + vh
-          .step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2) >>
+        (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh
+          .step2 * x2 + vh.offset2) >>
           3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def set[R <: Global](mem: Memory[L, R], value: Long, x1: Int, x2: Int)(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       longVh.set(
         mem.asJava,
-        (vh.offset0 + vh
-          .step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2) >>
+        (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh
+          .step2 * x2 + vh.offset2) >>
           3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -12229,14 +12863,15 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       longVh.setVolatile(
         mem.asJava,
-        (vh.offset0 + vh
-          .step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2) >>
+        (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh
+          .step2 * x2 + vh.offset2) >>
           3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -12248,14 +12883,15 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       longVh.setVolatile(
         mem.asJava,
-        (vh.offset0 + vh
-          .step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2) >>
+        (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh
+          .step2 * x2 + vh.offset2) >>
           3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -12267,14 +12903,15 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       longVh.setOpaque(
         mem.asJava,
-        (vh.offset0 + vh
-          .step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2) >>
+        (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh
+          .step2 * x2 + vh.offset2) >>
           3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -12286,14 +12923,15 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       longVh.setOpaque(
         mem.asJava,
-        (vh.offset0 + vh
-          .step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2) >>
+        (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh
+          .step2 * x2 + vh.offset2) >>
           3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -12305,14 +12943,15 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       longVh.setRelease(
         mem.asJava,
-        (vh.offset0 + vh
-          .step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2) >>
+        (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh
+          .step2 * x2 + vh.offset2) >>
           3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -12324,14 +12963,15 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       longVh.setRelease(
         mem.asJava,
-        (vh.offset0 + vh
-          .step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2) >>
+        (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh
+          .step2 * x2 + vh.offset2) >>
           3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -12344,7 +12984,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       longVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh
@@ -12353,6 +12993,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -12365,7 +13006,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       longVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh
@@ -12374,6 +13015,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -12386,7 +13028,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       longVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh
@@ -12395,6 +13037,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -12407,7 +13050,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       longVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh
@@ -12416,6 +13059,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -12428,7 +13072,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       longVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh
@@ -12437,6 +13081,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -12449,7 +13094,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       longVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh
@@ -12458,6 +13103,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -12470,7 +13116,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       longVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh
@@ -12479,6 +13125,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -12491,7 +13138,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       longVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh
@@ -12500,6 +13147,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
   }
 
@@ -12512,24 +13160,26 @@ object MemoryHandle {
     def get[R <: Global](mem: Memory[L, R], x1: Long, x2: Long, x3: Long)(
       implicit
       region: Region[R],
-    ): Long =
+    ): Long = {
       longVh.get(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def get[R <: Global](mem: Memory[L, R], x1: Int, x2: Int, x3: Int)(
       implicit
       region: Region[R],
-    ): Long =
+    ): Long = {
       longVh.get(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -12541,48 +13191,52 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Long =
+    ): Long = {
       longVh.getVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def getVolatile[R <: Global](mem: Memory[L, R], x1: Int, x2: Int, x3: Int)(
       implicit
       region: Region[R],
-    ): Long =
+    ): Long = {
       longVh.getVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def getOpaque[R <: Global](mem: Memory[L, R], x1: Long, x2: Long, x3: Long)(
       implicit
       region: Region[R],
-    ): Long =
+    ): Long = {
       longVh.getOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def getOpaque[R <: Global](mem: Memory[L, R], x1: Int, x2: Int, x3: Int)(
       implicit
       region: Region[R],
-    ): Long =
+    ): Long = {
       longVh.getOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -12594,24 +13248,26 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Long =
+    ): Long = {
       longVh.getAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def getAcquire[R <: Global](mem: Memory[L, R], x1: Int, x2: Int, x3: Int)(
       implicit
       region: Region[R],
-    ): Long =
+    ): Long = {
       longVh.getAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -12624,13 +13280,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       longVh.set(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -12643,13 +13300,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       longVh.set(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -12662,13 +13320,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       longVh.setVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -12681,13 +13340,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       longVh.setVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -12700,13 +13360,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       longVh.setOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -12719,13 +13380,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       longVh.setOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -12738,13 +13400,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       longVh.setRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -12757,13 +13420,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       longVh.setRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -12777,7 +13441,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       longVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -12785,6 +13449,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -12798,7 +13463,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       longVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -12806,6 +13471,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -12819,7 +13485,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       longVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -12827,6 +13493,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -12840,7 +13507,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       longVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -12848,6 +13515,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -12861,7 +13529,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       longVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -12869,6 +13537,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -12882,7 +13551,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       longVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -12890,6 +13559,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -12903,7 +13573,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       longVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -12911,6 +13581,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -12924,7 +13595,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       longVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -12932,6 +13603,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
   }
 
@@ -12950,24 +13622,26 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Long =
+    ): Long = {
       longVh.get(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def get[R <: Global](mem: Memory[L, R], x1: Int, x2: Int, x3: Int, x4: Int)(
       implicit
       region: Region[R],
-    ): Long =
+    ): Long = {
       longVh.get(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -12980,12 +13654,13 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Long =
+    ): Long = {
       longVh.getVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -12998,12 +13673,13 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Long =
+    ): Long = {
       longVh.getVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -13016,12 +13692,13 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Long =
+    ): Long = {
       longVh.getOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -13034,12 +13711,13 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Long =
+    ): Long = {
       longVh.getOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -13052,12 +13730,13 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Long =
+    ): Long = {
       longVh.getAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -13070,12 +13749,13 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Long =
+    ): Long = {
       longVh.getAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -13089,13 +13769,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       longVh.set(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -13109,13 +13790,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       longVh.set(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -13129,13 +13811,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       longVh.setVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -13149,13 +13832,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       longVh.setVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -13169,13 +13853,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       longVh.setOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -13189,13 +13874,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       longVh.setOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -13209,13 +13895,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       longVh.setRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -13229,13 +13916,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       longVh.setRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -13250,7 +13938,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       longVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -13258,6 +13946,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -13272,7 +13961,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       longVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -13280,6 +13969,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -13294,7 +13984,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       longVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -13302,6 +13992,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -13316,7 +14007,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       longVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -13324,6 +14015,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -13338,7 +14030,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       longVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -13346,6 +14038,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -13360,7 +14053,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       longVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -13368,6 +14061,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -13382,7 +14076,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       longVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -13390,6 +14084,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -13404,7 +14099,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       longVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -13412,6 +14107,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
   }
 
@@ -13431,13 +14127,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Long =
+    ): Long = {
       longVh.get(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5) >> 3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -13451,13 +14148,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Long =
+    ): Long = {
       longVh.get(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5) >> 3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -13471,13 +14169,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Long =
+    ): Long = {
       longVh.getVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5) >> 3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -13491,13 +14190,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Long =
+    ): Long = {
       longVh.getVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5) >> 3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -13511,13 +14211,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Long =
+    ): Long = {
       longVh.getOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5) >> 3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -13531,13 +14232,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Long =
+    ): Long = {
       longVh.getOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5) >> 3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -13551,13 +14253,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Long =
+    ): Long = {
       longVh.getAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5) >> 3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -13571,13 +14274,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Long =
+    ): Long = {
       longVh.getAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5) >> 3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -13592,7 +14296,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       longVh.set(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -13600,6 +14304,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5) >> 3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -13614,7 +14319,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       longVh.set(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -13622,6 +14327,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5) >> 3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -13636,7 +14342,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       longVh.setVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -13644,6 +14350,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5) >> 3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -13658,7 +14365,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       longVh.setVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -13666,6 +14373,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5) >> 3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -13680,7 +14388,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       longVh.setOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -13688,6 +14396,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5) >> 3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -13702,7 +14411,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       longVh.setOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -13710,6 +14419,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5) >> 3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -13724,7 +14434,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       longVh.setRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -13732,6 +14442,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5) >> 3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -13746,7 +14457,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       longVh.setRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -13754,6 +14465,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5) >> 3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -13769,7 +14481,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       longVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -13778,6 +14490,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -13793,7 +14506,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       longVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -13802,6 +14515,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -13817,7 +14531,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       longVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -13826,6 +14540,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -13841,7 +14556,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       longVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -13850,6 +14565,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -13865,7 +14581,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       longVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -13874,6 +14590,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -13889,7 +14606,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       longVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -13898,6 +14615,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -13913,7 +14631,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       longVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -13922,6 +14640,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -13937,7 +14656,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       longVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -13946,6 +14665,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
   }
 
@@ -13966,13 +14686,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Long =
+    ): Long = {
       longVh.get(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -13987,13 +14708,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Long =
+    ): Long = {
       longVh.get(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -14008,13 +14730,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Long =
+    ): Long = {
       longVh.getVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -14029,13 +14752,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Long =
+    ): Long = {
       longVh.getVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -14050,13 +14774,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Long =
+    ): Long = {
       longVh.getOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -14071,13 +14796,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Long =
+    ): Long = {
       longVh.getOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -14092,13 +14818,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Long =
+    ): Long = {
       longVh.getAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -14113,13 +14840,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Long =
+    ): Long = {
       longVh.getAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -14135,7 +14863,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       longVh.set(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -14143,6 +14871,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -14158,7 +14887,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       longVh.set(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -14166,6 +14895,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -14181,7 +14911,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       longVh.setVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -14189,6 +14919,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -14204,7 +14935,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       longVh.setVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -14212,6 +14943,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -14227,7 +14959,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       longVh.setOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -14235,6 +14967,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -14250,7 +14983,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       longVh.setOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -14258,6 +14991,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -14273,7 +15007,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       longVh.setRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -14281,6 +15015,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -14296,7 +15031,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       longVh.setRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -14304,6 +15039,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -14320,7 +15056,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       longVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -14329,6 +15065,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -14345,7 +15082,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       longVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -14354,6 +15091,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -14370,7 +15108,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       longVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -14379,6 +15117,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -14395,7 +15134,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       longVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -14404,6 +15143,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -14420,7 +15160,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       longVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -14429,6 +15169,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -14445,7 +15186,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       longVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -14454,6 +15195,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -14470,7 +15212,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       longVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -14479,6 +15221,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -14495,7 +15238,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       longVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -14504,6 +15247,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
   }
 
@@ -14642,160 +15386,176 @@ object MemoryHandle {
     def get[R <: Global](mem: Memory[L, R], x1: Long)(
       implicit
       region: Region[R],
-    ): Float =
+    ): Float = {
       floatVh.get(mem.asJava, (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 2)
+    }
 
     @IntrinsicCandidate
     @inline
     def get[R <: Global](mem: Memory[L, R], x1: Int)(
       implicit
       region: Region[R],
-    ): Float =
+    ): Float = {
       floatVh.get(mem.asJava, (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 2)
+    }
 
     @IntrinsicCandidate
     @inline
     def getVolatile[R <: Global](mem: Memory[L, R], x1: Long)(
       implicit
       region: Region[R],
-    ): Float =
+    ): Float = {
       floatVh
         .getVolatile(mem.asJava, (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 2)
+    }
 
     @IntrinsicCandidate
     @inline
     def getVolatile[R <: Global](mem: Memory[L, R], x1: Int)(
       implicit
       region: Region[R],
-    ): Float =
+    ): Float = {
       floatVh
         .getVolatile(mem.asJava, (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 2)
+    }
 
     @IntrinsicCandidate
     @inline
     def getOpaque[R <: Global](mem: Memory[L, R], x1: Long)(
       implicit
       region: Region[R],
-    ): Float =
+    ): Float = {
       floatVh
         .getOpaque(mem.asJava, (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 2)
+    }
 
     @IntrinsicCandidate
     @inline
     def getOpaque[R <: Global](mem: Memory[L, R], x1: Int)(
       implicit
       region: Region[R],
-    ): Float =
+    ): Float = {
       floatVh
         .getOpaque(mem.asJava, (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 2)
+    }
 
     @IntrinsicCandidate
     @inline
     def getAcquire[R <: Global](mem: Memory[L, R], x1: Long)(
       implicit
       region: Region[R],
-    ): Float =
+    ): Float = {
       floatVh
         .getAcquire(mem.asJava, (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 2)
+    }
 
     @IntrinsicCandidate
     @inline
     def getAcquire[R <: Global](mem: Memory[L, R], x1: Int)(
       implicit
       region: Region[R],
-    ): Float =
+    ): Float = {
       floatVh
         .getAcquire(mem.asJava, (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 2)
+    }
 
     @IntrinsicCandidate
     @inline
     def set[R <: Global](mem: Memory[L, R], value: Float, x1: Long)(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       floatVh
         .set(mem.asJava, (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 2, value)
+    }
 
     @IntrinsicCandidate
     @inline
     def set[R <: Global](mem: Memory[L, R], value: Float, x1: Int)(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       floatVh
         .set(mem.asJava, (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 2, value)
+    }
 
     @IntrinsicCandidate
     @inline
     def setVolatile[R <: Global](mem: Memory[L, R], value: Float, x1: Long)(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       floatVh.setVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def setVolatile[R <: Global](mem: Memory[L, R], value: Float, x1: Int)(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       floatVh.setVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def setOpaque[R <: Global](mem: Memory[L, R], value: Float, x1: Long)(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       floatVh.setOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def setOpaque[R <: Global](mem: Memory[L, R], value: Float, x1: Int)(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       floatVh.setOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def setRelease[R <: Global](mem: Memory[L, R], value: Float, x1: Long)(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       floatVh.setRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def setRelease[R <: Global](mem: Memory[L, R], value: Float, x1: Int)(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       floatVh.setRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -14807,13 +15567,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       floatVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 2,
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -14825,13 +15586,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       floatVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 2,
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -14843,13 +15605,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       floatVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 2,
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -14861,13 +15624,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       floatVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 2,
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -14879,13 +15643,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       floatVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 2,
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -14897,13 +15662,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       floatVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 2,
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -14915,13 +15681,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       floatVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 2,
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -14933,13 +15700,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       floatVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 2,
         expectedValue,
         newValue,
       )
+    }
 
   }
 
@@ -14952,132 +15720,142 @@ object MemoryHandle {
     def get[R <: Global](mem: Memory[L, R], x1: Long, x2: Long)(
       implicit
       region: Region[R],
-    ): Float =
+    ): Float = {
       floatVh.get(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
           .offset2) >>
           2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def get[R <: Global](mem: Memory[L, R], x1: Int, x2: Int)(
       implicit
       region: Region[R],
-    ): Float =
+    ): Float = {
       floatVh.get(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
           .offset2) >>
           2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def getVolatile[R <: Global](mem: Memory[L, R], x1: Long, x2: Long)(
       implicit
       region: Region[R],
-    ): Float =
+    ): Float = {
       floatVh.getVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
           .offset2) >>
           2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def getVolatile[R <: Global](mem: Memory[L, R], x1: Int, x2: Int)(
       implicit
       region: Region[R],
-    ): Float =
+    ): Float = {
       floatVh.getVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
           .offset2) >>
           2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def getOpaque[R <: Global](mem: Memory[L, R], x1: Long, x2: Long)(
       implicit
       region: Region[R],
-    ): Float =
+    ): Float = {
       floatVh.getOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
           .offset2) >>
           2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def getOpaque[R <: Global](mem: Memory[L, R], x1: Int, x2: Int)(
       implicit
       region: Region[R],
-    ): Float =
+    ): Float = {
       floatVh.getOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
           .offset2) >>
           2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def getAcquire[R <: Global](mem: Memory[L, R], x1: Long, x2: Long)(
       implicit
       region: Region[R],
-    ): Float =
+    ): Float = {
       floatVh.getAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
           .offset2) >>
           2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def getAcquire[R <: Global](mem: Memory[L, R], x1: Int, x2: Int)(
       implicit
       region: Region[R],
-    ): Float =
+    ): Float = {
       floatVh.getAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
           .offset2) >>
           2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def set[R <: Global](mem: Memory[L, R], value: Float, x1: Long, x2: Long)(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       floatVh.set(
         mem.asJava,
-        (vh.offset0 + vh
-          .step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2) >>
+        (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh
+          .step2 * x2 + vh.offset2) >>
           2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def set[R <: Global](mem: Memory[L, R], value: Float, x1: Int, x2: Int)(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       floatVh.set(
         mem.asJava,
-        (vh.offset0 + vh
-          .step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2) >>
+        (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh
+          .step2 * x2 + vh.offset2) >>
           2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -15089,14 +15867,15 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       floatVh.setVolatile(
         mem.asJava,
-        (vh.offset0 + vh
-          .step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2) >>
+        (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh
+          .step2 * x2 + vh.offset2) >>
           2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -15108,14 +15887,15 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       floatVh.setVolatile(
         mem.asJava,
-        (vh.offset0 + vh
-          .step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2) >>
+        (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh
+          .step2 * x2 + vh.offset2) >>
           2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -15127,14 +15907,15 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       floatVh.setOpaque(
         mem.asJava,
-        (vh.offset0 + vh
-          .step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2) >>
+        (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh
+          .step2 * x2 + vh.offset2) >>
           2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -15146,14 +15927,15 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       floatVh.setOpaque(
         mem.asJava,
-        (vh.offset0 + vh
-          .step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2) >>
+        (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh
+          .step2 * x2 + vh.offset2) >>
           2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -15165,14 +15947,15 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       floatVh.setRelease(
         mem.asJava,
-        (vh.offset0 + vh
-          .step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2) >>
+        (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh
+          .step2 * x2 + vh.offset2) >>
           2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -15184,14 +15967,15 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       floatVh.setRelease(
         mem.asJava,
-        (vh.offset0 + vh
-          .step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2) >>
+        (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh
+          .step2 * x2 + vh.offset2) >>
           2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -15204,7 +15988,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       floatVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh
@@ -15213,6 +15997,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -15225,7 +16010,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       floatVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh
@@ -15234,6 +16019,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -15246,7 +16032,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       floatVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh
@@ -15255,6 +16041,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -15267,7 +16054,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       floatVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh
@@ -15276,6 +16063,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -15288,7 +16076,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       floatVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh
@@ -15297,6 +16085,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -15309,7 +16098,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       floatVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh
@@ -15318,6 +16107,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -15330,7 +16120,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       floatVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh
@@ -15339,6 +16129,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -15351,7 +16142,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       floatVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh
@@ -15360,6 +16151,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
   }
 
@@ -15372,24 +16164,26 @@ object MemoryHandle {
     def get[R <: Global](mem: Memory[L, R], x1: Long, x2: Long, x3: Long)(
       implicit
       region: Region[R],
-    ): Float =
+    ): Float = {
       floatVh.get(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def get[R <: Global](mem: Memory[L, R], x1: Int, x2: Int, x3: Int)(
       implicit
       region: Region[R],
-    ): Float =
+    ): Float = {
       floatVh.get(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -15401,48 +16195,52 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Float =
+    ): Float = {
       floatVh.getVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def getVolatile[R <: Global](mem: Memory[L, R], x1: Int, x2: Int, x3: Int)(
       implicit
       region: Region[R],
-    ): Float =
+    ): Float = {
       floatVh.getVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def getOpaque[R <: Global](mem: Memory[L, R], x1: Long, x2: Long, x3: Long)(
       implicit
       region: Region[R],
-    ): Float =
+    ): Float = {
       floatVh.getOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def getOpaque[R <: Global](mem: Memory[L, R], x1: Int, x2: Int, x3: Int)(
       implicit
       region: Region[R],
-    ): Float =
+    ): Float = {
       floatVh.getOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -15454,24 +16252,26 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Float =
+    ): Float = {
       floatVh.getAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def getAcquire[R <: Global](mem: Memory[L, R], x1: Int, x2: Int, x3: Int)(
       implicit
       region: Region[R],
-    ): Float =
+    ): Float = {
       floatVh.getAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -15484,13 +16284,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       floatVh.set(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -15503,13 +16304,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       floatVh.set(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -15522,13 +16324,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       floatVh.setVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -15541,13 +16344,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       floatVh.setVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -15560,13 +16364,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       floatVh.setOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -15579,13 +16384,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       floatVh.setOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -15598,13 +16404,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       floatVh.setRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -15617,13 +16424,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       floatVh.setRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -15637,7 +16445,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       floatVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -15645,6 +16453,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -15658,7 +16467,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       floatVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -15666,6 +16475,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -15679,7 +16489,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       floatVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -15687,6 +16497,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -15700,7 +16511,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       floatVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -15708,6 +16519,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -15721,7 +16533,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       floatVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -15729,6 +16541,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -15742,7 +16555,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       floatVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -15750,6 +16563,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -15763,7 +16577,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       floatVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -15771,6 +16585,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -15784,7 +16599,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       floatVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -15792,6 +16607,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
   }
 
@@ -15810,24 +16626,26 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Float =
+    ): Float = {
       floatVh.get(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def get[R <: Global](mem: Memory[L, R], x1: Int, x2: Int, x3: Int, x4: Int)(
       implicit
       region: Region[R],
-    ): Float =
+    ): Float = {
       floatVh.get(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -15840,12 +16658,13 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Float =
+    ): Float = {
       floatVh.getVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -15858,12 +16677,13 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Float =
+    ): Float = {
       floatVh.getVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -15876,12 +16696,13 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Float =
+    ): Float = {
       floatVh.getOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -15894,12 +16715,13 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Float =
+    ): Float = {
       floatVh.getOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -15912,12 +16734,13 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Float =
+    ): Float = {
       floatVh.getAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -15930,12 +16753,13 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Float =
+    ): Float = {
       floatVh.getAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -15949,13 +16773,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       floatVh.set(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -15969,13 +16794,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       floatVh.set(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -15989,13 +16815,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       floatVh.setVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -16009,13 +16836,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       floatVh.setVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -16029,13 +16857,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       floatVh.setOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -16049,13 +16878,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       floatVh.setOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -16069,13 +16899,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       floatVh.setRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -16089,13 +16920,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       floatVh.setRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -16110,7 +16942,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       floatVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -16118,6 +16950,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -16132,7 +16965,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       floatVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -16140,6 +16973,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -16154,7 +16988,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       floatVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -16162,6 +16996,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -16176,7 +17011,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       floatVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -16184,6 +17019,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -16198,7 +17034,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       floatVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -16206,6 +17042,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -16220,7 +17057,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       floatVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -16228,6 +17065,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -16242,7 +17080,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       floatVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -16250,6 +17088,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -16264,7 +17103,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       floatVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -16272,6 +17111,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
   }
 
@@ -16291,13 +17131,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Float =
+    ): Float = {
       floatVh.get(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5) >> 2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -16311,13 +17152,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Float =
+    ): Float = {
       floatVh.get(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5) >> 2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -16331,13 +17173,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Float =
+    ): Float = {
       floatVh.getVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5) >> 2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -16351,13 +17194,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Float =
+    ): Float = {
       floatVh.getVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5) >> 2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -16371,13 +17215,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Float =
+    ): Float = {
       floatVh.getOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5) >> 2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -16391,13 +17236,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Float =
+    ): Float = {
       floatVh.getOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5) >> 2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -16411,13 +17257,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Float =
+    ): Float = {
       floatVh.getAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5) >> 2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -16431,13 +17278,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Float =
+    ): Float = {
       floatVh.getAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5) >> 2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -16452,7 +17300,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       floatVh.set(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -16460,6 +17308,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5) >> 2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -16474,7 +17323,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       floatVh.set(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -16482,6 +17331,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5) >> 2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -16496,7 +17346,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       floatVh.setVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -16504,6 +17354,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5) >> 2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -16518,7 +17369,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       floatVh.setVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -16526,6 +17377,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5) >> 2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -16540,7 +17392,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       floatVh.setOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -16548,6 +17400,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5) >> 2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -16562,7 +17415,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       floatVh.setOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -16570,6 +17423,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5) >> 2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -16584,7 +17438,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       floatVh.setRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -16592,6 +17446,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5) >> 2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -16606,7 +17461,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       floatVh.setRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -16614,6 +17469,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5) >> 2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -16629,7 +17485,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       floatVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -16638,6 +17494,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -16653,7 +17510,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       floatVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -16662,6 +17519,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -16677,7 +17535,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       floatVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -16686,6 +17544,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -16701,7 +17560,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       floatVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -16710,6 +17569,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -16725,7 +17585,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       floatVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -16734,6 +17594,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -16749,7 +17610,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       floatVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -16758,6 +17619,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -16773,7 +17635,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       floatVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -16782,6 +17644,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -16797,7 +17660,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       floatVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -16806,6 +17669,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
   }
 
@@ -16826,13 +17690,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Float =
+    ): Float = {
       floatVh.get(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -16847,13 +17712,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Float =
+    ): Float = {
       floatVh.get(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -16868,13 +17734,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Float =
+    ): Float = {
       floatVh.getVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -16889,13 +17756,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Float =
+    ): Float = {
       floatVh.getVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -16910,13 +17778,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Float =
+    ): Float = {
       floatVh.getOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -16931,13 +17800,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Float =
+    ): Float = {
       floatVh.getOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -16952,13 +17822,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Float =
+    ): Float = {
       floatVh.getAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -16973,13 +17844,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Float =
+    ): Float = {
       floatVh.getAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 2,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -16995,7 +17867,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       floatVh.set(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -17003,6 +17875,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -17018,7 +17891,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       floatVh.set(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -17026,6 +17899,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -17041,7 +17915,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       floatVh.setVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -17049,6 +17923,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -17064,7 +17939,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       floatVh.setVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -17072,6 +17947,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -17087,7 +17963,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       floatVh.setOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -17095,6 +17971,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -17110,7 +17987,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       floatVh.setOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -17118,6 +17995,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -17133,7 +18011,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       floatVh.setRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -17141,6 +18019,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -17156,7 +18035,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       floatVh.setRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -17164,6 +18043,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 2,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -17180,7 +18060,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       floatVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -17189,6 +18069,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -17205,7 +18086,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       floatVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -17214,6 +18095,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -17230,7 +18112,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       floatVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -17239,6 +18121,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -17255,7 +18138,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       floatVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -17264,6 +18147,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -17280,7 +18164,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       floatVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -17289,6 +18173,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -17305,7 +18190,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       floatVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -17314,6 +18199,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -17330,7 +18216,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       floatVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -17339,6 +18225,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -17355,7 +18242,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       floatVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -17364,6 +18251,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
   }
 
@@ -17502,160 +18390,176 @@ object MemoryHandle {
     def get[R <: Global](mem: Memory[L, R], x1: Long)(
       implicit
       region: Region[R],
-    ): Double =
+    ): Double = {
       doubleVh.get(mem.asJava, (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 3)
+    }
 
     @IntrinsicCandidate
     @inline
     def get[R <: Global](mem: Memory[L, R], x1: Int)(
       implicit
       region: Region[R],
-    ): Double =
+    ): Double = {
       doubleVh.get(mem.asJava, (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 3)
+    }
 
     @IntrinsicCandidate
     @inline
     def getVolatile[R <: Global](mem: Memory[L, R], x1: Long)(
       implicit
       region: Region[R],
-    ): Double =
+    ): Double = {
       doubleVh
         .getVolatile(mem.asJava, (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 3)
+    }
 
     @IntrinsicCandidate
     @inline
     def getVolatile[R <: Global](mem: Memory[L, R], x1: Int)(
       implicit
       region: Region[R],
-    ): Double =
+    ): Double = {
       doubleVh
         .getVolatile(mem.asJava, (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 3)
+    }
 
     @IntrinsicCandidate
     @inline
     def getOpaque[R <: Global](mem: Memory[L, R], x1: Long)(
       implicit
       region: Region[R],
-    ): Double =
+    ): Double = {
       doubleVh
         .getOpaque(mem.asJava, (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 3)
+    }
 
     @IntrinsicCandidate
     @inline
     def getOpaque[R <: Global](mem: Memory[L, R], x1: Int)(
       implicit
       region: Region[R],
-    ): Double =
+    ): Double = {
       doubleVh
         .getOpaque(mem.asJava, (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 3)
+    }
 
     @IntrinsicCandidate
     @inline
     def getAcquire[R <: Global](mem: Memory[L, R], x1: Long)(
       implicit
       region: Region[R],
-    ): Double =
+    ): Double = {
       doubleVh
         .getAcquire(mem.asJava, (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 3)
+    }
 
     @IntrinsicCandidate
     @inline
     def getAcquire[R <: Global](mem: Memory[L, R], x1: Int)(
       implicit
       region: Region[R],
-    ): Double =
+    ): Double = {
       doubleVh
         .getAcquire(mem.asJava, (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 3)
+    }
 
     @IntrinsicCandidate
     @inline
     def set[R <: Global](mem: Memory[L, R], value: Double, x1: Long)(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       doubleVh
         .set(mem.asJava, (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 3, value)
+    }
 
     @IntrinsicCandidate
     @inline
     def set[R <: Global](mem: Memory[L, R], value: Double, x1: Int)(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       doubleVh
         .set(mem.asJava, (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 3, value)
+    }
 
     @IntrinsicCandidate
     @inline
     def setVolatile[R <: Global](mem: Memory[L, R], value: Double, x1: Long)(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       doubleVh.setVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def setVolatile[R <: Global](mem: Memory[L, R], value: Double, x1: Int)(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       doubleVh.setVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def setOpaque[R <: Global](mem: Memory[L, R], value: Double, x1: Long)(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       doubleVh.setOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def setOpaque[R <: Global](mem: Memory[L, R], value: Double, x1: Int)(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       doubleVh.setOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def setRelease[R <: Global](mem: Memory[L, R], value: Double, x1: Long)(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       doubleVh.setRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def setRelease[R <: Global](mem: Memory[L, R], value: Double, x1: Int)(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       doubleVh.setRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -17667,13 +18571,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       doubleVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 3,
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -17685,13 +18590,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       doubleVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 3,
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -17703,13 +18609,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       doubleVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 3,
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -17721,13 +18628,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       doubleVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 3,
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -17739,13 +18647,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       doubleVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 3,
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -17757,13 +18666,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       doubleVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 3,
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -17775,13 +18685,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       doubleVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 3,
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -17793,13 +18704,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       doubleVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1) >> 3,
         expectedValue,
         newValue,
       )
+    }
 
   }
 
@@ -17812,132 +18724,142 @@ object MemoryHandle {
     def get[R <: Global](mem: Memory[L, R], x1: Long, x2: Long)(
       implicit
       region: Region[R],
-    ): Double =
+    ): Double = {
       doubleVh.get(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
           .offset2) >>
           3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def get[R <: Global](mem: Memory[L, R], x1: Int, x2: Int)(
       implicit
       region: Region[R],
-    ): Double =
+    ): Double = {
       doubleVh.get(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
           .offset2) >>
           3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def getVolatile[R <: Global](mem: Memory[L, R], x1: Long, x2: Long)(
       implicit
       region: Region[R],
-    ): Double =
+    ): Double = {
       doubleVh.getVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
           .offset2) >>
           3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def getVolatile[R <: Global](mem: Memory[L, R], x1: Int, x2: Int)(
       implicit
       region: Region[R],
-    ): Double =
+    ): Double = {
       doubleVh.getVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
           .offset2) >>
           3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def getOpaque[R <: Global](mem: Memory[L, R], x1: Long, x2: Long)(
       implicit
       region: Region[R],
-    ): Double =
+    ): Double = {
       doubleVh.getOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
           .offset2) >>
           3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def getOpaque[R <: Global](mem: Memory[L, R], x1: Int, x2: Int)(
       implicit
       region: Region[R],
-    ): Double =
+    ): Double = {
       doubleVh.getOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
           .offset2) >>
           3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def getAcquire[R <: Global](mem: Memory[L, R], x1: Long, x2: Long)(
       implicit
       region: Region[R],
-    ): Double =
+    ): Double = {
       doubleVh.getAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
           .offset2) >>
           3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def getAcquire[R <: Global](mem: Memory[L, R], x1: Int, x2: Int)(
       implicit
       region: Region[R],
-    ): Double =
+    ): Double = {
       doubleVh.getAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
           .offset2) >>
           3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def set[R <: Global](mem: Memory[L, R], value: Double, x1: Long, x2: Long)(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       doubleVh.set(
         mem.asJava,
-        (vh.offset0 + vh
-          .step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2) >>
+        (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh
+          .step2 * x2 + vh.offset2) >>
           3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def set[R <: Global](mem: Memory[L, R], value: Double, x1: Int, x2: Int)(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       doubleVh.set(
         mem.asJava,
-        (vh.offset0 + vh
-          .step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2) >>
+        (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh
+          .step2 * x2 + vh.offset2) >>
           3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -17949,14 +18871,15 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       doubleVh.setVolatile(
         mem.asJava,
-        (vh.offset0 + vh
-          .step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2) >>
+        (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh
+          .step2 * x2 + vh.offset2) >>
           3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -17968,14 +18891,15 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       doubleVh.setVolatile(
         mem.asJava,
-        (vh.offset0 + vh
-          .step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2) >>
+        (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh
+          .step2 * x2 + vh.offset2) >>
           3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -17987,14 +18911,15 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       doubleVh.setOpaque(
         mem.asJava,
-        (vh.offset0 + vh
-          .step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2) >>
+        (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh
+          .step2 * x2 + vh.offset2) >>
           3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -18006,14 +18931,15 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       doubleVh.setOpaque(
         mem.asJava,
-        (vh.offset0 + vh
-          .step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2) >>
+        (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh
+          .step2 * x2 + vh.offset2) >>
           3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -18025,14 +18951,15 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       doubleVh.setRelease(
         mem.asJava,
-        (vh.offset0 + vh
-          .step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2) >>
+        (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh
+          .step2 * x2 + vh.offset2) >>
           3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -18044,14 +18971,15 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       doubleVh.setRelease(
         mem.asJava,
-        (vh.offset0 + vh
-          .step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2) >>
+        (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh
+          .step2 * x2 + vh.offset2) >>
           3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -18064,7 +18992,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       doubleVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh
@@ -18073,6 +19001,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -18085,7 +19014,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       doubleVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh
@@ -18094,6 +19023,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -18106,7 +19036,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       doubleVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh
@@ -18115,6 +19045,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -18127,7 +19058,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       doubleVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh
@@ -18136,6 +19067,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -18148,7 +19080,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       doubleVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh
@@ -18157,6 +19089,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -18169,7 +19102,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       doubleVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh
@@ -18178,6 +19111,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -18190,7 +19124,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       doubleVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh
@@ -18199,6 +19133,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -18211,7 +19146,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       doubleVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh
@@ -18220,6 +19155,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
   }
 
@@ -18232,24 +19168,26 @@ object MemoryHandle {
     def get[R <: Global](mem: Memory[L, R], x1: Long, x2: Long, x3: Long)(
       implicit
       region: Region[R],
-    ): Double =
+    ): Double = {
       doubleVh.get(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def get[R <: Global](mem: Memory[L, R], x1: Int, x2: Int, x3: Int)(
       implicit
       region: Region[R],
-    ): Double =
+    ): Double = {
       doubleVh.get(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -18261,48 +19199,52 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Double =
+    ): Double = {
       doubleVh.getVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def getVolatile[R <: Global](mem: Memory[L, R], x1: Int, x2: Int, x3: Int)(
       implicit
       region: Region[R],
-    ): Double =
+    ): Double = {
       doubleVh.getVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def getOpaque[R <: Global](mem: Memory[L, R], x1: Long, x2: Long, x3: Long)(
       implicit
       region: Region[R],
-    ): Double =
+    ): Double = {
       doubleVh.getOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def getOpaque[R <: Global](mem: Memory[L, R], x1: Int, x2: Int, x3: Int)(
       implicit
       region: Region[R],
-    ): Double =
+    ): Double = {
       doubleVh.getOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -18314,24 +19256,26 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Double =
+    ): Double = {
       doubleVh.getAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def getAcquire[R <: Global](mem: Memory[L, R], x1: Int, x2: Int, x3: Int)(
       implicit
       region: Region[R],
-    ): Double =
+    ): Double = {
       doubleVh.getAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -18344,13 +19288,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       doubleVh.set(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -18363,13 +19308,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       doubleVh.set(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -18382,13 +19328,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       doubleVh.setVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -18401,13 +19348,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       doubleVh.setVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -18420,13 +19368,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       doubleVh.setOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -18439,13 +19388,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       doubleVh.setOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -18458,13 +19408,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       doubleVh.setRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -18477,13 +19428,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       doubleVh.setRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3) >> 3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -18497,7 +19449,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       doubleVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -18505,6 +19457,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -18518,7 +19471,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       doubleVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -18526,6 +19479,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -18539,7 +19493,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       doubleVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -18547,6 +19501,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -18560,7 +19515,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       doubleVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -18568,6 +19523,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -18581,7 +19537,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       doubleVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -18589,6 +19545,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -18602,7 +19559,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       doubleVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -18610,6 +19567,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -18623,7 +19581,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       doubleVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -18631,6 +19589,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -18644,7 +19603,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       doubleVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -18652,6 +19611,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
   }
 
@@ -18670,24 +19630,26 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Double =
+    ): Double = {
       doubleVh.get(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
     def get[R <: Global](mem: Memory[L, R], x1: Int, x2: Int, x3: Int, x4: Int)(
       implicit
       region: Region[R],
-    ): Double =
+    ): Double = {
       doubleVh.get(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -18700,12 +19662,13 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Double =
+    ): Double = {
       doubleVh.getVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -18718,12 +19681,13 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Double =
+    ): Double = {
       doubleVh.getVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -18736,12 +19700,13 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Double =
+    ): Double = {
       doubleVh.getOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -18754,12 +19719,13 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Double =
+    ): Double = {
       doubleVh.getOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -18772,12 +19738,13 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Double =
+    ): Double = {
       doubleVh.getAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -18790,12 +19757,13 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Double =
+    ): Double = {
       doubleVh.getAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -18809,13 +19777,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       doubleVh.set(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -18829,13 +19798,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       doubleVh.set(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -18849,13 +19819,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       doubleVh.setVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -18869,13 +19840,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       doubleVh.setVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -18889,13 +19861,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       doubleVh.setOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -18909,13 +19882,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       doubleVh.setOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -18929,13 +19903,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       doubleVh.setRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -18949,13 +19924,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       doubleVh.setRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4) >> 3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -18970,7 +19946,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       doubleVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -18978,6 +19954,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -18992,7 +19969,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       doubleVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -19000,6 +19977,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -19014,7 +19992,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       doubleVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -19022,6 +20000,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -19036,7 +20015,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       doubleVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -19044,6 +20023,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -19058,7 +20038,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       doubleVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -19066,6 +20046,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -19080,7 +20061,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       doubleVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -19088,6 +20069,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -19102,7 +20084,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       doubleVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -19110,6 +20092,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -19124,7 +20107,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       doubleVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -19132,6 +20115,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
   }
 
@@ -19151,13 +20135,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Double =
+    ): Double = {
       doubleVh.get(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5) >> 3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -19171,13 +20156,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Double =
+    ): Double = {
       doubleVh.get(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5) >> 3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -19191,13 +20177,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Double =
+    ): Double = {
       doubleVh.getVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5) >> 3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -19211,13 +20198,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Double =
+    ): Double = {
       doubleVh.getVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5) >> 3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -19231,13 +20219,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Double =
+    ): Double = {
       doubleVh.getOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5) >> 3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -19251,13 +20240,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Double =
+    ): Double = {
       doubleVh.getOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5) >> 3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -19271,13 +20261,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Double =
+    ): Double = {
       doubleVh.getAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5) >> 3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -19291,13 +20282,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Double =
+    ): Double = {
       doubleVh.getAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5) >> 3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -19312,7 +20304,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       doubleVh.set(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -19320,6 +20312,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5) >> 3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -19334,7 +20327,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       doubleVh.set(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -19342,6 +20335,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5) >> 3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -19356,7 +20350,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       doubleVh.setVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -19364,6 +20358,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5) >> 3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -19378,7 +20373,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       doubleVh.setVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -19386,6 +20381,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5) >> 3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -19400,7 +20396,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       doubleVh.setOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -19408,6 +20404,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5) >> 3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -19422,7 +20419,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       doubleVh.setOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -19430,6 +20427,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5) >> 3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -19444,7 +20442,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       doubleVh.setRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -19452,6 +20450,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5) >> 3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -19466,7 +20465,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       doubleVh.setRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -19474,6 +20473,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5) >> 3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -19489,7 +20489,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       doubleVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -19498,6 +20498,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -19513,7 +20514,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       doubleVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -19522,6 +20523,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -19537,7 +20539,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       doubleVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -19546,6 +20548,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -19561,7 +20564,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       doubleVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -19570,6 +20573,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -19585,7 +20589,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       doubleVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -19594,6 +20598,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -19609,7 +20614,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       doubleVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -19618,6 +20623,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -19633,7 +20639,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       doubleVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -19642,6 +20648,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -19657,7 +20664,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       doubleVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -19666,6 +20673,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
   }
 
@@ -19686,13 +20694,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Double =
+    ): Double = {
       doubleVh.get(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -19707,13 +20716,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Double =
+    ): Double = {
       doubleVh.get(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -19728,13 +20738,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Double =
+    ): Double = {
       doubleVh.getVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -19749,13 +20760,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Double =
+    ): Double = {
       doubleVh.getVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -19770,13 +20782,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Double =
+    ): Double = {
       doubleVh.getOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -19791,13 +20804,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Double =
+    ): Double = {
       doubleVh.getOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -19812,13 +20826,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Double =
+    ): Double = {
       doubleVh.getAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -19833,13 +20848,14 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Double =
+    ): Double = {
       doubleVh.getAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
           vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4 +
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 3,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -19855,7 +20871,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       doubleVh.set(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -19863,6 +20879,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -19878,7 +20895,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       doubleVh.set(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -19886,6 +20903,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -19901,7 +20919,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       doubleVh.setVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -19909,6 +20927,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -19924,7 +20943,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       doubleVh.setVolatile(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -19932,6 +20951,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -19947,7 +20967,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       doubleVh.setOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -19955,6 +20975,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -19970,7 +20991,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       doubleVh.setOpaque(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -19978,6 +20999,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -19993,7 +21015,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       doubleVh.setRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -20001,6 +21023,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -20016,7 +21039,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Unit =
+    ): Unit = {
       doubleVh.setRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -20024,6 +21047,7 @@ object MemoryHandle {
           vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6) >> 3,
         value,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -20040,7 +21064,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       doubleVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -20049,6 +21073,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -20065,7 +21090,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       doubleVh.compareAndSet(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -20074,6 +21099,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -20090,7 +21116,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       doubleVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -20099,6 +21125,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -20115,7 +21142,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       doubleVh.weakCompareAndSetPlain(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -20124,6 +21151,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -20140,7 +21168,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       doubleVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -20149,6 +21177,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -20165,7 +21194,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       doubleVh.weakCompareAndSetAcquire(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -20174,6 +21203,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -20190,7 +21220,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       doubleVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -20199,6 +21229,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
     @IntrinsicCandidate
     @inline
@@ -20215,7 +21246,7 @@ object MemoryHandle {
     )(
       implicit
       region: Region[R],
-    ): Boolean =
+    ): Boolean = {
       doubleVh.weakCompareAndSetRelease(
         mem.asJava,
         (vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2 +
@@ -20224,6 +21255,7 @@ object MemoryHandle {
         expectedValue,
         newValue,
       )
+    }
 
   }
 

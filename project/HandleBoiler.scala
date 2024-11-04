@@ -2,12 +2,12 @@ import org.scalafmt.interfaces.Scalafmt
 
 import java.io.{File, PrintWriter}
 import scala.collection.immutable.HashMap
-import java.nio.file.Paths
+import java.nio.file.{Path, Paths}
 
 object HandleBoiler {
 
-  val scalafmt = Scalafmt.create(this.getClass.getClassLoader)
-  val config   = Paths.get(".scalafmt.conf")
+  val scalafmt: Scalafmt = Scalafmt.create(this.getClass.getClassLoader)
+  val config: Path = Paths.get(".scalafmt.conf")
 
   def format(source: String): String = {
     scalafmt.format(config, Paths.get("Generated.scala"), source)
@@ -51,7 +51,7 @@ object HandleBoiler {
     result
   }
 
-  val typeSize = HashMap(
+  val typeSize: HashMap[String, String] = HashMap(
     "Int"     -> "2",
     "Long"    -> "3",
     "Short"   -> "1",
@@ -62,7 +62,7 @@ object HandleBoiler {
     "Char"    -> "1",
   )
 
-  val vhName = (x: String) => x.toLowerCase() + "Vh"
+  val vhName: String => String = (x: String) => x.toLowerCase() + "Vh"
 
   def getMethodImpl(name: String)(typ: String, i: Int): String = {
     s"${vhName(typ)}.$name(mem.asJava, (${generateOffsetCalculation(i)}) >> ${typeSize(typ)})"
@@ -75,27 +75,32 @@ object HandleBoiler {
   def casMethodImpl(name: String)(typ: String, i: Int): String =
     s"${vhName(typ)}.$name(mem.asJava, (${generateOffsetCalculation(i)}) >> ${typeSize(typ)}, expectedValue, newValue)"
 
-  val methods = List(
-    ("get", (getMethod(withRegion = true) _, getMethodImpl _)),
-    ("getVolatile", (getMethod(withRegion = true) _, getMethodImpl _)),
-    ("getOpaque", (getMethod(withRegion = true) _, getMethodImpl _)),
-    ("getAcquire", (getMethod(withRegion = true) _, getMethodImpl _)),
-    ("set", (setMethod(withRegion = true) _, setMethodImpl _)),
-    ("setVolatile", (setMethod(withRegion = true) _, setMethodImpl _)),
-    ("setOpaque", (setMethod(withRegion = true) _, setMethodImpl _)),
-    ("setRelease", (setMethod(withRegion = true) _, setMethodImpl _)),
-    ("compareAndSet", (casMethod(withRegion = true) _, casMethodImpl _)),
+  val methods: List[
     (
-      "weakCompareAndSetPlain",
-      (casMethod(withRegion = true) _, casMethodImpl _),
+      String,
+      (
+        String => (String, Int, String) => String,
+        JavaSpecification => String => (String, Int) => String,
+      ),
     ),
+  ] = List(
+    ("get", (getMethod(withRegion = true), _.getMethodImpl)),
+    ("getVolatile", (getMethod(withRegion = true), _.getMethodImpl)),
+    ("getOpaque", (getMethod(withRegion = true), _.getMethodImpl)),
+    ("getAcquire", (getMethod(withRegion = true), _.getMethodImpl)),
+    ("set", (setMethod(withRegion = true), _.setMethodImpl)),
+    ("setVolatile", (setMethod(withRegion = true), _.setMethodImpl)),
+    ("setOpaque", (setMethod(withRegion = true), _.setMethodImpl)),
+    ("setRelease", (setMethod(withRegion = true), _.setMethodImpl)),
+    ("compareAndSet", (casMethod(withRegion = true), _.casMethodImpl)),
+    ("weakCompareAndSetPlain", (casMethod(withRegion = true), _.casMethodImpl)),
     (
       "weakCompareAndSetAcquire",
-      (casMethod(withRegion = true) _, casMethodImpl _),
+      (casMethod(withRegion = true), _.casMethodImpl),
     ),
     (
       "weakCompareAndSetRelease",
-      (casMethod(withRegion = true) _, casMethodImpl _),
+      (casMethod(withRegion = true), _.casMethodImpl),
     ),
   )
 
@@ -133,31 +138,41 @@ case class MemoryPtr$i[L <: Layout, @specialized(AllNumeric) T]private[alien](${
     s"""  implicit def ${tpe
         .toLowerCase}${i}Ops[L <: Layout](vh: MemoryPtr$i[L, $tpe]): $tpe${i}Ops[L] = $tpe${i}Ops(vh)"""
 
-  def impl(tpe: String, i: Int): String =
+  def impl(tpe: String, arity: Int)(
+    specification: JavaSpecification,
+  ): String = {
+    val hasIntParameters = arity != 0
     format(
-      s"""  implicit final class ${tpe}${i}Ops[L <: Layout](protected val vh: MemoryPtr$i[L, $tpe]) extends AnyVal {
+      s"""  implicit final class $tpe${arity}Ops[L <: Layout](protected val vh: MemoryPtr$arity[L, $tpe]) extends AnyVal {
 
 
 
 ${methods.flatMap { case (names, (method, impl)) =>
             names
               .split("\n")
-              .map { n =>
-                if (i == 0) {
+              .map { name =>
+                if (hasIntParameters) {
                   s"""
               @IntrinsicCandidate
               @inline
-              ${method("")(n, i, tpe)} = ${impl(n)(tpe, i)}
+              ${method("Long")(name, arity, tpe)} = {
+                ${impl(specification)(name)(tpe, arity)}
+              }
+              """.stripMargin ++ s"""
+              @IntrinsicCandidate
+              @inline
+              ${method("Int")(name, arity, tpe)} = {
+                ${impl(specification)(name)(tpe, arity)}
+              }
               """.stripMargin
                 } else {
                   s"""
               @IntrinsicCandidate
               @inline
-              ${method("Long")(n, i, tpe)} = ${impl(n)(tpe, i)}
-              """.stripMargin ++ s"""
-              @IntrinsicCandidate
-              @inline
-              ${method("Int")(n, i, tpe)} = ${impl(n)(tpe, i)}
+              ${method("")(name, arity, tpe)} = ${impl(specification)(name)(
+                      tpe,
+                      arity,
+                    )}
               """.stripMargin
                 }
               }
@@ -166,9 +181,12 @@ ${methods.flatMap { case (names, (method, impl)) =>
       }
      """.stripMargin,
     )
+  }
 
-  def memoryHandle =
-    format(s"""package alien.memory.handle
+  // todo support options for Boolean including in MemoryPtr_i or remove boolVh
+  def memoryHandle(specification: JavaSpecification): String =
+    format(
+      s"""package alien.memory.handle
 
 import alien.memory.{Global, Layout, Memory, Region}
 import jdk.internal.vm.annotation.IntrinsicCandidate
@@ -209,25 +227,26 @@ object MemoryHandle {
     .sequenceLayout(Long.MaxValue / ValueLayout.JAVA_BOOLEAN.byteSize(), ValueLayout.JAVA_BOOLEAN)
     .varHandle(PathElement.sequenceElement())
 
-
     trait MemoryHandleSyntax {
     ${{
-        for {
-          tpe <- List("Byte", "Short", "Char", "Int", "Long", "Float", "Double")
-          i   <- 0 to 6
-        } yield implSyntax(tpe, i)
-      }.mkString("\n")}
+          for {
+            tpe <-  SupportedTypes.values.map(_.typeName).toList
+            i <- 0 to 6
+          } yield implSyntax(tpe, i)
+        }.mkString("\n")}
 
     }
 ${{
-        for {
-          tpe <- List("Byte", "Short", "Char", "Int", "Long", "Float", "Double")
-          i   <- 0 to 6
-        } yield impl(tpe, i)
-      }.mkString("\n")}
+          for {
+            tpe <- SupportedTypes.values.map(_.typeName).toList
+            i <- 0 to 6
+          } yield impl(tpe, i)(specification)
+        }.mkString("\n")}
 }
-""")
+""",
+    )
 
+  // todo: create specified file with all required directories if absent
   def writeToFile(filename: String, contents: String): Unit = {
     val writer = new PrintWriter(new File(filename))
     writer.write(contents)
@@ -235,7 +254,7 @@ ${{
     writer.close()
   }
 
-  def generate(folder: String): Unit = {
+  def generate(folder: String, specification: JavaSpecification): Unit = {
     for (i <- 0 to 9) {
       writeToFile(
         folder +
@@ -245,9 +264,115 @@ ${{
     }
     writeToFile(
       folder +
-        s"src/main/scala/alien/memory/handle/MemoryHandle.generated.scala",
-      memoryHandle,
+        s"${specification.rootDir}/main/scala/alien/memory/handle/MemoryHandle.generated.scala",
+      memoryHandle(specification),
     )
   }
 
+  sealed trait JavaSpecification {
+    def version: Int
+    def rootDir: String
+
+    def getMethodImpl(methodName: String)(typ: String, arity: Int): String
+    def setMethodImpl(methodName: String)(typ: String, arity: Int): String
+    def casMethodImpl(methodName: String)(typ: String, arity: Int): String
+
+    protected def methodImpl(methodName: String, typ: String)(
+      applicationArgs: String*,
+    ): String = {
+      s"${vhName(typ)}.$methodName(mem.asJava${applicationArgs.mkString(
+          if (applicationArgs.isEmpty)
+            ""
+          else
+            ", ",
+          ",",
+          ")",
+        )}"
+    }
+
+  }
+
+  object JavaSpecification {
+
+    case object JAVA_21 extends JavaSpecification {
+
+      override def version: Int = 21
+
+      override def rootDir: String = "v21"
+
+      override def getMethodImpl(
+        methodName: String,
+      )(typ: String, arity: Int): String =
+        methodImpl(methodName, typ)(
+          s"(${generateOffsetCalculation(arity)}) >> ${typeSize(typ)}",
+        )
+
+      override def setMethodImpl(
+        methodName: String,
+      )(typ: String, arity: Int): String =
+        methodImpl(methodName, typ)(
+          s"(${generateOffsetCalculation(arity)}) >> ${typeSize(typ)}",
+          "value",
+        )
+
+      override def casMethodImpl(
+        methodName: String,
+      )(typ: String, arity: Int): String =
+        methodImpl(methodName, typ)(
+          s"(${generateOffsetCalculation(arity)}) >> ${typeSize(typ)}",
+          "expectedValue",
+          "newValue",
+        )
+
+    }
+
+    case object JAVA_22_23 extends JavaSpecification {
+
+      override def version: Int = 22
+
+      override def rootDir: String = "v22"
+
+      override def getMethodImpl(
+        methodName: String,
+      )(typ: String, arity: Int): String =
+        methodImpl(methodName, typ)(
+          s"${generateOffsetCalculation(arity)}",
+          "0L",
+        )
+
+      override def setMethodImpl(
+        methodName: String,
+      )(typ: String, arity: Int): String =
+        methodImpl(methodName, typ)(
+          s"${generateOffsetCalculation(arity)}",
+          "0L",
+          "value",
+        )
+
+      override def casMethodImpl(
+        methodName: String,
+      )(typ: String, arity: Int): String =
+        methodImpl(methodName, typ)(
+          s"${generateOffsetCalculation(arity)}",
+          "0L",
+          "expectedValue",
+          "newValue",
+        )
+    }
+  }
+
+  object SupportedTypes extends Enumeration {
+    protected case class TypeVal(typeName: String) extends super.Val
+    val BYTE: TypeVal = TypeVal("Byte")
+    val SHORT: TypeVal = TypeVal("Short")
+    val CHAR: TypeVal = TypeVal("Char")
+    val INT: TypeVal = TypeVal("Int")
+    val LONG: TypeVal = TypeVal("Long")
+    val FLOAT: TypeVal = TypeVal("Float")
+    val DOUBLE: TypeVal = TypeVal("Double")
+
+    import scala.language.implicitConversions
+
+    implicit def valueToTypeVal(x: Value): TypeVal = x.asInstanceOf[TypeVal]
+  }
 }
