@@ -30,8 +30,8 @@ cod
 # Mill specific
 out
 .bsp
-
-
+./target
+.scala-build
 
 # cross-jdk
 cross-jdk
