@@ -3,7 +3,7 @@ package alien.memory.handle
 import alien.memory.{Global, Layout, Memory, Region}
 import jdk.internal.vm.annotation.IntrinsicCandidate
 
-import java.lang.foreign.ValueLayout
+import java.lang.foreign.{MemorySegment, ValueLayout}
 
 object MemoryHandle {
 
@@ -269,6 +269,14 @@ object MemoryHandle {
       region: Region[R],
     ): Unit = mem.asJava.set(ValueLayout.JAVA_BYTE, vh.offset0, value)
 
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](mem: Memory[L, R], size: Int)(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem.asJava.asSlice(vh.offset0, size * ValueLayout.JAVA_BYTE.byteSize())
+
   }
 
   implicit final class Byte1Ops[L <: Layout](
@@ -321,6 +329,32 @@ object MemoryHandle {
           ValueLayout.JAVA_BYTE,
           vh.offset0 + vh.step1 * x1 + vh.offset1,
           value,
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](mem: Memory[L, R], x1: Long, size: Int)(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1,
+          size * ValueLayout.JAVA_BYTE.byteSize(),
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](mem: Memory[L, R], x1: Int, size: Int)(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1,
+          size * ValueLayout.JAVA_BYTE.byteSize(),
         )
 
   }
@@ -381,6 +415,42 @@ object MemoryHandle {
           ValueLayout.JAVA_BYTE,
           vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2,
           value,
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Long,
+      x2: Long,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2,
+          size * ValueLayout.JAVA_BYTE.byteSize(),
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Int,
+      x2: Int,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2,
+          size * ValueLayout.JAVA_BYTE.byteSize(),
         )
 
   }
@@ -457,6 +527,46 @@ object MemoryHandle {
           vh.offset0 + vh.step1 * x1 + vh.offset1 + vh
             .step2 * x2 + vh.offset2 + vh.step3 * x3 + vh.offset3,
           value,
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Long,
+      x2: Long,
+      x3: Long,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh
+            .offset1 + vh.step2 * x2 + vh.offset2 + vh.step3 * x3 + vh.offset3,
+          size * ValueLayout.JAVA_BYTE.byteSize(),
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Int,
+      x2: Int,
+      x3: Int,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh
+            .offset1 + vh.step2 * x2 + vh.offset2 + vh.step3 * x3 + vh.offset3,
+          size * ValueLayout.JAVA_BYTE.byteSize(),
         )
 
   }
@@ -541,6 +651,48 @@ object MemoryHandle {
           vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
             .offset2 + vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4,
           value,
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Long,
+      x2: Long,
+      x3: Long,
+      x4: Long,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
+            .offset2 + vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4,
+          size * ValueLayout.JAVA_BYTE.byteSize(),
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Int,
+      x2: Int,
+      x3: Int,
+      x4: Int,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
+            .offset2 + vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4,
+          size * ValueLayout.JAVA_BYTE.byteSize(),
         )
 
   }
@@ -639,6 +791,52 @@ object MemoryHandle {
             .step2 * x2 + vh.offset2 + vh.step3 * x3 + vh
             .offset3 + vh.step4 * x4 + vh.offset4 + vh.step5 * x5 + vh.offset5,
           value,
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Long,
+      x2: Long,
+      x3: Long,
+      x4: Long,
+      x5: Long,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh
+            .step2 * x2 + vh.offset2 + vh.step3 * x3 + vh
+            .offset3 + vh.step4 * x4 + vh.offset4 + vh.step5 * x5 + vh.offset5,
+          size * ValueLayout.JAVA_BYTE.byteSize(),
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Int,
+      x2: Int,
+      x3: Int,
+      x4: Int,
+      x5: Int,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh
+            .step2 * x2 + vh.offset2 + vh.step3 * x3 + vh
+            .offset3 + vh.step4 * x4 + vh.offset4 + vh.step5 * x5 + vh.offset5,
+          size * ValueLayout.JAVA_BYTE.byteSize(),
         )
 
   }
@@ -741,6 +939,54 @@ object MemoryHandle {
             .offset2 + vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh
             .offset4 + vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6,
           value,
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Long,
+      x2: Long,
+      x3: Long,
+      x4: Long,
+      x5: Long,
+      x6: Long,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
+            .offset2 + vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh
+            .offset4 + vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6,
+          size * ValueLayout.JAVA_BYTE.byteSize(),
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Int,
+      x2: Int,
+      x3: Int,
+      x4: Int,
+      x5: Int,
+      x6: Int,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
+            .offset2 + vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh
+            .offset4 + vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6,
+          size * ValueLayout.JAVA_BYTE.byteSize(),
         )
 
   }
@@ -851,6 +1097,58 @@ object MemoryHandle {
             .offset3 + vh.step4 * x4 + vh.offset4 + vh.step5 * x5 + vh
             .offset5 + vh.step6 * x6 + vh.offset6 + vh.step7 * x7 + vh.offset7,
           value,
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Long,
+      x2: Long,
+      x3: Long,
+      x4: Long,
+      x5: Long,
+      x6: Long,
+      x7: Long,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh
+            .offset1 + vh.step2 * x2 + vh.offset2 + vh.step3 * x3 + vh
+            .offset3 + vh.step4 * x4 + vh.offset4 + vh.step5 * x5 + vh
+            .offset5 + vh.step6 * x6 + vh.offset6 + vh.step7 * x7 + vh.offset7,
+          size * ValueLayout.JAVA_BYTE.byteSize(),
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Int,
+      x2: Int,
+      x3: Int,
+      x4: Int,
+      x5: Int,
+      x6: Int,
+      x7: Int,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh
+            .offset1 + vh.step2 * x2 + vh.offset2 + vh.step3 * x3 + vh
+            .offset3 + vh.step4 * x4 + vh.offset4 + vh.step5 * x5 + vh
+            .offset5 + vh.step6 * x6 + vh.offset6 + vh.step7 * x7 + vh.offset7,
+          size * ValueLayout.JAVA_BYTE.byteSize(),
         )
 
   }
@@ -965,6 +1263,60 @@ object MemoryHandle {
             .offset4 + vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh
             .offset6 + vh.step7 * x7 + vh.offset7 + vh.step8 * x8 + vh.offset8,
           value,
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Long,
+      x2: Long,
+      x3: Long,
+      x4: Long,
+      x5: Long,
+      x6: Long,
+      x7: Long,
+      x8: Long,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
+            .offset2 + vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh
+            .offset4 + vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh
+            .offset6 + vh.step7 * x7 + vh.offset7 + vh.step8 * x8 + vh.offset8,
+          size * ValueLayout.JAVA_BYTE.byteSize(),
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Int,
+      x2: Int,
+      x3: Int,
+      x4: Int,
+      x5: Int,
+      x6: Int,
+      x7: Int,
+      x8: Int,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
+            .offset2 + vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh
+            .offset4 + vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh
+            .offset6 + vh.step7 * x7 + vh.offset7 + vh.step8 * x8 + vh.offset8,
+          size * ValueLayout.JAVA_BYTE.byteSize(),
         )
 
   }
@@ -1089,6 +1441,64 @@ object MemoryHandle {
           value,
         )
 
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Long,
+      x2: Long,
+      x3: Long,
+      x4: Long,
+      x5: Long,
+      x6: Long,
+      x7: Long,
+      x8: Long,
+      x9: Long,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
+            .offset2 + vh.step3 * x3 + vh.offset3 + vh
+            .step4 * x4 + vh.offset4 + vh.step5 * x5 + vh
+            .offset5 + vh.step6 * x6 + vh.offset6 + vh.step7 * x7 + vh
+            .offset7 + vh.step8 * x8 + vh.offset8 + vh.step9 * x9 + vh.offset9,
+          size * ValueLayout.JAVA_BYTE.byteSize(),
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Int,
+      x2: Int,
+      x3: Int,
+      x4: Int,
+      x5: Int,
+      x6: Int,
+      x7: Int,
+      x8: Int,
+      x9: Int,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
+            .offset2 + vh.step3 * x3 + vh.offset3 + vh
+            .step4 * x4 + vh.offset4 + vh.step5 * x5 + vh
+            .offset5 + vh.step6 * x6 + vh.offset6 + vh.step7 * x7 + vh
+            .offset7 + vh.step8 * x8 + vh.offset8 + vh.step9 * x9 + vh.offset9,
+          size * ValueLayout.JAVA_BYTE.byteSize(),
+        )
+
   }
 
   implicit final class Short0Ops[L <: Layout](
@@ -1108,6 +1518,14 @@ object MemoryHandle {
       implicit
       region: Region[R],
     ): Unit = mem.asJava.set(ValueLayout.JAVA_SHORT, vh.offset0, value)
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](mem: Memory[L, R], size: Int)(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem.asJava.asSlice(vh.offset0, size * ValueLayout.JAVA_SHORT.byteSize())
 
   }
 
@@ -1161,6 +1579,32 @@ object MemoryHandle {
           ValueLayout.JAVA_SHORT,
           vh.offset0 + vh.step1 * x1 + vh.offset1,
           value,
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](mem: Memory[L, R], x1: Long, size: Int)(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1,
+          size * ValueLayout.JAVA_SHORT.byteSize(),
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](mem: Memory[L, R], x1: Int, size: Int)(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1,
+          size * ValueLayout.JAVA_SHORT.byteSize(),
         )
 
   }
@@ -1221,6 +1665,42 @@ object MemoryHandle {
           ValueLayout.JAVA_SHORT,
           vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2,
           value,
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Long,
+      x2: Long,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2,
+          size * ValueLayout.JAVA_SHORT.byteSize(),
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Int,
+      x2: Int,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2,
+          size * ValueLayout.JAVA_SHORT.byteSize(),
         )
 
   }
@@ -1297,6 +1777,46 @@ object MemoryHandle {
           vh.offset0 + vh.step1 * x1 + vh.offset1 + vh
             .step2 * x2 + vh.offset2 + vh.step3 * x3 + vh.offset3,
           value,
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Long,
+      x2: Long,
+      x3: Long,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh
+            .offset1 + vh.step2 * x2 + vh.offset2 + vh.step3 * x3 + vh.offset3,
+          size * ValueLayout.JAVA_SHORT.byteSize(),
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Int,
+      x2: Int,
+      x3: Int,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh
+            .offset1 + vh.step2 * x2 + vh.offset2 + vh.step3 * x3 + vh.offset3,
+          size * ValueLayout.JAVA_SHORT.byteSize(),
         )
 
   }
@@ -1381,6 +1901,48 @@ object MemoryHandle {
           vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
             .offset2 + vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4,
           value,
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Long,
+      x2: Long,
+      x3: Long,
+      x4: Long,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
+            .offset2 + vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4,
+          size * ValueLayout.JAVA_SHORT.byteSize(),
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Int,
+      x2: Int,
+      x3: Int,
+      x4: Int,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
+            .offset2 + vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4,
+          size * ValueLayout.JAVA_SHORT.byteSize(),
         )
 
   }
@@ -1479,6 +2041,52 @@ object MemoryHandle {
             .step2 * x2 + vh.offset2 + vh.step3 * x3 + vh
             .offset3 + vh.step4 * x4 + vh.offset4 + vh.step5 * x5 + vh.offset5,
           value,
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Long,
+      x2: Long,
+      x3: Long,
+      x4: Long,
+      x5: Long,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh
+            .step2 * x2 + vh.offset2 + vh.step3 * x3 + vh
+            .offset3 + vh.step4 * x4 + vh.offset4 + vh.step5 * x5 + vh.offset5,
+          size * ValueLayout.JAVA_SHORT.byteSize(),
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Int,
+      x2: Int,
+      x3: Int,
+      x4: Int,
+      x5: Int,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh
+            .step2 * x2 + vh.offset2 + vh.step3 * x3 + vh
+            .offset3 + vh.step4 * x4 + vh.offset4 + vh.step5 * x5 + vh.offset5,
+          size * ValueLayout.JAVA_SHORT.byteSize(),
         )
 
   }
@@ -1581,6 +2189,54 @@ object MemoryHandle {
             .offset2 + vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh
             .offset4 + vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6,
           value,
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Long,
+      x2: Long,
+      x3: Long,
+      x4: Long,
+      x5: Long,
+      x6: Long,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
+            .offset2 + vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh
+            .offset4 + vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6,
+          size * ValueLayout.JAVA_SHORT.byteSize(),
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Int,
+      x2: Int,
+      x3: Int,
+      x4: Int,
+      x5: Int,
+      x6: Int,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
+            .offset2 + vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh
+            .offset4 + vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6,
+          size * ValueLayout.JAVA_SHORT.byteSize(),
         )
 
   }
@@ -1691,6 +2347,58 @@ object MemoryHandle {
             .offset3 + vh.step4 * x4 + vh.offset4 + vh.step5 * x5 + vh
             .offset5 + vh.step6 * x6 + vh.offset6 + vh.step7 * x7 + vh.offset7,
           value,
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Long,
+      x2: Long,
+      x3: Long,
+      x4: Long,
+      x5: Long,
+      x6: Long,
+      x7: Long,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh
+            .offset1 + vh.step2 * x2 + vh.offset2 + vh.step3 * x3 + vh
+            .offset3 + vh.step4 * x4 + vh.offset4 + vh.step5 * x5 + vh
+            .offset5 + vh.step6 * x6 + vh.offset6 + vh.step7 * x7 + vh.offset7,
+          size * ValueLayout.JAVA_SHORT.byteSize(),
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Int,
+      x2: Int,
+      x3: Int,
+      x4: Int,
+      x5: Int,
+      x6: Int,
+      x7: Int,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh
+            .offset1 + vh.step2 * x2 + vh.offset2 + vh.step3 * x3 + vh
+            .offset3 + vh.step4 * x4 + vh.offset4 + vh.step5 * x5 + vh
+            .offset5 + vh.step6 * x6 + vh.offset6 + vh.step7 * x7 + vh.offset7,
+          size * ValueLayout.JAVA_SHORT.byteSize(),
         )
 
   }
@@ -1805,6 +2513,60 @@ object MemoryHandle {
             .offset4 + vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh
             .offset6 + vh.step7 * x7 + vh.offset7 + vh.step8 * x8 + vh.offset8,
           value,
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Long,
+      x2: Long,
+      x3: Long,
+      x4: Long,
+      x5: Long,
+      x6: Long,
+      x7: Long,
+      x8: Long,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
+            .offset2 + vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh
+            .offset4 + vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh
+            .offset6 + vh.step7 * x7 + vh.offset7 + vh.step8 * x8 + vh.offset8,
+          size * ValueLayout.JAVA_SHORT.byteSize(),
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Int,
+      x2: Int,
+      x3: Int,
+      x4: Int,
+      x5: Int,
+      x6: Int,
+      x7: Int,
+      x8: Int,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
+            .offset2 + vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh
+            .offset4 + vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh
+            .offset6 + vh.step7 * x7 + vh.offset7 + vh.step8 * x8 + vh.offset8,
+          size * ValueLayout.JAVA_SHORT.byteSize(),
         )
 
   }
@@ -1929,6 +2691,64 @@ object MemoryHandle {
           value,
         )
 
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Long,
+      x2: Long,
+      x3: Long,
+      x4: Long,
+      x5: Long,
+      x6: Long,
+      x7: Long,
+      x8: Long,
+      x9: Long,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
+            .offset2 + vh.step3 * x3 + vh.offset3 + vh
+            .step4 * x4 + vh.offset4 + vh.step5 * x5 + vh
+            .offset5 + vh.step6 * x6 + vh.offset6 + vh.step7 * x7 + vh
+            .offset7 + vh.step8 * x8 + vh.offset8 + vh.step9 * x9 + vh.offset9,
+          size * ValueLayout.JAVA_SHORT.byteSize(),
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Int,
+      x2: Int,
+      x3: Int,
+      x4: Int,
+      x5: Int,
+      x6: Int,
+      x7: Int,
+      x8: Int,
+      x9: Int,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
+            .offset2 + vh.step3 * x3 + vh.offset3 + vh
+            .step4 * x4 + vh.offset4 + vh.step5 * x5 + vh
+            .offset5 + vh.step6 * x6 + vh.offset6 + vh.step7 * x7 + vh
+            .offset7 + vh.step8 * x8 + vh.offset8 + vh.step9 * x9 + vh.offset9,
+          size * ValueLayout.JAVA_SHORT.byteSize(),
+        )
+
   }
 
   implicit final class Char0Ops[L <: Layout](
@@ -1948,6 +2768,14 @@ object MemoryHandle {
       implicit
       region: Region[R],
     ): Unit = mem.asJava.set(ValueLayout.JAVA_CHAR, vh.offset0, value)
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](mem: Memory[L, R], size: Int)(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem.asJava.asSlice(vh.offset0, size * ValueLayout.JAVA_CHAR.byteSize())
 
   }
 
@@ -2001,6 +2829,32 @@ object MemoryHandle {
           ValueLayout.JAVA_CHAR,
           vh.offset0 + vh.step1 * x1 + vh.offset1,
           value,
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](mem: Memory[L, R], x1: Long, size: Int)(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1,
+          size * ValueLayout.JAVA_CHAR.byteSize(),
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](mem: Memory[L, R], x1: Int, size: Int)(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1,
+          size * ValueLayout.JAVA_CHAR.byteSize(),
         )
 
   }
@@ -2061,6 +2915,42 @@ object MemoryHandle {
           ValueLayout.JAVA_CHAR,
           vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2,
           value,
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Long,
+      x2: Long,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2,
+          size * ValueLayout.JAVA_CHAR.byteSize(),
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Int,
+      x2: Int,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2,
+          size * ValueLayout.JAVA_CHAR.byteSize(),
         )
 
   }
@@ -2137,6 +3027,46 @@ object MemoryHandle {
           vh.offset0 + vh.step1 * x1 + vh.offset1 + vh
             .step2 * x2 + vh.offset2 + vh.step3 * x3 + vh.offset3,
           value,
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Long,
+      x2: Long,
+      x3: Long,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh
+            .offset1 + vh.step2 * x2 + vh.offset2 + vh.step3 * x3 + vh.offset3,
+          size * ValueLayout.JAVA_CHAR.byteSize(),
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Int,
+      x2: Int,
+      x3: Int,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh
+            .offset1 + vh.step2 * x2 + vh.offset2 + vh.step3 * x3 + vh.offset3,
+          size * ValueLayout.JAVA_CHAR.byteSize(),
         )
 
   }
@@ -2221,6 +3151,48 @@ object MemoryHandle {
           vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
             .offset2 + vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4,
           value,
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Long,
+      x2: Long,
+      x3: Long,
+      x4: Long,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
+            .offset2 + vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4,
+          size * ValueLayout.JAVA_CHAR.byteSize(),
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Int,
+      x2: Int,
+      x3: Int,
+      x4: Int,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
+            .offset2 + vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4,
+          size * ValueLayout.JAVA_CHAR.byteSize(),
         )
 
   }
@@ -2319,6 +3291,52 @@ object MemoryHandle {
             .step2 * x2 + vh.offset2 + vh.step3 * x3 + vh
             .offset3 + vh.step4 * x4 + vh.offset4 + vh.step5 * x5 + vh.offset5,
           value,
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Long,
+      x2: Long,
+      x3: Long,
+      x4: Long,
+      x5: Long,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh
+            .step2 * x2 + vh.offset2 + vh.step3 * x3 + vh
+            .offset3 + vh.step4 * x4 + vh.offset4 + vh.step5 * x5 + vh.offset5,
+          size * ValueLayout.JAVA_CHAR.byteSize(),
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Int,
+      x2: Int,
+      x3: Int,
+      x4: Int,
+      x5: Int,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh
+            .step2 * x2 + vh.offset2 + vh.step3 * x3 + vh
+            .offset3 + vh.step4 * x4 + vh.offset4 + vh.step5 * x5 + vh.offset5,
+          size * ValueLayout.JAVA_CHAR.byteSize(),
         )
 
   }
@@ -2421,6 +3439,54 @@ object MemoryHandle {
             .offset2 + vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh
             .offset4 + vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6,
           value,
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Long,
+      x2: Long,
+      x3: Long,
+      x4: Long,
+      x5: Long,
+      x6: Long,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
+            .offset2 + vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh
+            .offset4 + vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6,
+          size * ValueLayout.JAVA_CHAR.byteSize(),
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Int,
+      x2: Int,
+      x3: Int,
+      x4: Int,
+      x5: Int,
+      x6: Int,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
+            .offset2 + vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh
+            .offset4 + vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6,
+          size * ValueLayout.JAVA_CHAR.byteSize(),
         )
 
   }
@@ -2531,6 +3597,58 @@ object MemoryHandle {
             .offset3 + vh.step4 * x4 + vh.offset4 + vh.step5 * x5 + vh
             .offset5 + vh.step6 * x6 + vh.offset6 + vh.step7 * x7 + vh.offset7,
           value,
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Long,
+      x2: Long,
+      x3: Long,
+      x4: Long,
+      x5: Long,
+      x6: Long,
+      x7: Long,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh
+            .offset1 + vh.step2 * x2 + vh.offset2 + vh.step3 * x3 + vh
+            .offset3 + vh.step4 * x4 + vh.offset4 + vh.step5 * x5 + vh
+            .offset5 + vh.step6 * x6 + vh.offset6 + vh.step7 * x7 + vh.offset7,
+          size * ValueLayout.JAVA_CHAR.byteSize(),
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Int,
+      x2: Int,
+      x3: Int,
+      x4: Int,
+      x5: Int,
+      x6: Int,
+      x7: Int,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh
+            .offset1 + vh.step2 * x2 + vh.offset2 + vh.step3 * x3 + vh
+            .offset3 + vh.step4 * x4 + vh.offset4 + vh.step5 * x5 + vh
+            .offset5 + vh.step6 * x6 + vh.offset6 + vh.step7 * x7 + vh.offset7,
+          size * ValueLayout.JAVA_CHAR.byteSize(),
         )
 
   }
@@ -2645,6 +3763,60 @@ object MemoryHandle {
             .offset4 + vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh
             .offset6 + vh.step7 * x7 + vh.offset7 + vh.step8 * x8 + vh.offset8,
           value,
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Long,
+      x2: Long,
+      x3: Long,
+      x4: Long,
+      x5: Long,
+      x6: Long,
+      x7: Long,
+      x8: Long,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
+            .offset2 + vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh
+            .offset4 + vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh
+            .offset6 + vh.step7 * x7 + vh.offset7 + vh.step8 * x8 + vh.offset8,
+          size * ValueLayout.JAVA_CHAR.byteSize(),
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Int,
+      x2: Int,
+      x3: Int,
+      x4: Int,
+      x5: Int,
+      x6: Int,
+      x7: Int,
+      x8: Int,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
+            .offset2 + vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh
+            .offset4 + vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh
+            .offset6 + vh.step7 * x7 + vh.offset7 + vh.step8 * x8 + vh.offset8,
+          size * ValueLayout.JAVA_CHAR.byteSize(),
         )
 
   }
@@ -2769,6 +3941,64 @@ object MemoryHandle {
           value,
         )
 
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Long,
+      x2: Long,
+      x3: Long,
+      x4: Long,
+      x5: Long,
+      x6: Long,
+      x7: Long,
+      x8: Long,
+      x9: Long,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
+            .offset2 + vh.step3 * x3 + vh.offset3 + vh
+            .step4 * x4 + vh.offset4 + vh.step5 * x5 + vh
+            .offset5 + vh.step6 * x6 + vh.offset6 + vh.step7 * x7 + vh
+            .offset7 + vh.step8 * x8 + vh.offset8 + vh.step9 * x9 + vh.offset9,
+          size * ValueLayout.JAVA_CHAR.byteSize(),
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Int,
+      x2: Int,
+      x3: Int,
+      x4: Int,
+      x5: Int,
+      x6: Int,
+      x7: Int,
+      x8: Int,
+      x9: Int,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
+            .offset2 + vh.step3 * x3 + vh.offset3 + vh
+            .step4 * x4 + vh.offset4 + vh.step5 * x5 + vh
+            .offset5 + vh.step6 * x6 + vh.offset6 + vh.step7 * x7 + vh
+            .offset7 + vh.step8 * x8 + vh.offset8 + vh.step9 * x9 + vh.offset9,
+          size * ValueLayout.JAVA_CHAR.byteSize(),
+        )
+
   }
 
   implicit final class Int0Ops[L <: Layout](
@@ -2788,6 +4018,14 @@ object MemoryHandle {
       implicit
       region: Region[R],
     ): Unit = mem.asJava.set(ValueLayout.JAVA_INT, vh.offset0, value)
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](mem: Memory[L, R], size: Int)(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem.asJava.asSlice(vh.offset0, size * ValueLayout.JAVA_INT.byteSize())
 
   }
 
@@ -2841,6 +4079,32 @@ object MemoryHandle {
           ValueLayout.JAVA_INT,
           vh.offset0 + vh.step1 * x1 + vh.offset1,
           value,
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](mem: Memory[L, R], x1: Long, size: Int)(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1,
+          size * ValueLayout.JAVA_INT.byteSize(),
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](mem: Memory[L, R], x1: Int, size: Int)(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1,
+          size * ValueLayout.JAVA_INT.byteSize(),
         )
 
   }
@@ -2901,6 +4165,42 @@ object MemoryHandle {
           ValueLayout.JAVA_INT,
           vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2,
           value,
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Long,
+      x2: Long,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2,
+          size * ValueLayout.JAVA_INT.byteSize(),
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Int,
+      x2: Int,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2,
+          size * ValueLayout.JAVA_INT.byteSize(),
         )
 
   }
@@ -2977,6 +4277,46 @@ object MemoryHandle {
           vh.offset0 + vh.step1 * x1 + vh.offset1 + vh
             .step2 * x2 + vh.offset2 + vh.step3 * x3 + vh.offset3,
           value,
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Long,
+      x2: Long,
+      x3: Long,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh
+            .offset1 + vh.step2 * x2 + vh.offset2 + vh.step3 * x3 + vh.offset3,
+          size * ValueLayout.JAVA_INT.byteSize(),
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Int,
+      x2: Int,
+      x3: Int,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh
+            .offset1 + vh.step2 * x2 + vh.offset2 + vh.step3 * x3 + vh.offset3,
+          size * ValueLayout.JAVA_INT.byteSize(),
         )
 
   }
@@ -3061,6 +4401,48 @@ object MemoryHandle {
           vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
             .offset2 + vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4,
           value,
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Long,
+      x2: Long,
+      x3: Long,
+      x4: Long,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
+            .offset2 + vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4,
+          size * ValueLayout.JAVA_INT.byteSize(),
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Int,
+      x2: Int,
+      x3: Int,
+      x4: Int,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
+            .offset2 + vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4,
+          size * ValueLayout.JAVA_INT.byteSize(),
         )
 
   }
@@ -3159,6 +4541,52 @@ object MemoryHandle {
             .step2 * x2 + vh.offset2 + vh.step3 * x3 + vh
             .offset3 + vh.step4 * x4 + vh.offset4 + vh.step5 * x5 + vh.offset5,
           value,
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Long,
+      x2: Long,
+      x3: Long,
+      x4: Long,
+      x5: Long,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh
+            .step2 * x2 + vh.offset2 + vh.step3 * x3 + vh
+            .offset3 + vh.step4 * x4 + vh.offset4 + vh.step5 * x5 + vh.offset5,
+          size * ValueLayout.JAVA_INT.byteSize(),
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Int,
+      x2: Int,
+      x3: Int,
+      x4: Int,
+      x5: Int,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh
+            .step2 * x2 + vh.offset2 + vh.step3 * x3 + vh
+            .offset3 + vh.step4 * x4 + vh.offset4 + vh.step5 * x5 + vh.offset5,
+          size * ValueLayout.JAVA_INT.byteSize(),
         )
 
   }
@@ -3261,6 +4689,54 @@ object MemoryHandle {
             .offset2 + vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh
             .offset4 + vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6,
           value,
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Long,
+      x2: Long,
+      x3: Long,
+      x4: Long,
+      x5: Long,
+      x6: Long,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
+            .offset2 + vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh
+            .offset4 + vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6,
+          size * ValueLayout.JAVA_INT.byteSize(),
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Int,
+      x2: Int,
+      x3: Int,
+      x4: Int,
+      x5: Int,
+      x6: Int,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
+            .offset2 + vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh
+            .offset4 + vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6,
+          size * ValueLayout.JAVA_INT.byteSize(),
         )
 
   }
@@ -3371,6 +4847,58 @@ object MemoryHandle {
             .offset3 + vh.step4 * x4 + vh.offset4 + vh.step5 * x5 + vh
             .offset5 + vh.step6 * x6 + vh.offset6 + vh.step7 * x7 + vh.offset7,
           value,
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Long,
+      x2: Long,
+      x3: Long,
+      x4: Long,
+      x5: Long,
+      x6: Long,
+      x7: Long,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh
+            .offset1 + vh.step2 * x2 + vh.offset2 + vh.step3 * x3 + vh
+            .offset3 + vh.step4 * x4 + vh.offset4 + vh.step5 * x5 + vh
+            .offset5 + vh.step6 * x6 + vh.offset6 + vh.step7 * x7 + vh.offset7,
+          size * ValueLayout.JAVA_INT.byteSize(),
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Int,
+      x2: Int,
+      x3: Int,
+      x4: Int,
+      x5: Int,
+      x6: Int,
+      x7: Int,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh
+            .offset1 + vh.step2 * x2 + vh.offset2 + vh.step3 * x3 + vh
+            .offset3 + vh.step4 * x4 + vh.offset4 + vh.step5 * x5 + vh
+            .offset5 + vh.step6 * x6 + vh.offset6 + vh.step7 * x7 + vh.offset7,
+          size * ValueLayout.JAVA_INT.byteSize(),
         )
 
   }
@@ -3485,6 +5013,60 @@ object MemoryHandle {
             .offset4 + vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh
             .offset6 + vh.step7 * x7 + vh.offset7 + vh.step8 * x8 + vh.offset8,
           value,
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Long,
+      x2: Long,
+      x3: Long,
+      x4: Long,
+      x5: Long,
+      x6: Long,
+      x7: Long,
+      x8: Long,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
+            .offset2 + vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh
+            .offset4 + vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh
+            .offset6 + vh.step7 * x7 + vh.offset7 + vh.step8 * x8 + vh.offset8,
+          size * ValueLayout.JAVA_INT.byteSize(),
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Int,
+      x2: Int,
+      x3: Int,
+      x4: Int,
+      x5: Int,
+      x6: Int,
+      x7: Int,
+      x8: Int,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
+            .offset2 + vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh
+            .offset4 + vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh
+            .offset6 + vh.step7 * x7 + vh.offset7 + vh.step8 * x8 + vh.offset8,
+          size * ValueLayout.JAVA_INT.byteSize(),
         )
 
   }
@@ -3609,6 +5191,64 @@ object MemoryHandle {
           value,
         )
 
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Long,
+      x2: Long,
+      x3: Long,
+      x4: Long,
+      x5: Long,
+      x6: Long,
+      x7: Long,
+      x8: Long,
+      x9: Long,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
+            .offset2 + vh.step3 * x3 + vh.offset3 + vh
+            .step4 * x4 + vh.offset4 + vh.step5 * x5 + vh
+            .offset5 + vh.step6 * x6 + vh.offset6 + vh.step7 * x7 + vh
+            .offset7 + vh.step8 * x8 + vh.offset8 + vh.step9 * x9 + vh.offset9,
+          size * ValueLayout.JAVA_INT.byteSize(),
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Int,
+      x2: Int,
+      x3: Int,
+      x4: Int,
+      x5: Int,
+      x6: Int,
+      x7: Int,
+      x8: Int,
+      x9: Int,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
+            .offset2 + vh.step3 * x3 + vh.offset3 + vh
+            .step4 * x4 + vh.offset4 + vh.step5 * x5 + vh
+            .offset5 + vh.step6 * x6 + vh.offset6 + vh.step7 * x7 + vh
+            .offset7 + vh.step8 * x8 + vh.offset8 + vh.step9 * x9 + vh.offset9,
+          size * ValueLayout.JAVA_INT.byteSize(),
+        )
+
   }
 
   implicit final class Long0Ops[L <: Layout](
@@ -3628,6 +5268,14 @@ object MemoryHandle {
       implicit
       region: Region[R],
     ): Unit = mem.asJava.set(ValueLayout.JAVA_LONG, vh.offset0, value)
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](mem: Memory[L, R], size: Int)(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem.asJava.asSlice(vh.offset0, size * ValueLayout.JAVA_LONG.byteSize())
 
   }
 
@@ -3681,6 +5329,32 @@ object MemoryHandle {
           ValueLayout.JAVA_LONG,
           vh.offset0 + vh.step1 * x1 + vh.offset1,
           value,
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](mem: Memory[L, R], x1: Long, size: Int)(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1,
+          size * ValueLayout.JAVA_LONG.byteSize(),
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](mem: Memory[L, R], x1: Int, size: Int)(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1,
+          size * ValueLayout.JAVA_LONG.byteSize(),
         )
 
   }
@@ -3741,6 +5415,42 @@ object MemoryHandle {
           ValueLayout.JAVA_LONG,
           vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2,
           value,
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Long,
+      x2: Long,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2,
+          size * ValueLayout.JAVA_LONG.byteSize(),
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Int,
+      x2: Int,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2,
+          size * ValueLayout.JAVA_LONG.byteSize(),
         )
 
   }
@@ -3817,6 +5527,46 @@ object MemoryHandle {
           vh.offset0 + vh.step1 * x1 + vh.offset1 + vh
             .step2 * x2 + vh.offset2 + vh.step3 * x3 + vh.offset3,
           value,
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Long,
+      x2: Long,
+      x3: Long,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh
+            .offset1 + vh.step2 * x2 + vh.offset2 + vh.step3 * x3 + vh.offset3,
+          size * ValueLayout.JAVA_LONG.byteSize(),
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Int,
+      x2: Int,
+      x3: Int,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh
+            .offset1 + vh.step2 * x2 + vh.offset2 + vh.step3 * x3 + vh.offset3,
+          size * ValueLayout.JAVA_LONG.byteSize(),
         )
 
   }
@@ -3901,6 +5651,48 @@ object MemoryHandle {
           vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
             .offset2 + vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4,
           value,
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Long,
+      x2: Long,
+      x3: Long,
+      x4: Long,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
+            .offset2 + vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4,
+          size * ValueLayout.JAVA_LONG.byteSize(),
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Int,
+      x2: Int,
+      x3: Int,
+      x4: Int,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
+            .offset2 + vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4,
+          size * ValueLayout.JAVA_LONG.byteSize(),
         )
 
   }
@@ -3999,6 +5791,52 @@ object MemoryHandle {
             .step2 * x2 + vh.offset2 + vh.step3 * x3 + vh
             .offset3 + vh.step4 * x4 + vh.offset4 + vh.step5 * x5 + vh.offset5,
           value,
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Long,
+      x2: Long,
+      x3: Long,
+      x4: Long,
+      x5: Long,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh
+            .step2 * x2 + vh.offset2 + vh.step3 * x3 + vh
+            .offset3 + vh.step4 * x4 + vh.offset4 + vh.step5 * x5 + vh.offset5,
+          size * ValueLayout.JAVA_LONG.byteSize(),
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Int,
+      x2: Int,
+      x3: Int,
+      x4: Int,
+      x5: Int,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh
+            .step2 * x2 + vh.offset2 + vh.step3 * x3 + vh
+            .offset3 + vh.step4 * x4 + vh.offset4 + vh.step5 * x5 + vh.offset5,
+          size * ValueLayout.JAVA_LONG.byteSize(),
         )
 
   }
@@ -4101,6 +5939,54 @@ object MemoryHandle {
             .offset2 + vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh
             .offset4 + vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6,
           value,
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Long,
+      x2: Long,
+      x3: Long,
+      x4: Long,
+      x5: Long,
+      x6: Long,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
+            .offset2 + vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh
+            .offset4 + vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6,
+          size * ValueLayout.JAVA_LONG.byteSize(),
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Int,
+      x2: Int,
+      x3: Int,
+      x4: Int,
+      x5: Int,
+      x6: Int,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
+            .offset2 + vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh
+            .offset4 + vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6,
+          size * ValueLayout.JAVA_LONG.byteSize(),
         )
 
   }
@@ -4211,6 +6097,58 @@ object MemoryHandle {
             .offset3 + vh.step4 * x4 + vh.offset4 + vh.step5 * x5 + vh
             .offset5 + vh.step6 * x6 + vh.offset6 + vh.step7 * x7 + vh.offset7,
           value,
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Long,
+      x2: Long,
+      x3: Long,
+      x4: Long,
+      x5: Long,
+      x6: Long,
+      x7: Long,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh
+            .offset1 + vh.step2 * x2 + vh.offset2 + vh.step3 * x3 + vh
+            .offset3 + vh.step4 * x4 + vh.offset4 + vh.step5 * x5 + vh
+            .offset5 + vh.step6 * x6 + vh.offset6 + vh.step7 * x7 + vh.offset7,
+          size * ValueLayout.JAVA_LONG.byteSize(),
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Int,
+      x2: Int,
+      x3: Int,
+      x4: Int,
+      x5: Int,
+      x6: Int,
+      x7: Int,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh
+            .offset1 + vh.step2 * x2 + vh.offset2 + vh.step3 * x3 + vh
+            .offset3 + vh.step4 * x4 + vh.offset4 + vh.step5 * x5 + vh
+            .offset5 + vh.step6 * x6 + vh.offset6 + vh.step7 * x7 + vh.offset7,
+          size * ValueLayout.JAVA_LONG.byteSize(),
         )
 
   }
@@ -4325,6 +6263,60 @@ object MemoryHandle {
             .offset4 + vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh
             .offset6 + vh.step7 * x7 + vh.offset7 + vh.step8 * x8 + vh.offset8,
           value,
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Long,
+      x2: Long,
+      x3: Long,
+      x4: Long,
+      x5: Long,
+      x6: Long,
+      x7: Long,
+      x8: Long,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
+            .offset2 + vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh
+            .offset4 + vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh
+            .offset6 + vh.step7 * x7 + vh.offset7 + vh.step8 * x8 + vh.offset8,
+          size * ValueLayout.JAVA_LONG.byteSize(),
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Int,
+      x2: Int,
+      x3: Int,
+      x4: Int,
+      x5: Int,
+      x6: Int,
+      x7: Int,
+      x8: Int,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
+            .offset2 + vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh
+            .offset4 + vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh
+            .offset6 + vh.step7 * x7 + vh.offset7 + vh.step8 * x8 + vh.offset8,
+          size * ValueLayout.JAVA_LONG.byteSize(),
         )
 
   }
@@ -4449,6 +6441,64 @@ object MemoryHandle {
           value,
         )
 
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Long,
+      x2: Long,
+      x3: Long,
+      x4: Long,
+      x5: Long,
+      x6: Long,
+      x7: Long,
+      x8: Long,
+      x9: Long,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
+            .offset2 + vh.step3 * x3 + vh.offset3 + vh
+            .step4 * x4 + vh.offset4 + vh.step5 * x5 + vh
+            .offset5 + vh.step6 * x6 + vh.offset6 + vh.step7 * x7 + vh
+            .offset7 + vh.step8 * x8 + vh.offset8 + vh.step9 * x9 + vh.offset9,
+          size * ValueLayout.JAVA_LONG.byteSize(),
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Int,
+      x2: Int,
+      x3: Int,
+      x4: Int,
+      x5: Int,
+      x6: Int,
+      x7: Int,
+      x8: Int,
+      x9: Int,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
+            .offset2 + vh.step3 * x3 + vh.offset3 + vh
+            .step4 * x4 + vh.offset4 + vh.step5 * x5 + vh
+            .offset5 + vh.step6 * x6 + vh.offset6 + vh.step7 * x7 + vh
+            .offset7 + vh.step8 * x8 + vh.offset8 + vh.step9 * x9 + vh.offset9,
+          size * ValueLayout.JAVA_LONG.byteSize(),
+        )
+
   }
 
   implicit final class Float0Ops[L <: Layout](
@@ -4468,6 +6518,14 @@ object MemoryHandle {
       implicit
       region: Region[R],
     ): Unit = mem.asJava.set(ValueLayout.JAVA_FLOAT, vh.offset0, value)
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](mem: Memory[L, R], size: Int)(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem.asJava.asSlice(vh.offset0, size * ValueLayout.JAVA_FLOAT.byteSize())
 
   }
 
@@ -4521,6 +6579,32 @@ object MemoryHandle {
           ValueLayout.JAVA_FLOAT,
           vh.offset0 + vh.step1 * x1 + vh.offset1,
           value,
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](mem: Memory[L, R], x1: Long, size: Int)(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1,
+          size * ValueLayout.JAVA_FLOAT.byteSize(),
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](mem: Memory[L, R], x1: Int, size: Int)(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1,
+          size * ValueLayout.JAVA_FLOAT.byteSize(),
         )
 
   }
@@ -4581,6 +6665,42 @@ object MemoryHandle {
           ValueLayout.JAVA_FLOAT,
           vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2,
           value,
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Long,
+      x2: Long,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2,
+          size * ValueLayout.JAVA_FLOAT.byteSize(),
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Int,
+      x2: Int,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2,
+          size * ValueLayout.JAVA_FLOAT.byteSize(),
         )
 
   }
@@ -4657,6 +6777,46 @@ object MemoryHandle {
           vh.offset0 + vh.step1 * x1 + vh.offset1 + vh
             .step2 * x2 + vh.offset2 + vh.step3 * x3 + vh.offset3,
           value,
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Long,
+      x2: Long,
+      x3: Long,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh
+            .offset1 + vh.step2 * x2 + vh.offset2 + vh.step3 * x3 + vh.offset3,
+          size * ValueLayout.JAVA_FLOAT.byteSize(),
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Int,
+      x2: Int,
+      x3: Int,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh
+            .offset1 + vh.step2 * x2 + vh.offset2 + vh.step3 * x3 + vh.offset3,
+          size * ValueLayout.JAVA_FLOAT.byteSize(),
         )
 
   }
@@ -4741,6 +6901,48 @@ object MemoryHandle {
           vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
             .offset2 + vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4,
           value,
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Long,
+      x2: Long,
+      x3: Long,
+      x4: Long,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
+            .offset2 + vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4,
+          size * ValueLayout.JAVA_FLOAT.byteSize(),
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Int,
+      x2: Int,
+      x3: Int,
+      x4: Int,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
+            .offset2 + vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4,
+          size * ValueLayout.JAVA_FLOAT.byteSize(),
         )
 
   }
@@ -4839,6 +7041,52 @@ object MemoryHandle {
             .step2 * x2 + vh.offset2 + vh.step3 * x3 + vh
             .offset3 + vh.step4 * x4 + vh.offset4 + vh.step5 * x5 + vh.offset5,
           value,
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Long,
+      x2: Long,
+      x3: Long,
+      x4: Long,
+      x5: Long,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh
+            .step2 * x2 + vh.offset2 + vh.step3 * x3 + vh
+            .offset3 + vh.step4 * x4 + vh.offset4 + vh.step5 * x5 + vh.offset5,
+          size * ValueLayout.JAVA_FLOAT.byteSize(),
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Int,
+      x2: Int,
+      x3: Int,
+      x4: Int,
+      x5: Int,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh
+            .step2 * x2 + vh.offset2 + vh.step3 * x3 + vh
+            .offset3 + vh.step4 * x4 + vh.offset4 + vh.step5 * x5 + vh.offset5,
+          size * ValueLayout.JAVA_FLOAT.byteSize(),
         )
 
   }
@@ -4941,6 +7189,54 @@ object MemoryHandle {
             .offset2 + vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh
             .offset4 + vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6,
           value,
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Long,
+      x2: Long,
+      x3: Long,
+      x4: Long,
+      x5: Long,
+      x6: Long,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
+            .offset2 + vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh
+            .offset4 + vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6,
+          size * ValueLayout.JAVA_FLOAT.byteSize(),
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Int,
+      x2: Int,
+      x3: Int,
+      x4: Int,
+      x5: Int,
+      x6: Int,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
+            .offset2 + vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh
+            .offset4 + vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6,
+          size * ValueLayout.JAVA_FLOAT.byteSize(),
         )
 
   }
@@ -5051,6 +7347,58 @@ object MemoryHandle {
             .offset3 + vh.step4 * x4 + vh.offset4 + vh.step5 * x5 + vh
             .offset5 + vh.step6 * x6 + vh.offset6 + vh.step7 * x7 + vh.offset7,
           value,
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Long,
+      x2: Long,
+      x3: Long,
+      x4: Long,
+      x5: Long,
+      x6: Long,
+      x7: Long,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh
+            .offset1 + vh.step2 * x2 + vh.offset2 + vh.step3 * x3 + vh
+            .offset3 + vh.step4 * x4 + vh.offset4 + vh.step5 * x5 + vh
+            .offset5 + vh.step6 * x6 + vh.offset6 + vh.step7 * x7 + vh.offset7,
+          size * ValueLayout.JAVA_FLOAT.byteSize(),
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Int,
+      x2: Int,
+      x3: Int,
+      x4: Int,
+      x5: Int,
+      x6: Int,
+      x7: Int,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh
+            .offset1 + vh.step2 * x2 + vh.offset2 + vh.step3 * x3 + vh
+            .offset3 + vh.step4 * x4 + vh.offset4 + vh.step5 * x5 + vh
+            .offset5 + vh.step6 * x6 + vh.offset6 + vh.step7 * x7 + vh.offset7,
+          size * ValueLayout.JAVA_FLOAT.byteSize(),
         )
 
   }
@@ -5165,6 +7513,60 @@ object MemoryHandle {
             .offset4 + vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh
             .offset6 + vh.step7 * x7 + vh.offset7 + vh.step8 * x8 + vh.offset8,
           value,
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Long,
+      x2: Long,
+      x3: Long,
+      x4: Long,
+      x5: Long,
+      x6: Long,
+      x7: Long,
+      x8: Long,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
+            .offset2 + vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh
+            .offset4 + vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh
+            .offset6 + vh.step7 * x7 + vh.offset7 + vh.step8 * x8 + vh.offset8,
+          size * ValueLayout.JAVA_FLOAT.byteSize(),
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Int,
+      x2: Int,
+      x3: Int,
+      x4: Int,
+      x5: Int,
+      x6: Int,
+      x7: Int,
+      x8: Int,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
+            .offset2 + vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh
+            .offset4 + vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh
+            .offset6 + vh.step7 * x7 + vh.offset7 + vh.step8 * x8 + vh.offset8,
+          size * ValueLayout.JAVA_FLOAT.byteSize(),
         )
 
   }
@@ -5289,6 +7691,64 @@ object MemoryHandle {
           value,
         )
 
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Long,
+      x2: Long,
+      x3: Long,
+      x4: Long,
+      x5: Long,
+      x6: Long,
+      x7: Long,
+      x8: Long,
+      x9: Long,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
+            .offset2 + vh.step3 * x3 + vh.offset3 + vh
+            .step4 * x4 + vh.offset4 + vh.step5 * x5 + vh
+            .offset5 + vh.step6 * x6 + vh.offset6 + vh.step7 * x7 + vh
+            .offset7 + vh.step8 * x8 + vh.offset8 + vh.step9 * x9 + vh.offset9,
+          size * ValueLayout.JAVA_FLOAT.byteSize(),
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Int,
+      x2: Int,
+      x3: Int,
+      x4: Int,
+      x5: Int,
+      x6: Int,
+      x7: Int,
+      x8: Int,
+      x9: Int,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
+            .offset2 + vh.step3 * x3 + vh.offset3 + vh
+            .step4 * x4 + vh.offset4 + vh.step5 * x5 + vh
+            .offset5 + vh.step6 * x6 + vh.offset6 + vh.step7 * x7 + vh
+            .offset7 + vh.step8 * x8 + vh.offset8 + vh.step9 * x9 + vh.offset9,
+          size * ValueLayout.JAVA_FLOAT.byteSize(),
+        )
+
   }
 
   implicit final class Double0Ops[L <: Layout](
@@ -5308,6 +7768,14 @@ object MemoryHandle {
       implicit
       region: Region[R],
     ): Unit = mem.asJava.set(ValueLayout.JAVA_DOUBLE, vh.offset0, value)
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](mem: Memory[L, R], size: Int)(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem.asJava.asSlice(vh.offset0, size * ValueLayout.JAVA_DOUBLE.byteSize())
 
   }
 
@@ -5361,6 +7829,32 @@ object MemoryHandle {
           ValueLayout.JAVA_DOUBLE,
           vh.offset0 + vh.step1 * x1 + vh.offset1,
           value,
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](mem: Memory[L, R], x1: Long, size: Int)(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1,
+          size * ValueLayout.JAVA_DOUBLE.byteSize(),
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](mem: Memory[L, R], x1: Int, size: Int)(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1,
+          size * ValueLayout.JAVA_DOUBLE.byteSize(),
         )
 
   }
@@ -5421,6 +7915,42 @@ object MemoryHandle {
           ValueLayout.JAVA_DOUBLE,
           vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2,
           value,
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Long,
+      x2: Long,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2,
+          size * ValueLayout.JAVA_DOUBLE.byteSize(),
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Int,
+      x2: Int,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh.offset2,
+          size * ValueLayout.JAVA_DOUBLE.byteSize(),
         )
 
   }
@@ -5497,6 +8027,46 @@ object MemoryHandle {
           vh.offset0 + vh.step1 * x1 + vh.offset1 + vh
             .step2 * x2 + vh.offset2 + vh.step3 * x3 + vh.offset3,
           value,
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Long,
+      x2: Long,
+      x3: Long,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh
+            .offset1 + vh.step2 * x2 + vh.offset2 + vh.step3 * x3 + vh.offset3,
+          size * ValueLayout.JAVA_DOUBLE.byteSize(),
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Int,
+      x2: Int,
+      x3: Int,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh
+            .offset1 + vh.step2 * x2 + vh.offset2 + vh.step3 * x3 + vh.offset3,
+          size * ValueLayout.JAVA_DOUBLE.byteSize(),
         )
 
   }
@@ -5581,6 +8151,48 @@ object MemoryHandle {
           vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
             .offset2 + vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4,
           value,
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Long,
+      x2: Long,
+      x3: Long,
+      x4: Long,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
+            .offset2 + vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4,
+          size * ValueLayout.JAVA_DOUBLE.byteSize(),
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Int,
+      x2: Int,
+      x3: Int,
+      x4: Int,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
+            .offset2 + vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh.offset4,
+          size * ValueLayout.JAVA_DOUBLE.byteSize(),
         )
 
   }
@@ -5679,6 +8291,52 @@ object MemoryHandle {
             .step2 * x2 + vh.offset2 + vh.step3 * x3 + vh
             .offset3 + vh.step4 * x4 + vh.offset4 + vh.step5 * x5 + vh.offset5,
           value,
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Long,
+      x2: Long,
+      x3: Long,
+      x4: Long,
+      x5: Long,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh
+            .step2 * x2 + vh.offset2 + vh.step3 * x3 + vh
+            .offset3 + vh.step4 * x4 + vh.offset4 + vh.step5 * x5 + vh.offset5,
+          size * ValueLayout.JAVA_DOUBLE.byteSize(),
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Int,
+      x2: Int,
+      x3: Int,
+      x4: Int,
+      x5: Int,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh
+            .step2 * x2 + vh.offset2 + vh.step3 * x3 + vh
+            .offset3 + vh.step4 * x4 + vh.offset4 + vh.step5 * x5 + vh.offset5,
+          size * ValueLayout.JAVA_DOUBLE.byteSize(),
         )
 
   }
@@ -5781,6 +8439,54 @@ object MemoryHandle {
             .offset2 + vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh
             .offset4 + vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6,
           value,
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Long,
+      x2: Long,
+      x3: Long,
+      x4: Long,
+      x5: Long,
+      x6: Long,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
+            .offset2 + vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh
+            .offset4 + vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6,
+          size * ValueLayout.JAVA_DOUBLE.byteSize(),
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Int,
+      x2: Int,
+      x3: Int,
+      x4: Int,
+      x5: Int,
+      x6: Int,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
+            .offset2 + vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh
+            .offset4 + vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh.offset6,
+          size * ValueLayout.JAVA_DOUBLE.byteSize(),
         )
 
   }
@@ -5891,6 +8597,58 @@ object MemoryHandle {
             .offset3 + vh.step4 * x4 + vh.offset4 + vh.step5 * x5 + vh
             .offset5 + vh.step6 * x6 + vh.offset6 + vh.step7 * x7 + vh.offset7,
           value,
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Long,
+      x2: Long,
+      x3: Long,
+      x4: Long,
+      x5: Long,
+      x6: Long,
+      x7: Long,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh
+            .offset1 + vh.step2 * x2 + vh.offset2 + vh.step3 * x3 + vh
+            .offset3 + vh.step4 * x4 + vh.offset4 + vh.step5 * x5 + vh
+            .offset5 + vh.step6 * x6 + vh.offset6 + vh.step7 * x7 + vh.offset7,
+          size * ValueLayout.JAVA_DOUBLE.byteSize(),
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Int,
+      x2: Int,
+      x3: Int,
+      x4: Int,
+      x5: Int,
+      x6: Int,
+      x7: Int,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh
+            .offset1 + vh.step2 * x2 + vh.offset2 + vh.step3 * x3 + vh
+            .offset3 + vh.step4 * x4 + vh.offset4 + vh.step5 * x5 + vh
+            .offset5 + vh.step6 * x6 + vh.offset6 + vh.step7 * x7 + vh.offset7,
+          size * ValueLayout.JAVA_DOUBLE.byteSize(),
         )
 
   }
@@ -6005,6 +8763,60 @@ object MemoryHandle {
             .offset4 + vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh
             .offset6 + vh.step7 * x7 + vh.offset7 + vh.step8 * x8 + vh.offset8,
           value,
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Long,
+      x2: Long,
+      x3: Long,
+      x4: Long,
+      x5: Long,
+      x6: Long,
+      x7: Long,
+      x8: Long,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
+            .offset2 + vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh
+            .offset4 + vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh
+            .offset6 + vh.step7 * x7 + vh.offset7 + vh.step8 * x8 + vh.offset8,
+          size * ValueLayout.JAVA_DOUBLE.byteSize(),
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Int,
+      x2: Int,
+      x3: Int,
+      x4: Int,
+      x5: Int,
+      x6: Int,
+      x7: Int,
+      x8: Int,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
+            .offset2 + vh.step3 * x3 + vh.offset3 + vh.step4 * x4 + vh
+            .offset4 + vh.step5 * x5 + vh.offset5 + vh.step6 * x6 + vh
+            .offset6 + vh.step7 * x7 + vh.offset7 + vh.step8 * x8 + vh.offset8,
+          size * ValueLayout.JAVA_DOUBLE.byteSize(),
         )
 
   }
@@ -6127,6 +8939,64 @@ object MemoryHandle {
             .offset5 + vh.step6 * x6 + vh.offset6 + vh.step7 * x7 + vh
             .offset7 + vh.step8 * x8 + vh.offset8 + vh.step9 * x9 + vh.offset9,
           value,
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Long,
+      x2: Long,
+      x3: Long,
+      x4: Long,
+      x5: Long,
+      x6: Long,
+      x7: Long,
+      x8: Long,
+      x9: Long,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
+            .offset2 + vh.step3 * x3 + vh.offset3 + vh
+            .step4 * x4 + vh.offset4 + vh.step5 * x5 + vh
+            .offset5 + vh.step6 * x6 + vh.offset6 + vh.step7 * x7 + vh
+            .offset7 + vh.step8 * x8 + vh.offset8 + vh.step9 * x9 + vh.offset9,
+          size * ValueLayout.JAVA_DOUBLE.byteSize(),
+        )
+
+    @IntrinsicCandidate
+    @inline
+    def getMemorySegment[R <: Global](
+      mem: Memory[L, R],
+      x1: Int,
+      x2: Int,
+      x3: Int,
+      x4: Int,
+      x5: Int,
+      x6: Int,
+      x7: Int,
+      x8: Int,
+      x9: Int,
+      size: Int,
+    )(
+      implicit
+      region: Region[R],
+    ): MemorySegment =
+      mem
+        .asJava
+        .asSlice(
+          vh.offset0 + vh.step1 * x1 + vh.offset1 + vh.step2 * x2 + vh
+            .offset2 + vh.step3 * x3 + vh.offset3 + vh
+            .step4 * x4 + vh.offset4 + vh.step5 * x5 + vh
+            .offset5 + vh.step6 * x6 + vh.offset6 + vh.step7 * x7 + vh
+            .offset7 + vh.step8 * x8 + vh.offset8 + vh.step9 * x9 + vh.offset9,
+          size * ValueLayout.JAVA_DOUBLE.byteSize(),
         )
 
   }

@@ -23,6 +23,12 @@ def setMethod(
   else
     s"def $name(mem: Memory[L, Global], value: $tpe ${ctArgs(i, argType)}): Unit"
 
+def getMemorySegmentMethod(withRegion: Boolean)(argType: String)(name: String, i: Int, tpe: String): String =
+  if (withRegion)
+    s"def $name[R <: Global](mem: Memory[L, R] ${ctArgs(i, argType)}, size: Int)(implicit region: Region[R]): MemorySegment"
+  else
+    s"def $name(mem: Memory[L, Global] ${ctArgs(i, argType)}, size: Int): $tpe"
+
 def generateOffsetCalculation(i: Int): String = {
   var result = "vh.offset0"
   for (j <- 1 to i) {
@@ -50,9 +56,14 @@ def setMethodImpl(typ: String, i: Int): String = {
   s"mem.asJava.set(${typeLayout(typ)}, ${generateOffsetCalculation(i)}, value)"
 }
 
+def getMemorySegmentMethodImpl(typ: String, i: Int): String = {
+  s"mem.asJava.asSlice(${generateOffsetCalculation(i)}, size * ${typeLayout(typ)}.byteSize())"
+}
+
 val methods = List(
   ("get", (getMethod(withRegion = true) _, getMethodImpl _)),
   ("set", (setMethod(withRegion = true) _, setMethodImpl _)),
+  ("getMemorySegment", (getMemorySegmentMethod(withRegion = true) _, getMemorySegmentMethodImpl _))
 )
 
 def ctParams(i: Int): String =
@@ -125,7 +136,7 @@ def memoryHandle =
 import alien.memory.{Global, Layout, Memory, Region}
 import jdk.internal.vm.annotation.IntrinsicCandidate
 
-import java.lang.foreign.ValueLayout
+import java.lang.foreign.{MemorySegment, ValueLayout}
 
 object MemoryHandle {
     trait MemoryHandleSyntax {
