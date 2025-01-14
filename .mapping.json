@@ -2,6 +2,7 @@
   ".":"classifieds/vs/lib/alien/external",
   ".github/workflows/ci.yml":"classifieds/vs/lib/alien/external/.github/workflows/ci.yml",
   ".gitignore":"classifieds/vs/lib/alien/external/.gitignore",
+  ".sbtops":"classifieds/vs/lib/alien/external/.sbtops",
   ".scalafmt.conf":"classifieds/vs/lib/alien/external/.scalafmt.conf",
   "AUTHORS":"classifieds/vs/lib/alien/external/AUTHORS",
   "CONTRIBUTING":"classifieds/vs/lib/alien/external/CONTRIBUTING",
@@ -65,6 +66,10 @@
   "memory/src/test/scala/alien/LayoutSpec.scala":"classifieds/vs/lib/alien/memory/src/test/scala/alien/LayoutSpec.scala",
   "memory/src/test/scala/alien/MemorySpec.scala":"classifieds/vs/lib/alien/memory/src/test/scala/alien/MemorySpec.scala",
   "memory/src/test/scala/alien/RegionSpec.scala":"classifieds/vs/lib/alien/memory/src/test/scala/alien/RegionSpec.scala",
+  "memory/v21/main/scala/alien/memory/handle/MemoryHandle.generated.scala":"classifieds/vs/lib/alien/memory/v21/main/scala/alien/memory/handle/MemoryHandle.generated.scala",
+  "memory/v22/main/scala/alien/memory/handle/MemoryHandle.generated.scala":"classifieds/vs/lib/alien/memory/v22/main/scala/alien/memory/handle/MemoryHandle.generated.scala",
+  "project/assembly.sbt":"classifieds/vs/lib/alien/external/project/assembly.sbt",
   "project/build.properties":"classifieds/vs/lib/alien/external/project/build.properties",
+  "project/HandleBoiler.scala":"classifieds/vs/lib/alien/external/project/HandleBoiler.scala",
   "project/plugins.sbt":"classifieds/vs/lib/alien/external/project/plugins.sbt"
 }
