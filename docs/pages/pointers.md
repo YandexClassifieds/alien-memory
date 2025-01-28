@@ -1,65 +1,60 @@
 # Path и MemoryPtr
 
-To access allocated memory, you need to obtain a relative pointer to it `MemoryPtr*`
-It is used to efficiently access memory at specific offsets.
+Для того чтобы получить доступ к самой памяти, нужно получить относительный указатель на нее `MemoryPtr*`. Он используется для того чтобы эффективно обращаться в память по нужным смещениям. `Path` используется для навигации по сложной структуре данных, описанных через `Layout`.
+Навигация начинается с корневого Layout. Углубляемся внутрь через оператор `/`, аналогично файловой системе.
 
-`Path` is used to navigate complex data structures defined via `Layout`.
-Navigation starts with the root Layout. Next layers are accessed using `/`, same as in file systems.
-
-#### Examples
-
+#### Пример:
 ```scala
 val structLayout = ("a" := Values.Long) >>:
-  ("sequence" := Values.Long * 123) >>:
-  ("b" := Values.Char)
-val aPtr = structLayout / "a" / $ // MemoryPtr0 referencing 'a' field
-val sequencePtr = structLayout / "sequence" / % / $ // MemoryPtr1, size-1 pointer, parametrized with index in 'sequence' array
-val sequence2Ptr = structLayout / "sequence" / 12 / $ // MemoryPtr0, referencing 12th element of 'sequence' array
+                   ("sequence" := Values.Long * 123) >>:
+                   ("b" := Values.Char)
+val aPtr = structLayout / "a" / $ // MemoryPtr0, указатель на поле a
+val sequencePtr = structLayout / "sequence" / % / $ // MemoryPtr1, указатель с размерностью 1, параметризован индексом массива sequence
+val sequence2Ptr = structLayout / "sequence" / 12 / $ // MemoryPtr0, указатель на 14 элемент массива sequence
 
 ```
+## Таблица термов для `Path`
 
-## Terms used with `Path`
+|       Терм       | Применим на Layout |                                  Куда углубляемся                                   |
+|:----------------:|:------------------:|:-----------------------------------------------------------------------------------:|
+| `"_<имя слоя>_"` |      Dynamic       |                                В слой с этим именем                                 |
+|       `i`        |      Sequence      |                          В i-й элемент последовательности                           |
+|     `(n, m)`     |      Sequence      | В подмножество элементов, а именно начиная с элемента n, далее каждый m-ный элемент |
+|       `%`        |      Sequence      |                        В каждый элементов последовательности                        |
+|       `$`        |       Value        |                                Никуда, конечный слой                                |
 
-|        Term        | Layout type |                              Points to                               |
-|:------------------:|:-----------:|:--------------------------------------------------------------------:|
-| `"_<layer_name>_"` |   Dynamic   |                       Layer with defined name                        |
-|        `i`         |  Sequence   |                      sequence element number i                       |
-|      `(n, m)`      |  Sequence   | Subsequence of elements starting with n and then every m'th elements |
-|        `%`         |  Sequence   |                      Every element in sequence                       |
-|        `$`         |    Value    |                         nowhere, final layer                         |
+В зависимости от того сколько операторов `%` и `(n, m)` было использовано в `Path` будет возвращен
+соответствующий `MemoryPtr*`(существуют `MemoryPtr0`, `MemoryPtr1`, ..., `MemoryPtr9`).
 
-Depending on a number of `%` and `(n, m)` used in `Path` `MemoryPtr*` of the corresponding size will be returned
-(there are `MemoryPtr0`, `MemoryPtr1`, ..., `MemoryPtr9`).
-
-#### More examples
+#### Больше примеров:
 
 ```scala
 val matrixLayout = Values.Long * 5 * 6
-val matrixPtr = maxtrixLayout / % / % / $ // matrix layer, without additional structures
+val matrixPtr = maxtrixLayout / % / % / $ // слой - матрица, не усложненная структурами
 val namedLayout = "matrix" := (Values.Long * 5 * 6)
 val matrix = namedLayout / "matrix" / % / % / $
 val oneRow = namedLayout / "matrix" / 0 / % / $
 val oneColumn = namedLayout / "matrix" / % / 0 / $
-// filling matrix with zeroes
+// заполнение матрицы нулями
 for (i <- 0 until 6) {
   for (j <- 0 until 5) {
     matrixPtr.set(memory, 0, i, j)
   }
 }
-// filling one line with zeroes
+// заполнение одной строки нулями
 for (i <- 0 until 5) {
   oneRow.set(memory, 0, i)
 }
 ```
 
-## Accessing memory
+## Доступ к памяти
 
-Reading from and writing to memory is done via `MemoryPtr*` and two methods:
+Чтение и запись данных осуществляется через объект `MemoryPtr*` и два метода.
 
 * ```get(memory: Memory[L, R], i1: Long, ...)```
 * ```set(memory: Memory[L, R], value: V, i1: Long, ...)```
 
-Number of indices in methods is the same as `MemoryPtr*` size. Only primitive types can be read from memory, such as:
+Количество индексов в методах соответствует размерности `MemoryPtr*`. Доступ к памяти возможен только для примитивных типов данных, таких как:
 
 * ##Byte##
 * ##Short##

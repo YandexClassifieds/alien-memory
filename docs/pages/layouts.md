@@ -1,61 +1,62 @@
 # Layout
 
-Layout is a description of data structures stored in foreign memory. It is based on `java.lang.foreign.MemoryLayout`.
+Layout - описание схемы данных, хранящихся в памяти. В основе лежит `java.lang.foreign.MemoryLayout`.
 
-Layout has the following building blocks:
+Схема собирается из кирпичиков:
 
-- `Value` - a basic layer for primitive types: numbers, characters, etc
+- `Value` - элементарный слой для целых чисел, символов и т.д.
   ```scala
-  val a = Values.Long //  layer for Long type values
+  val a = Values.Long //  слой под Long значения
   ```
-- `BoundedSequence` - container for sequences of same-type data.
-  Sequences can be built using `*`, which makes matrix data definitions more readable
+- `BoundedSequence` - контейнер для последовательности данных одного типа.
+  Упрощенно можно собирать последовательности с помощью оператора *, это повышает читабельность для матриц.
   ```scala
-  val a = Values.Long * 2 * 5 // matrix with 5 rows * 2 columns
+  val a = Values.Long * 2 * 5 // матрица с 5 строчками и 2 столбцами
   ```
-- `Aligned` - container for data sequence that specifies byte alignment for the underlying data.
+- `Aligned` - контейнер группы данных, который задает выравнивание в байтах для нижележащих данных.
   ```scala
-  val aligned = (Values.Long * 2 * 5).align[`2^8`] //  allocated memory address is a multiple of 256.
+  val aligned = (Values.Long * 2 * 5).align[`2^8`] //  обеспечивает выделение памяти по адресу, кратному 256.
   ```
-- `Padding` - A "gap" in memory that doesn't store any meaningful data, but adds a byte offset before the next element.
+- `Padding` - "Пробел" в памяти, который не хранит данные, но добавляет смещение в байтах перед следующим элементом.
 
   ```scala
-  val onlyPadding = Padding(32) // 32 empty bytes
+  val onlyPadding = Padding(32) // 32 пустых байта
   ```
-- `Dynamic` - container for a group of data. There are 2 types: structures and unions.
+- `Dynamic` - контейнер группы данных. Выделяются два типа: структуры и объединения.
+  
+  [Структуры](https://ru.wikipedia.org/wiki/Структура_(язык_Си)) записывают в память данные своих полей последовательно(
+  то же самое что и struct из C).
 
-  [Structures](https://en.wikipedia.org/wiki/Struct_(C_programming_language)) has data of their fields written sequentially
-  (same as struct in C).
+  [Объединения](https://ru.wikipedia.org/wiki/Объединение_(структура_данных)) же могут содержать что-то одно из 2 (то же
+  самое что и union из C)
 
-  [Unions](https://en.wikipedia.org/wiki/Union_type), on the other hand,  can contain one of two values (same as union from C)
-
-  alien has the following constructs to build dynamic layout:
+  В alien для конструирования dynamic layout используются операторы:
 
   ```scala
-  <>: // adds this union to existing union
+  <>: - дополнение текущего объединения другим объединением
 
-  >> // initialize layer:  name := layout passed to this constructor is now a union with 1 element
+  >> - инициализация слоя: переданный в такой конструктор name := layout теперь считается структурой или обьеденением из одного элемента
 
-  >>: // add new structure to existing structure
+  >>: - дополнение текущей структуры другой структурой
   ```
 
-  Parts of unions and structures may be named using `:=`.
-
-  For example:
+  Части структур и объединений нужно именовать с помощью оператора `:=`.
+  Пример:
 
   ```scala
-  val a = "matrix" := Values.Long * 7 * 2 //  matrix named 'matrix'
-  val b = "array" := Values.Long * 5 // array named 'array'
-  val layout: ("matrix" := BoundedSequence[BoundedSequence[Value[Long]]]) >>:
-              (>>["array" := BoundedSequence[Value[Long]]]) = a >>: b // structure containing matrix and array
+  val a = "matrix" := Values.Long * 7 * 2 // матрица с именем matrix
+  val b = "array" := Values.Long * 5 // массив с именем array
+  val layout: ("matrix" := BoundedSequence[BoundedSequence[Value[Long]]]) >>: 
+              (>>["array" := BoundedSequence[Value[Long]]]) = a >>: b // структура из матрицы и массива
   ```
 
 ### Note
 
- When constructing `Layout` please, note, that it's dimensions have _reverse order_
- compared to mathematics or programming languages
+При построении `Layout` нужно учитывать, что действует обратная (правая) ассоциативность. Например, при создании
+матрицы
 
 ```scala
-val memL = "bitmap" := (Values.Long * columns) * rows // creates matrix rows*columns
+val memL = "bitmap" := (Values.Long * height) * width
 ```
 
+Сначала создается одна строка из height ячеек, затем эта строка масштабируется по ширине (width).

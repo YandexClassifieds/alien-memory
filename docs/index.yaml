@@ -1,18 +1,18 @@
 title: Alien Memory
-description: Alien is a library for type safe direct memory access using Foreign Function & Memory API from JDK 22.
+description: Библиотека для типобезопасной работы с прямым доступом к памяти через примитивы Foreign Function & Memory API из JDK 22.
 meta:
   title: Index
   noIndex: true
 links:
-  - title: Getting started
-    description: Dependencies and compatibility
+  - title: Начало работы
+    description: Добавьте библиотеку в зависимости.
     href: pages/getting_started.md
   - title: Memory
-    description: Heap and off-heap allocations
+    description: Аллокации памяти на хипе и вне его.
     href: pages/memory.md
   - title: Layouts
-    description: Memory layouts
+    description: Описание разметки памяти.
     href: pages/layouts.md
   - title: Regions
-    description: Memory management
+    description: Менеджмент памяти.
     href: pages/regions.md

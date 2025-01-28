@@ -1,8 +1,9 @@
+import HandleBoiler.JavaSpecification.{JAVA_21, JAVA_22_23}
 import sbt.Keys.scalacOptions
 
 import scala.collection.Seq
 
-val scala213Version = "2.13.12"
+val scala213Version = "2.13.14"
 
 ThisBuild / organization := "com.yandex.classifieds"
 ThisBuild / version      := "0.1.0"
@@ -30,7 +31,7 @@ ThisBuild / scmInfo :=
   )
 ThisBuild / publishTo := Some(Opts.resolver.sonatypeStaging)
 
-lazy val zioVersion         = "2.0.14"
+lazy val zioVersion         = "2.1.6"
 lazy val supertaggedVersion = "2.0-RC2"
 
 lazy val zioTest      = "dev.zio"       %% "zio-test"      % zioVersion % Test
@@ -62,6 +63,16 @@ lazy val alienMemory = (project in file("memory")).settings(
   scalaVersion := scala213Version,
   scalacOptions ++= compilerOptions,
   memoryDependencies,
+  Compile / unmanagedSourceDirectories  ++= {
+    val javaVersion = System.getProperty("java.version")
+    val baseDir = ( ThisBuild / baseDirectory ).value / "memory"
+    System.out.println(s"[warn] build for java version $javaVersion")
+    if (javaVersion.startsWith("21")) {
+      Seq(baseDir / "v21" / "main" / "scala")
+    } else  {
+      Seq(baseDir / "v22" / "main" / "scala")
+    }
+  }
 )
 
 lazy val alienExamples = (project in file("examples"))
@@ -77,3 +88,11 @@ lazy val alienExamples = (project in file("examples"))
 lazy val root = (project in file("."))
   .aggregate(alienMemory, alienExamples)
   .settings(publish / skip := true, doc / skip := true)
+
+
+lazy val boiler = taskKey[Unit]("Generates boilerplate")
+
+boiler := {
+  HandleBoiler.generate("memory/", JAVA_21)
+  HandleBoiler.generate("memory/", JAVA_22_23)
+}

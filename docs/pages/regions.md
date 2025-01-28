@@ -1,14 +1,13 @@
 # Region
 
-To ensure safe memory access, every allocated memory region is bound to an implicit scope with `Region[R <: Global]` type.
+Для обеспечения безопасного доступа к памяти каждая выделенная область памяти привязывается к implicit scope, с типом `Region[R <: Global]`. 
 
-`Region[R]` is a wrapper over `java.lang.foreign.Arena`. The `confined`, `shared` and `slicing` regions match JDK arenas,
-providing various level's of confinement and access to allocated memory.
+`Region[R]` представляет собой обертку над `java.lang.foreign.Arena`. Регионы `confined`, `shared` и `slicing` соответствуют аренам из JDK, предоставляя различные уровни ограничения и доступа к выделенным областям памяти.
 
 ```scala
 val layout = Values.Int * 100
 val ptr = layout / % / $
-val leakedMemory = Region.fresh.confined { implicit region =>
+val leakedMemory = Region.fresh.confined { implicit region => 
   val memory = Memory.allocate(layout)
 
   for (i <- 0 until 100) {
@@ -17,44 +16,38 @@ val leakedMemory = Region.fresh.confined { implicit region =>
   memory
 }
 
-Region.fresh.confined { implicit region =>
-  ptr.set(leakedMemory, 0, i) // won't compile
+Region.fresh.confined { implicit region => 
+  ptr.set(leakedMemory, 0, i) // не скомпилируется
 }
 
 ```
 
-## Tags
+## Теги
 
-Each allocated memory region has a type tag `R`, matching a type parameter in `Region[R]`. All allocations made with
-`Region[R]` will have the same type tag. This type `R` serves as a label for each memory region. Every tag is a descendant
-of the `Global` tag which is applied to memory allocations made in an unsafe mode, not managed by GC and that are never
-deallocated. See [documentation of Arenas for more detailed info](https://docs.oracle.com/en/java/javase/22/core/memory-segments-and-arenas.html)
-
+Каждая выделенная область памяти имеет тип-тег `R`, который соответствует параметру в `Region[R]`. Все аллокации сделанные с помошью `Region[R]`, будут иметь тот же тип-тег. Этот тип `R` является меткой для каждого региона памяти. Каждая метка наследуется от метки `Global`, которая применяется к выделениям памяти, сделанным не в безопасном режиме, выделенным сборщиком мусора или не подлежащим удалению.
 ### Fresh
 
-`Region.fresh` generates a unique label at compile time. That's particularly useful if many regions are going to be allocated
-to avoid name conflicts.
+Вы можете использовать метод `Region.fresh`, который автоматически генерирует уникальную метку во время компиляции, что полезно, если вы создаете множество регионов и хотите избежать конфликтов имен.
 
-```scala
-Region.fresh.confined { implicit region =>
-  val memory = Memory.allocate(layout) // Memory[LayoutType, RandomCompiletimeTag]
+```scala 
+Region.fresh.confined { implicit region => 
+  val memory = Memory.allocate(layout) // Memory[LayoutType, RandomComiletimeTag]
 }
 ```
 
 ### Named
 
-Tag names can be specified explicitly.
+Вы также можете явно указывать имена тегов.
 
-```scala
-Region.named["ScopeName"].confined { implicit region =>
+```scala 
+Region.named["ScopeName"].confined { implicit region => 
   val memory = Memory.allocate(layout) // Memory[LayoutType, NamedMark["ScopeName"]]
 }
 ```
 
 ### Global
 
-Parent type tag for all the other tags. Global type tag can be overrided using `Region.newGlobal` method, providing
-a specific memory segment. By default, same as `Arena.global()` from `java.lang.foreign`.
+Глобальный тип-тег от которого наседуютяс все остальные теги. Вы можете переопределить глобальный тип-тег с помощью метода `Region.newGlobal`, обернув какую-то область памяти. По умолчанию этот тип соответствует `Arena.global()` из `java.lang.foreign`.
 
 ```scala
 val customArena = ...
@@ -64,15 +57,13 @@ val memory = Memory.allocateGlobal(layout)
 ```
 
 
-## Arenas
+## Арены
 
-Every `Region` contains `java.lang.foreign.Arena`. There are several types of arenas, each with their own confinement levels
-and strategies for allocation and de-allocation. For detailed info, please refer to [official Java FFM API docs](https://docs.oracle.com/en/java/javase/22/core/memory-segments-and-arenas.html)
+Внутри каждого региона находится объект `Arena` из пакета `java.lang.foreign`. Каждая арена определяет свои уровни ограничений и имеет различные стратегии выделения и освобождения памяти.
 
 ### Confined
 
-All allocations, made with such region will be available only from owner thread.
-Such allocations and de-allocations are faster than shared arenas.
+Все аллокации памяти, выполненные с помощью такого региона, будут доступны только из потока, который их произвел. Такие аллокации и освобождения памяти производятся быстрее по сравнению с ареной, доступной из разных потоков.
 
 ```scala
 
@@ -81,7 +72,7 @@ Region.fresh.confined { implicit region =>
   ptr.get(memory, 0)
   val anotherThread = new Thread {
     override def run(): Unit =
-      ptr.get(memory, 0) // throws error
+      ptr.get(memory, 0) // выкинет ошибку
   }
   anotherThread.start()
   anotherThread.join()
@@ -91,7 +82,8 @@ Region.fresh.confined { implicit region =>
 
 ### Shared
 
-Shared region allocations are available for every thread. Allocations and de-allocations are slower compared to confined regions.
+Все аллокации памяти, выполненные с помощью такого региона, будут доступны из любого потока. Такие аллокации и освобождения памяти производятся медление по сравнению с ареной, доступной из одного потока.
+
 
 ```scala
 
@@ -100,7 +92,7 @@ Region.fresh.shared { implicit region =>
   ptr.get(memory, 0)
   val anotherThread = new Thread {
     override def run(): Unit =
-      ptr.get(memory, 0) // works fine
+      ptr.get(memory, 0) // все будет работать
   }
   anotherThread.start()
   anotherThread.join()
@@ -109,25 +101,24 @@ Region.fresh.shared { implicit region =>
 
 ### Slicing
 
-`Slicing`  will do consecutive allocations within the pre-allocated memory region. Such region can be in either `confined` or
-`shared` Arena. Such allocations are not thread safe.
+`Slicing` будет выполнять аллокации последовательно на заранее выделенном участке памяти. Такой участок памяти может находиться как в `confined`, так и в `shared` арене. Однако сами аллокации в такой арене не являются потокобезопасными.
 
 ```scala
 val layout1 = Values.Long * 16
 val layout2 = Values.Char * 12
-Region.fresh.confinedSlicing(128, 8) { implicit region =>
-  val memory1 = Memory.allocate(layout1) // the first segment will be at the beginning of pre-allocated memory
-  val memory2 = Memory.allocate(layout2) // this segment will be right after the first
+Region.fresh.confinedSlicing(128, 8) { implicit region => 
+  val memory1 = Memory.allocate(layout1) // в начале преаллоцированной памяти разместится первый сегмент
+  val memory2 = Memory.allocate(layout2) // этот сегмент разместится сразу после
 }
 ```
 
 ### Custom
 
-Region can be used with any custom arena.
+Так-же в регион можно обернуть любую собственную арену.
 
 ```scala
 val newCustomArena = new Arena { ... }
-Region.fresh.custom(newCustomArena) { implicit region =>
-  val memory = Memory.allocate(layout)
+Region.fresh.custom(newCustomArena) { implicit region => 
+  val memory = Memory.allocate(layout) // в начале преаллоцированной памяти разместится первый сегмент
 }
 ```

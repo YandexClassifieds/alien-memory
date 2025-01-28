@@ -1,24 +1,22 @@
 # Memory
 
-```Memory[L <: LayoutType, R <: Global]``` is a wrapper over ```java.lang.foreign.MemorySegment```. Allows to allocate
-off-heap memory for data structures defined with [Layout](./layouts.md).
+```Memory[L <: LayoutType, R <: Global]``` - обертка над ```java.lang.foreign.MemorySegment```. Позволяет выделять
+off-heap память для схем данных описанных через Layout. Первый параметр `L` - это тип layout для которого аллоцирована
+эта память. Второй параметр `R` - это тег региона внутри которого был аллоцирован этот сегмент памяти.
 
-`L` - layout type for which this memory is allocated.
-`R` -  region tag where this segment should be allocated
+Для доступа к сегменту памяти следует использовать `MemoryPtr*`
 
-To access memory segment use `MemoryPtr*`
+## Аллокации
 
-## Allocations
-
-All allocations use system's ##malloc## .
-> By default, all allocated regions are initialized with 0s. To override this behaviour use ##JVM## parameter:
+Все аллокации осуществляются с помощью ##malloc## установленного в системе.
+> По умолчанию все аллоцированные области заполняются нолями, чтобы этим пренебречь укажите ##JVM## флаг:
   ```-J-Djdk.internal.foreign.skipZeroMemory=true```
 
-There are following methods for different allocations
+Для аллокации сегментов есть следующие методы
 
 ### ##allocate##
 
-Allocations use implicit region's properties
+Использует методы аллокации региона лежащего в имплицитном контексте.
 
 ```scala
 implicit val region = Region.fresh.newShared()
@@ -29,7 +27,7 @@ region.close()
 
 ### ##allocateGC##
 
-Off-heap memory is allocated, but ##JVM## garbage collector will manage it. All such memory segments will have ```Global``` TypeTag.
+Память проаллоцируется в offheap, но сборкой ее будет заниматься указанный сборщик мусора ##JVM##. Все такие сегменты памяти будут иметь тайп-тег ```Global```.
 
 ```scala
 val layout = ("a" := Values.Int) >>: ("b" := Values.Int)
@@ -39,7 +37,7 @@ val memory = Memory.allocateGC(layout) // память лежит в offheap, н
 
 ### ##allocateStatic##
 
-Allocated memory will never be collected and will be allocated as long as program runs. All such memory segments will have ```Global``` TypeTag.
+Аллоцирует память, которая не удалится никогда и будет жить до окончания программы. Все такие сегменты памяти будут иметь тип-тег ```Global```.
 
 ```scala
 val layout = ("a" := Values.Int) >>: ("b" := Values.Int)
@@ -48,7 +46,7 @@ val memory = Memory.allocateStatic(layout)
 
 ### ##allocateManual##
 
-Allocates memory using the passed ```java.lang.foreign.Arena```. All such memory segments will have ```Global``` TypeTag.
+Аллоцирует память с помощью переданной ```java.lang.foreign.Arena```. Все такие сегменты памяти будут иметь тип-тег ```Global```.
 
 ```scala
 val layout = ("a" := Values.Int) >>: ("b" := Values.Int)
@@ -58,7 +56,7 @@ val memory = Memory.allocateManual(layout, Arena.ofAuto())
 
 ### ##allocateGlobal##
 
-Allocates memory using Region tagged ```Global``` from implicit context. All such memory segments will have ```Global``` TypeTag.
+Аллоцирует память с помощью региона с тегом ```Global``` взятым из имплицитного контекста. Все такие сегменты памяти будут иметь тип-тег ```Global```.
 
 ```scala
 val layout = ("a" := Values.Int) >>: ("b" := Values.Int)
@@ -66,10 +64,9 @@ val memory = Memory.allocateGlobal(layout)
 ```
 
 
-## Byte buffers
+## Байт-буферы
 
-Objects with type `Memory` can be transformed to and back from `ByteBuffer`. Both structures will point to the same
-memory segment regardless where it was located
+Каждый объект типа `Memory` можно преобразовывать в соответсвующий `ByteBuffer` и обратно. Обе структуры будут указывать на один и тот же сегмент памяти, вне зависимости от того где он лежит.
 
 ```scala
 val heapMemory = Memory.ofArray(new Array[Byte](128))
