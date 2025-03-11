@@ -3,7 +3,7 @@ import sbt.Keys.scalacOptions
 
 import scala.collection.Seq
 
-val scala213Version = "2.13.14"
+val scala213Version = "2.13.15"
 
 ThisBuild / organization := "com.yandex.classifieds"
 ThisBuild / version      := "0.1.0"
