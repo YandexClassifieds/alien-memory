@@ -5,6 +5,7 @@ scala_binary(
     srcs = glob([
         "src/main/scala/**/BoundedSequenceExample.scala",
     ]),
+    checkinit = False,
     main_class = "example.BoundedSequenceExample",
     visibility = ["//visibility:private"],
     deps = [
@@ -17,6 +18,7 @@ scala_binary(
     srcs = glob([
         "src/main/scala/**/MultipleExample.scala",
     ]),
+    checkinit = False,
     main_class = "example.MultipleExample",
     visibility = ["//visibility:private"],
     deps = [
@@ -29,6 +31,7 @@ scala_binary(
     srcs = glob([
         "src/main/scala/**/PlainExample.scala",
     ]),
+    checkinit = False,
     main_class = "example.PlainExample",
     visibility = ["//visibility:private"],
     deps = [

@@ -6,6 +6,7 @@ scala_library(
         "src/main/scala/**/*.scala",
         "v21/main/scala/**/*.scala",
     ]),
+    checkinit = False,
     macro = True,
     visibility = ["//vs:__subpackages__"],
     deps = [
@@ -19,6 +20,7 @@ scala_library(
         "src/main/scala/**/*.scala",
         "v22/main/scala/**/*.scala",
     ]),
+    checkinit = False,
     macro = True,
     visibility = ["//vs:__subpackages__"],
     deps = [
