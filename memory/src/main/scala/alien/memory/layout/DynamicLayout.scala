@@ -31,10 +31,10 @@ sealed trait DynamicTail[+T] {
  * @param head Layout that would be named and wrapped.
  */
 case class >>[Named <: ? := ?](head: Named)
-    extends DynamicHead[Named]
-       with DynamicStruct
-       with DynamicUnion
-       with Layout {
+  extends DynamicHead[Named]
+  with DynamicStruct
+  with DynamicUnion
+  with Layout {
 
   override protected[alien] def layout: MemoryLayout =
     MemoryLayout.structLayout(head.layout)
@@ -49,16 +49,15 @@ case class >>[Named <: ? := ?](head: Named)
  * @param tail Other fields in struct.
  */
 case class >>:[+H <: ? := ?, +T <: DynamicStruct](head: H, tail: T)
-    extends DynamicHead[H]
-       with DynamicStruct
-       with DynamicTail[T] {
+  extends DynamicHead[H]
+  with DynamicStruct
+  with DynamicTail[T] {
 
   override protected[alien] def layout: MemoryLayout = {
     @tailrec
     def recurse(
-      x: DynamicStruct,
-      acc: Vector[MemoryLayout] = Vector.empty,
-    ): Vector[MemoryLayout] = {
+        x: DynamicStruct,
+        acc: Vector[MemoryLayout] = Vector.empty): Vector[MemoryLayout] = {
       x match {
         case end @ >>(_) =>
           acc :+ end.asElementLayout
@@ -79,16 +78,15 @@ case class >>:[+H <: ? := ?, +T <: DynamicStruct](head: H, tail: T)
  * @param tail Other variants in union.
  */
 case class <>:[+H <: ? := ?, +T <: DynamicUnion](head: H, tail: T)
-    extends DynamicHead[H]
-       with DynamicUnion
-       with DynamicTail[T] {
+  extends DynamicHead[H]
+  with DynamicUnion
+  with DynamicTail[T] {
 
   override protected[alien] def layout: MemoryLayout = {
     @tailrec
     def recurse(
-      x: DynamicUnion,
-      acc: Vector[MemoryLayout] = Vector.empty,
-    ): Vector[MemoryLayout] = {
+        x: DynamicUnion,
+        acc: Vector[MemoryLayout] = Vector.empty): Vector[MemoryLayout] = {
       x match {
         case end @ >>(_) =>
           acc :+ end.asElementLayout

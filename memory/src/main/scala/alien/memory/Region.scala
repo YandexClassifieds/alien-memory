@@ -35,7 +35,7 @@ object Region {
   def newGlobal(arena: Arena): Region[Global] = new Region(arena)
 
   case class NamedMark[Name <: String & Singleton]() extends NonGlobal
-  case class IdMark[Id <: Long & Singleton]()        extends NonGlobal
+  case class IdMark[Id <: Long & Singleton]() extends NonGlobal
 
   /** Constructs new region with named mark. All named marks is subtypes of Global mark. Named marks can be repeatable.
    */
@@ -117,9 +117,10 @@ trait RegionPartiallyApplied[T <: NonGlobal] {
 
   /** Region based on confined slicing Arena. Would close arena after lambda has finished or any error caught.
    */
-  def confinedSlicing[R](arenaSize: Long, byteAlignment: Long)(
-    f: Region[T] => R,
-  ): R = {
+  def confinedSlicing[R](
+      arenaSize: Long,
+      byteAlignment: Long
+    )(f: Region[T] => R): R = {
     val region: Region[T] = createConfinedSlicing(arenaSize, byteAlignment)
     try {
       f(region)
@@ -130,9 +131,10 @@ trait RegionPartiallyApplied[T <: NonGlobal] {
 
   /** Region based on shared slicing Arena. Would close arena after lambda has finished or any error caught.
    */
-  def sharedSlicing[R](arenaSize: Long, byteAlignment: Long)(
-    f: Region[T] => R,
-  ): R = {
+  def sharedSlicing[R](
+      arenaSize: Long,
+      byteAlignment: Long
+    )(f: Region[T] => R): R = {
     val region: Region[T] = createSharedSlicing(arenaSize, byteAlignment)
     try {
       f(region)
@@ -143,10 +145,9 @@ trait RegionPartiallyApplied[T <: NonGlobal] {
 
 }
 
-case class SlicingArena(arena: Arena, arenaSize: Long, byteAlignment: Long)
-    extends Arena {
+case class SlicingArena(arena: Arena, arenaSize: Long, byteAlignment: Long) extends Arena {
 
-  private val memory    = arena.allocate(arenaSize, byteAlignment)
+  private val memory = arena.allocate(arenaSize, byteAlignment)
   private val allocator = new SlicingAllocator(memory)
 
   override def allocate(byteSize: Long, byteAlignment: Long): MemorySegment =

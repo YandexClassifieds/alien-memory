@@ -13,5 +13,4 @@ case class MemoryPtr4[L <: Layout, @specialized(AllNumeric) T] private[alien] (
     private[alien] val step3: Long,
     private[alien] val offset3: Long,
     private[alien] val step4: Long,
-    private[alien] val offset4: Long,
-)
+    private[alien] val offset4: Long)

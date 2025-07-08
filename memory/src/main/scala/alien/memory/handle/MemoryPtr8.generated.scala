@@ -21,5 +21,4 @@ case class MemoryPtr8[L <: Layout, @specialized(AllNumeric) T] private[alien] (
     private[alien] val step7: Long,
     private[alien] val offset7: Long,
     private[alien] val step8: Long,
-    private[alien] val offset8: Long,
-)
+    private[alien] val offset8: Long)

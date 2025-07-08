@@ -17,9 +17,8 @@ trait Layout {
    * @return new layout, which is a current layout wrapped in `Aligned`
    */
   final def align[B <: Pow2](
-    implicit
-    bytes: B,
-  ): Aligned[self.type, B] = Aligned(self, bytes)
+      implicit
+      bytes: B): Aligned[self.type, B] = Aligned(self, bytes)
 
   /** Unwraps layout to java.lang.foreign.MemoryLayout.
    *

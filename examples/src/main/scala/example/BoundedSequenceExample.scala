@@ -6,6 +6,7 @@ object BoundedSequenceExample extends App {
   val layout = >>("layout" := Values.Long * 10)
 
   val ptr = layout / "layout" / % / $
+
   Region
     .named["A"]
     .confined { implicit region =>

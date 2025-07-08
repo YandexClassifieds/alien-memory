@@ -12,8 +12,7 @@ import java.lang.foreign.MemoryLayout
  */
 case class Aligned[+L <: Layout, B <: Pow2](inner: L, bytes: B) extends Layout {
 
-  override protected[alien] val layout: MemoryLayout = inner
-    .toLayout
+  override protected[alien] val layout: MemoryLayout = inner.toLayout
     .withByteAlignment(bytes.value)
 
 }

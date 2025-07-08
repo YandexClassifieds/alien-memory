@@ -22,16 +22,16 @@ object nat {
 
   trait NatConstants {
     val `0`: `0` = Zero
-    type `0`  = Zero.type
-    type `1`  = ++[`0`]
-    type `2`  = ++[`1`]
-    type `3`  = ++[`2`]
-    type `4`  = ++[`3`]
-    type `5`  = ++[`4`]
-    type `6`  = ++[`5`]
-    type `7`  = ++[`6`]
-    type `8`  = ++[`7`]
-    type `9`  = ++[`8`]
+    type `0` = Zero.type
+    type `1` = ++[`0`]
+    type `2` = ++[`1`]
+    type `3` = ++[`2`]
+    type `4` = ++[`3`]
+    type `5` = ++[`4`]
+    type `6` = ++[`5`]
+    type `7` = ++[`6`]
+    type `8` = ++[`7`]
+    type `9` = ++[`8`]
     type `10` = ++[`9`]
     type `11` = ++[`10`]
     type `12` = ++[`11`]

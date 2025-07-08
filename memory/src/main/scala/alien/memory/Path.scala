@@ -49,66 +49,61 @@ object Unwrap extends LowLevelImplicits
 final case class MemoryHandleComposer[Base <: Layout, L <: Layout, D <: Nat](
     base: Base,
     path: Vector[Path],
-    rest: L,
-)(
-    implicit
-    val depth: D,
-) {
+    rest: L
+  )(implicit
+    val depth: D) {
 
   def offset: Long = base.toLayout.byteOffset(path.map(_.asElement)*)
 
   def size: Long = rest.toLayout.byteSize()
 
-  def /[N <: String & Singleton, L1 <: Layout](ev: N)(
-    implicit
-    unwrap0: Unwrap[L, N := L1],
-  ): MemoryHandleComposer[Base, L1, D] =
+  def /[N <: String & Singleton, L1 <: Layout](
+      ev: N
+    )(implicit
+      unwrap0: Unwrap[L, N := L1]): MemoryHandleComposer[Base, L1, D] =
     MemoryHandleComposer(base, path :+ Path.Named(ev), unwrap0(rest).head)
 
-  def /[L1 <: Layout](index: Long)(
-    implicit
-    ev1: Unwrap[L, Sequence[L1]],
-  ): MemoryHandleComposer[Base, L1, D] =
+  def /[L1 <: Layout](
+      index: Long
+    )(implicit
+      ev1: Unwrap[L, Sequence[L1]]): MemoryHandleComposer[Base, L1, D] =
     MemoryHandleComposer(base, path :+ Path.Index(index), ev1(rest).nested)
 
   def /[L1 <: Layout](
-    @nowarn
-    ev: %,
-  )(
-    implicit
-    ev1: Unwrap[L, Sequence[L1]],
-  ): MemoryHandleComposer[Base, L1, ++[D]] =
+      @nowarn
+      ev: %
+    )(implicit
+      ev1: Unwrap[L, Sequence[L1]]): MemoryHandleComposer[Base, L1, ++[D]] =
     MemoryHandleComposer(base, path :+ Path.Sequenced, ev1(rest).nested)(
-      ++(depth): ++[D],
+      ++(depth): ++[D]
     )
 
-  def /[L1 <: Layout](offset: Long, step: Long)(
-    implicit
-    ev1: Unwrap[L, Sequence[L1]],
-  ): MemoryHandleComposer[Base, L1, ++[D]] =
+  def /[L1 <: Layout](
+      offset: Long,
+      step: Long
+    )(implicit
+      ev1: Unwrap[L, Sequence[L1]]): MemoryHandleComposer[Base, L1, ++[D]] =
     MemoryHandleComposer(
       base,
       path :+ Path.Step(offset, step),
-      ev1(rest).nested,
+      ev1(rest).nested
     )(++(depth): ++[D])
 
   def to[N <: String & Singleton, L1 <: Layout](
-    implicit
-    unwrap0: Unwrap[L, N := L1],
-    v: ValueOf[N],
-  ): MemoryHandleComposer[Base, L1, D] = this./[N, L1](v.value)
+      implicit
+      unwrap0: Unwrap[L, N := L1],
+      v: ValueOf[N]): MemoryHandleComposer[Base, L1, D] = this./[N, L1](v.value)
 
 }
 
 object MemoryHandleComposer {
 
   private def calculateOffsets[Base <: Layout, L <: Layout, D <: Nat](
-    memoryHandleComposer: MemoryHandleComposer[Base, L, D],
-  ): (ArrayBuffer[Long], ArrayBuffer[Long]) = {
-    val offsets       = ArrayBuffer.empty[Long]
-    val steps         = ArrayBuffer.empty[Long]
+      memoryHandleComposer: MemoryHandleComposer[Base, L, D]): (ArrayBuffer[Long], ArrayBuffer[Long]) = {
+    val offsets = ArrayBuffer.empty[Long]
+    val steps = ArrayBuffer.empty[Long]
     var currentLayout = memoryHandleComposer.base.toLayout
-    var currentPath   = Vector.empty[PathElement]
+    var currentPath = Vector.empty[PathElement]
     for (p <- memoryHandleComposer.path) {
       p match {
         case Path.Sequenced =>
@@ -135,16 +130,14 @@ object MemoryHandleComposer {
   }
 
   implicit class MemoryHandleComposer0[Base <: Layout, L <: Layout](
-      private val memoryHandleComposer: MemoryHandleComposer[Base, L, `0`],
-  ) extends AnyVal {
+      private val memoryHandleComposer: MemoryHandleComposer[Base, L, `0`])
+    extends AnyVal {
 
     def /[T](
-      @nowarn
-      ev: $,
-    )(
-      implicit
-      ev1: L <:< Value[T],
-    ): MemoryPtr0[Base, T] = {
+        @nowarn
+        ev: $
+      )(implicit
+        ev1: L <:< Value[T]): MemoryPtr0[Base, T] = {
       val (offsets, steps) = calculateOffsets(memoryHandleComposer)
       MemoryPtr0(offsets(0))
     }
@@ -152,16 +145,14 @@ object MemoryHandleComposer {
   }
 
   implicit class MemoryHandleComposer1[Base <: Layout, L <: Layout](
-      private val memoryHandleComposer: MemoryHandleComposer[Base, L, `1`],
-  ) extends AnyVal {
+      private val memoryHandleComposer: MemoryHandleComposer[Base, L, `1`])
+    extends AnyVal {
 
     def /[T](
-      @nowarn
-      ev: $,
-    )(
-      implicit
-      ev1: L <:< Value[T],
-    ): MemoryPtr1[Base, T] = {
+        @nowarn
+        ev: $
+      )(implicit
+        ev1: L <:< Value[T]): MemoryPtr1[Base, T] = {
       val (offsets, steps) = calculateOffsets(memoryHandleComposer)
       MemoryPtr1(offsets(0), steps(0), offsets(1))
     }
@@ -169,16 +160,14 @@ object MemoryHandleComposer {
   }
 
   implicit class MemoryHandleComposer2[Base <: Layout, L <: Layout](
-      private val memoryHandleComposer: MemoryHandleComposer[Base, L, `2`],
-  ) extends AnyVal {
+      private val memoryHandleComposer: MemoryHandleComposer[Base, L, `2`])
+    extends AnyVal {
 
     def /[T](
-      @nowarn
-      ev: $,
-    )(
-      implicit
-      ev1: L <:< Value[T],
-    ): MemoryPtr2[Base, T] = {
+        @nowarn
+        ev: $
+      )(implicit
+        ev1: L <:< Value[T]): MemoryPtr2[Base, T] = {
 
       val (offsets, steps) = calculateOffsets(memoryHandleComposer)
       MemoryPtr2(offsets(0), steps(0), offsets(1), steps(1), offsets(2))
@@ -187,16 +176,14 @@ object MemoryHandleComposer {
   }
 
   implicit class MemoryHandleComposer3[Base <: Layout, L <: Layout](
-      private val memoryHandleComposer: MemoryHandleComposer[Base, L, `3`],
-  ) extends AnyVal {
+      private val memoryHandleComposer: MemoryHandleComposer[Base, L, `3`])
+    extends AnyVal {
 
     def /[T](
-      @nowarn
-      ev: $,
-    )(
-      implicit
-      ev1: L <:< Value[T],
-    ): MemoryPtr3[Base, T] = {
+        @nowarn
+        ev: $
+      )(implicit
+        ev1: L <:< Value[T]): MemoryPtr3[Base, T] = {
       val (offsets, steps) = calculateOffsets(memoryHandleComposer)
       MemoryPtr3(
         offsets(0),
@@ -205,23 +192,21 @@ object MemoryHandleComposer {
         steps(1),
         offsets(2),
         steps(2),
-        offsets(3),
+        offsets(3)
       )
     }
 
   }
 
   implicit class MemoryHandleComposer4[Base <: Layout, L <: Layout](
-      private val memoryHandleComposer: MemoryHandleComposer[Base, L, `4`],
-  ) extends AnyVal {
+      private val memoryHandleComposer: MemoryHandleComposer[Base, L, `4`])
+    extends AnyVal {
 
     def /[T](
-      @nowarn
-      ev: $,
-    )(
-      implicit
-      ev1: L <:< Value[T],
-    ): MemoryPtr4[Base, T] = {
+        @nowarn
+        ev: $
+      )(implicit
+        ev1: L <:< Value[T]): MemoryPtr4[Base, T] = {
       val (offsets, steps) = calculateOffsets(memoryHandleComposer)
       MemoryPtr4(
         offsets(0),
@@ -232,23 +217,21 @@ object MemoryHandleComposer {
         steps(2),
         offsets(3),
         steps(3),
-        offsets(4),
+        offsets(4)
       )
     }
 
   }
 
   implicit class MemoryHandleComposer5[Base <: Layout, L <: Layout](
-      private val memoryHandleComposer: MemoryHandleComposer[Base, L, `5`],
-  ) extends AnyVal {
+      private val memoryHandleComposer: MemoryHandleComposer[Base, L, `5`])
+    extends AnyVal {
 
     def /[T](
-      @nowarn
-      ev: $,
-    )(
-      implicit
-      ev1: L <:< Value[T],
-    ): MemoryPtr5[Base, T] = {
+        @nowarn
+        ev: $
+      )(implicit
+        ev1: L <:< Value[T]): MemoryPtr5[Base, T] = {
 
       val (offsets, steps) = calculateOffsets(memoryHandleComposer)
       MemoryPtr5(
@@ -262,23 +245,21 @@ object MemoryHandleComposer {
         steps(3),
         offsets(4),
         steps(4),
-        offsets(5),
+        offsets(5)
       )
     }
 
   }
 
   implicit class MemoryHandleComposer6[Base <: Layout, L <: Layout](
-      private val memoryHandleComposer: MemoryHandleComposer[Base, L, `6`],
-  ) extends AnyVal {
+      private val memoryHandleComposer: MemoryHandleComposer[Base, L, `6`])
+    extends AnyVal {
 
     def /[T](
-      @nowarn
-      ev: $,
-    )(
-      implicit
-      ev1: L <:< Value[T],
-    ): MemoryPtr6[Base, T] = {
+        @nowarn
+        ev: $
+      )(implicit
+        ev1: L <:< Value[T]): MemoryPtr6[Base, T] = {
       val (offsets, steps) = calculateOffsets(memoryHandleComposer)
       MemoryPtr6(
         offsets(0),
@@ -293,23 +274,21 @@ object MemoryHandleComposer {
         steps(4),
         offsets(5),
         steps(5),
-        offsets(6),
+        offsets(6)
       )
     }
 
   }
 
   implicit class MemoryHandleComposer7[Base <: Layout, L <: Layout](
-      private val memoryHandleComposer: MemoryHandleComposer[Base, L, `7`],
-  ) extends AnyVal {
+      private val memoryHandleComposer: MemoryHandleComposer[Base, L, `7`])
+    extends AnyVal {
 
     def /[T](
-      @nowarn
-      ev: $,
-    )(
-      implicit
-      ev1: L <:< Value[T],
-    ): MemoryPtr7[Base, T] = {
+        @nowarn
+        ev: $
+      )(implicit
+        ev1: L <:< Value[T]): MemoryPtr7[Base, T] = {
 
       val (offsets, steps) = calculateOffsets(memoryHandleComposer)
       MemoryPtr7(
@@ -327,23 +306,21 @@ object MemoryHandleComposer {
         steps(5),
         offsets(6),
         steps(6),
-        offsets(7),
+        offsets(7)
       )
     }
 
   }
 
   implicit class MemoryHandleComposer8[Base <: Layout, L <: Layout](
-      private val memoryHandleComposer: MemoryHandleComposer[Base, L, `8`],
-  ) extends AnyVal {
+      private val memoryHandleComposer: MemoryHandleComposer[Base, L, `8`])
+    extends AnyVal {
 
     def /[T](
-      @nowarn
-      ev: $,
-    )(
-      implicit
-      ev1: L <:< Value[T],
-    ): MemoryPtr8[Base, T] = {
+        @nowarn
+        ev: $
+      )(implicit
+        ev1: L <:< Value[T]): MemoryPtr8[Base, T] = {
       val (offsets, steps) = calculateOffsets(memoryHandleComposer)
       MemoryPtr8(
         offsets(0),
@@ -362,23 +339,21 @@ object MemoryHandleComposer {
         steps(6),
         offsets(7),
         steps(7),
-        offsets(8),
+        offsets(8)
       )
     }
 
   }
 
   implicit class MemoryHandleComposer9[Base <: Layout, L <: Layout](
-      private val memoryHandleComposer: MemoryHandleComposer[Base, L, `9`],
-  ) extends AnyVal {
+      private val memoryHandleComposer: MemoryHandleComposer[Base, L, `9`])
+    extends AnyVal {
 
     def /[T](
-      @nowarn
-      ev: $,
-    )(
-      implicit
-      ev1: L <:< Value[T],
-    ): MemoryPtr9[Base, T] = {
+        @nowarn
+        ev: $
+      )(implicit
+        ev1: L <:< Value[T]): MemoryPtr9[Base, T] = {
 
       val (offsets, steps) = calculateOffsets(memoryHandleComposer)
       MemoryPtr9(
@@ -400,7 +375,7 @@ object MemoryHandleComposer {
         steps(7),
         offsets(8),
         steps(8),
-        offsets(9),
+        offsets(9)
       )
     }
 
