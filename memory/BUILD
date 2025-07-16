@@ -14,19 +14,19 @@ scala_library(
     ],
 )
 
-scala_library(
-    name = "memory_v22",
-    srcs = glob([
-        "src/main/scala/**/*.scala",
-        "v22/main/scala/**/*.scala",
-    ]),
-    checkinit = False,
-    macro = True,
-    visibility = ["//vs:__subpackages__"],
-    deps = [
-        "@maven//:org_rudogma_supertagged_2_13",
-    ],
-)
+# scala_library(
+#     name = "memory_v22",
+#     srcs = glob([
+#         "src/main/scala/**/*.scala",
+#         "v22/main/scala/**/*.scala",
+#     ]),
+#     checkinit = False,
+#     macro = True,
+#     visibility = ["//vs:__subpackages__"],
+#     deps = [
+#         "@maven//:org_rudogma_supertagged_2_13",
+#     ],
+# )
 
 zio_test(
     name = "test",
