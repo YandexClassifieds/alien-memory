@@ -21,7 +21,7 @@ object MultipleExample extends App {
 
       val ptrA = layout / "a" / 0 / $
       val ptrB = layout / "b" / 0 / $
-      val ptrC = layout / "d" / 0 / 0 / $
+      // val ptrC = layout / "d" / 0 / 0 / $
       val ptrD = layout / "d" / 0 / 0 / $
 
       ptrA.set(mem, 17)

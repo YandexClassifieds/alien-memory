@@ -30,7 +30,7 @@ object MemorySpec extends ZIOSpecDefault {
         val sample = "abcdefghij"
         val memory = Memory.ofArray(sample.getBytes)
         val emptyMemory = Memory.ofArray("".getBytes)
-        val result = memory.compareTo(emptyMemory)
+        // val result = memory.compareTo(emptyMemory)
         assertTrue(
           emptyMemory.compareTo(memory) < 0L,
           memory.compareTo(memory) == 0L,
