@@ -33,6 +33,8 @@ zio_test(
     srcs = glob([
         "src/test/scala/**/*.scala",
     ]),
+    java_version = "21",
+    tags = ["manual"],  # to run use --config=alien
     visibility = ["//visibility:private"],
     deps = [
         ":memory",
